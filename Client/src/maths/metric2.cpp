@@ -7,7 +7,7 @@ namespace lys
 		: x(0), y(0)
 	{}
 
-	Metric2::Metric2(int x, int y)
+	Metric2::Metric2(const int &x, const int &y)
 		: x(x), y(y)
 	{}
 

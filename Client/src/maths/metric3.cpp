@@ -7,11 +7,11 @@ namespace lys
 		: x(0), y(0), z(0)
 	{}
 
-	Metric3::Metric3(Metric2 xy, int z)
+	Metric3::Metric3(const Metric2 &xy, const int &z)
 		: xy(xy), z(z)
 	{}
 
-	Metric3::Metric3(int x, int y, int z)
+	Metric3::Metric3(const int &x, const int &y, const int &z)
 		: x(x), y(y), z(z)
 	{}
 

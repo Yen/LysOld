@@ -10,7 +10,7 @@ namespace lys
 		int y;
 	public:
 		Metric2();
-		Metric2(int x, int y);
+		Metric2(const int &x, const int &y);
 
 		bool operator ==(const Metric2 &other) const;
 		bool operator !=(const Metric2 &other) const;

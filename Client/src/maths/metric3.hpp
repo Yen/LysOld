@@ -20,8 +20,8 @@ namespace lys
 		int z;
 	public:
 		Metric3();
-		Metric3(Metric2 xy, int z);
-		Metric3(int x, int y, int z);
+		Metric3(const Metric2 &xy, const int &z);
+		Metric3(const int &x, const int &y, const int &z);
 
 		bool operator ==(const Metric3 &other) const;
 		bool operator !=(const Metric3 &other) const;
