@@ -123,9 +123,14 @@
   <ItemGroup>
     <ClCompile Include="src\lys.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\maths\metric2.cpp" />
+    <ClCompile Include="src\maths\metric3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp" />
+    <ClInclude Include="src\maths.hpp" />
+    <ClInclude Include="src\maths\metric2.hpp" />
+    <ClInclude Include="src\maths\metric3.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
