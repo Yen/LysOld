@@ -1,8 +1,10 @@
-#include <stdio.h>
+#include "lys.hpp"
 
 int main()
 {
-	printf("Lys");
+	LYS_LOG("Lys");
+
+	system("pause");
 
 	return 0;
 }
