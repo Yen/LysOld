@@ -1,1 +1,6 @@
 # Lys
+
+# Dependencies
+
+- [SDL2](https://www.libsdl.org/)
+- [GLEW](http://glew.sourceforge.net/)

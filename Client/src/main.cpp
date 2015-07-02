@@ -1,5 +1,7 @@
 ﻿#include "lys.hpp"
 
+#include <SDL\SDL_main.h>
+
 namespace lys
 {
 
@@ -26,9 +28,13 @@ namespace lys
 
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	LYS_LOG_APP("Lys");
+	for (int i = 0; i < argc; i++)
+	{
+		LYS_LOG_APP("Launch arguments[%d]: \"%s\"", i, argv[i]);
+	}
 
 	// Version checker or something
 
