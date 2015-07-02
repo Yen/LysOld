@@ -1,19 +1,46 @@
-#include "lys.hpp"
+﻿#include "lys.hpp"
 
-#include "maths.hpp"
+namespace lys
+{
+
+	int run()
+	{
+		try
+		{
+			// Program code
+		}
+		catch (const std::exception &e)
+		{
+			LYS_LOG_ERR("Unhandled standard exception occured (%s)", e.what());
+			return 1;
+		}
+		catch (...)
+		{
+			LYS_LOG_ERR("Unhandled unknown exception type occured");
+			return 1;
+		}
+
+		LYS_LOG("No exceptions occured in run function");
+		return 0;
+	}
+
+}
 
 int main()
 {
-	LYS_LOG("Lys");
+	LYS_LOG_APP("Lys");
 
-	lys::Metric2 a;
-	lys::Metric2 b(5, 10);
+	// Version checker or something
 
-	lys::Metric3 c;
-	lys::Metric3 d(b, 15);
-	lys::Metric3 e(5, 10, 15);
+	LYS_LOG_APP("Executing run function");
+	int execution = lys::run();
+	LYS_LOG_APP("Run function complete, return code: (%d)", execution);
 
-	system("pause");
+	// Clean up code?
+
+	LYS_LOG_APP("Program reached exit point safely");
+
+	LYS_PAUSE;
 
 	return 0;
 }
