@@ -19,3 +19,4 @@ std::string lysDateTime(const std::string &format);
 #define LYS_LOG_ERR(out, ...) LYS_LOGBASE("Error", out, __VA_ARGS__);
 #define LYS_LOG_FAITAL(out, ...) LYS_LOGBASE("Faital", out, __VA_ARGS__);
 #define LYS_LOG_APP(out, ...) LYS_LOGBASE("Application", out, __VA_ARGS__);
+#define LYS_LOG_WARNING(out, ...) LYS_LOGBASE("Warning", out, __VA_ARGS__);

@@ -2,6 +2,8 @@
 
 #include <SDL\SDL_main.h>
 
+#include "window.hpp"
+
 namespace lys
 {
 
@@ -9,6 +11,7 @@ namespace lys
 	{
 		try
 		{
+			Window window("Lys", Metric2(960, 540));
 			// Program code
 		}
 		catch (const std::exception &e)
@@ -22,7 +25,6 @@ namespace lys
 			return 1;
 		}
 
-		LYS_LOG("No exceptions occured in run function");
 		return 0;
 	}
 
