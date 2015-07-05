@@ -1,6 +1,7 @@
 ﻿#include "lys.hpp"
 
 #include <SDL\SDL_main.h>
+#include <GL\glew.h>
 
 #include "window.hpp"
 
@@ -11,8 +12,27 @@ namespace lys
 	{
 		try
 		{
-			Window window("Lys", Metric2(960, 540));
-			// Program code
+			WindowMessage message;
+			Window window("Lys", Metric2(960, 540), false);
+			window.setSwapInterval(1);
+			window.setVisible(true);
+
+			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+
+			bool running = true;
+			while (running)
+			{
+				while (window.pollMessages(message))
+				{
+					LYS_LOG("%d", message);
+					if (message == WindowMessage::CLOSE) running = false;
+					if (!running) break;
+				}
+				if (!running) continue;
+
+				glClear(GL_COLOR_BUFFER_BIT);
+				window.swapBuffers();
+			}
 		}
 		catch (const std::exception &e)
 		{
