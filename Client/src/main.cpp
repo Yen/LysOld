@@ -2,6 +2,7 @@
 
 #include <SDL\SDL_main.h>
 #include <GL\glew.h>
+#include <sstream>
 
 #include "window.hpp"
 #include "logic\fixedtimer.hpp"
@@ -18,28 +19,57 @@ namespace lys
 
 			WindowMessage message;
 			Window window("Lys", Metric2(960, 540), false);
-			window.setSwapInterval(1);
 			window.setVisible(true);
 
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 			timer.reset();
 
+			int seconds = 0;
+			int frames = 0;
 			bool running = true;
 			while (running)
 			{
 				while (window.pollMessages(message))
 				{
-					if (message == WindowMessage::CLOSE) running = false;
+					switch (message)
+					{
+					case WindowMessage::CLOSE:
+					{
+						running = false;
+						break;
+					}
+					case WindowMessage::FOCUSGAINED:
+					{
+						window.setSwapInterval(0);
+						break;
+					}
+					case WindowMessage::FOCUSLOST:
+					{
+						window.setSwapInterval(1);
+						break;
+					}
+					}
+
+
 					if (!running) break;
 				}
 				if (!running) continue;
 
 				timer.update();
-				LYS_LOG("%f", time.current);
 
 				glClear(GL_COLOR_BUFFER_BIT);
 				window.swapBuffers();
+				frames++;
+
+				if (time.current > seconds)
+				{
+					std::stringstream title;
+					title << "Lys" << " FPS: " << frames;
+					window.setTitle(title.str());
+					seconds++;
+					frames = 0;
+				}
 			}
 		}
 		catch (const std::exception &e)
