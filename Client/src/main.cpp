@@ -4,6 +4,7 @@
 #include <GL\glew.h>
 
 #include "window.hpp"
+#include "logic\fixedtimer.hpp"
 
 namespace lys
 {
@@ -12,6 +13,9 @@ namespace lys
 	{
 		try
 		{
+			FixedTimer timer;
+			const FixedTimerData &time = timer.getTimerData();
+
 			WindowMessage message;
 			Window window("Lys", Metric2(960, 540), false);
 			window.setSwapInterval(1);
@@ -19,16 +23,20 @@ namespace lys
 
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
+			timer.reset();
+
 			bool running = true;
 			while (running)
 			{
 				while (window.pollMessages(message))
 				{
-					LYS_LOG("%d", message);
 					if (message == WindowMessage::CLOSE) running = false;
 					if (!running) break;
 				}
 				if (!running) continue;
+
+				timer.update();
+				LYS_LOG("%f", time.current);
 
 				glClear(GL_COLOR_BUFFER_BIT);
 				window.swapBuffers();

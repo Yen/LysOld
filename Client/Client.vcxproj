@@ -161,6 +161,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\logic\fixedtimer.cpp" />
     <ClCompile Include="src\lys.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maths\metric2.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\logic\fixedtimer.hpp" />
     <ClInclude Include="src\lys.hpp" />
     <ClInclude Include="src\maths.hpp" />
     <ClInclude Include="src\maths\metric2.hpp" />
