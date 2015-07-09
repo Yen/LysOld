@@ -6,6 +6,8 @@
 #include "..\lys.hpp"
 #include "..\maths.hpp"
 #include "fixedtimer.hpp"
+#include "..\graphics\shaderprogram.hpp"
+#include "..\utils.hpp"
 
 namespace lys
 {
@@ -32,6 +34,14 @@ namespace lys
 		int frames = 0;
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+
+		std::vector<ShaderData> shaders;
+		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/basic.vert")));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/basic.frag")));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/basic2.frag")));
+
+		ShaderProgram a(shaders);
+		a.enable();
 
 		_window->setVisible(true);
 		bool running = true;

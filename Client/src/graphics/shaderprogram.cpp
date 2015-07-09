@@ -1,0 +1,71 @@
+#include "shaderprogram.hpp"
+
+#include <sstream>
+
+#include "..\lys.hpp"
+
+namespace lys
+{
+
+	ShaderProgram::ShaderProgram(const std::vector<ShaderData> &shaders)
+	{
+		LYS_LOG("Creating new shader program (%d) shader(s)", shaders.size());
+		_id = glCreateProgram();
+
+		std::vector<GLuint> valid;
+
+		for (std::vector<ShaderData>::const_iterator i = shaders.begin(); i != shaders.end(); i++)
+		{
+			const char *ssource = i->second.data();
+			GLuint shader = glCreateShader(i->first);
+
+			glShaderSource(shader, 1, &ssource, nullptr);
+			glCompileShader(shader);
+
+			GLint result;
+			glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
+			if (result == GL_FALSE)
+			{
+				GLint length;
+				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+				std::vector<char> error(length);
+				glGetShaderInfoLog(shader, length, &length, &error[0]);
+				glDeleteShader(shader);
+				std::stringstream err;
+				err << "Failed to compile shader (" << i->first << "):\n" << error.data();
+				throw std::exception(err.str().data());
+			}
+
+			valid.push_back(shader);
+		}
+
+		for (std::vector<GLuint>::iterator i = valid.begin(); i != valid.end(); i++)
+		{
+			glAttachShader(_id, *i);
+		}
+
+		glLinkProgram(_id);
+		glValidateProgram(_id);
+
+		for (std::vector<GLuint>::iterator i = valid.begin(); i != valid.end(); i++)
+		{
+			glDeleteShader(*i);
+		}
+	}
+
+	ShaderProgram::~ShaderProgram()
+	{
+		glDeleteProgram(_id);
+	}
+
+	void ShaderProgram::enable() const
+	{
+		glUseProgram(_id);
+	}
+
+	void ShaderProgram::disable()
+	{
+		glUseProgram(0);
+	}
+
+}

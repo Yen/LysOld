@@ -161,22 +161,31 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\shaderprogram.cpp" />
     <ClCompile Include="src\logic\engine.cpp" />
     <ClCompile Include="src\logic\fixedtimer.cpp" />
     <ClCompile Include="src\lys.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maths\metric2.cpp" />
     <ClCompile Include="src\maths\metric3.cpp" />
+    <ClCompile Include="src\utils.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\shaderprogram.hpp" />
     <ClInclude Include="src\logic\engine.hpp" />
     <ClInclude Include="src\logic\fixedtimer.hpp" />
     <ClInclude Include="src\lys.hpp" />
     <ClInclude Include="src\maths.hpp" />
     <ClInclude Include="src\maths\metric2.hpp" />
     <ClInclude Include="src\maths\metric3.hpp" />
+    <ClInclude Include="src\utils.hpp" />
     <ClInclude Include="src\window.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\basic.frag" />
+    <None Include="data\basic.vert" />
+    <None Include="data\basic2.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

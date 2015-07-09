@@ -1,7 +1,6 @@
-﻿#include "lys.hpp"
+﻿#include <SDL\SDL_main.h>
 
-#include <SDL\SDL_main.h>
-
+#include "lys.hpp"
 #include "logic\engine.hpp"
 
 namespace lys
