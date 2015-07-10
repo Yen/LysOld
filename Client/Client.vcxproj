@@ -168,6 +168,9 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maths\metric2.cpp" />
     <ClCompile Include="src\maths\metric3.cpp" />
+    <ClCompile Include="src\maths\vector2.cpp" />
+    <ClCompile Include="src\maths\vector3.cpp" />
+    <ClCompile Include="src\maths\vector4.cpp" />
     <ClCompile Include="src\utils.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
@@ -179,13 +182,15 @@
     <ClInclude Include="src\maths.hpp" />
     <ClInclude Include="src\maths\metric2.hpp" />
     <ClInclude Include="src\maths\metric3.hpp" />
+    <ClInclude Include="src\maths\vector2.hpp" />
+    <ClInclude Include="src\maths\vector3.hpp" />
+    <ClInclude Include="src\maths\vector4.hpp" />
     <ClInclude Include="src\utils.hpp" />
     <ClInclude Include="src\window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\basic.frag" />
     <None Include="data\basic.vert" />
-    <None Include="data\basic2.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

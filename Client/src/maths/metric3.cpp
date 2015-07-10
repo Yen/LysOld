@@ -17,7 +17,7 @@ namespace lys
 
 	bool Metric3::operator ==(const Metric3 &other) const
 	{
-		return((x == other.x) && (y == other.y) && (x == other.x));
+		return((x == other.x) && (y == other.y) && (x == other.z));
 	}
 
 	bool Metric3::operator !=(const Metric3 &other) const

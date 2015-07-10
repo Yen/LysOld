@@ -12,6 +12,8 @@
 namespace lys
 {
 
+	const int fps = 60;
+
 	Engine::Engine()
 	{
 		LYS_LOG("Creating new engine");
@@ -38,7 +40,6 @@ namespace lys
 		std::vector<ShaderData> shaders;
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/basic.vert")));
 		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/basic.frag")));
-		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/basic2.frag")));
 
 		ShaderProgram a(shaders);
 		a.enable();
@@ -79,7 +80,7 @@ namespace lys
 
 			timer.update();
 
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			glBegin(GL_QUADS);
 			glVertex2f(-0.5f, -0.5f);
