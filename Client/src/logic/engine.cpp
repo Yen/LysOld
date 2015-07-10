@@ -41,8 +41,8 @@ namespace lys
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/basic.vert")));
 		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/basic.frag")));
 
-		ShaderProgram a(shaders);
-		a.enable();
+		ShaderProgram shader(shaders);
+		shader.enable();
 
 		_window->setVisible(true);
 		bool running = true;

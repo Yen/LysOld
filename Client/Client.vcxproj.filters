@@ -51,6 +51,9 @@
     <ClCompile Include="src\maths\vector4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\maths\matrix4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\maths\vector4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\matrix4.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
