@@ -6,7 +6,7 @@
 #include "maths.hpp"
 
 #define LYS_GL_MAJOR_VERSION 3
-#define LYS_GL_MINOR_VERSION 2
+#define LYS_GL_MINOR_VERSION 3
 
 #define LYS_BUTTON_COUNT 16
 #define LYS_KEY_COUNT SDL_NUM_SCANCODES

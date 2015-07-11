@@ -221,7 +221,7 @@ namespace lys
 
 	Matrix4 Matrix4::perspectivefov(float fov, float aspect, float near, float far)
 	{
-		float ymax = near * tan(0.5f * fov);
+		float ymax = near * tan(maths::toRadians(0.5f * fov));
 		float ymin = -ymax;
 		float xmin = ymin * aspect;
 		float xmax = ymax * aspect;
