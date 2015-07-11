@@ -2,7 +2,10 @@
 
 layout (location = 0) in vec4 in_position;
 
+uniform mat4 uni_pr_matrix = mat4(1);
+uniform mat4 uni_vw_matrix = mat4(1);
+
 void main()
 {
-	gl_Position = in_position;
+	gl_Position = uni_pr_matrix * uni_vw_matrix * in_position;
 }

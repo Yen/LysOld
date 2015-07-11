@@ -29,6 +29,17 @@ namespace lys
 
 		Matrix4 &invert();
 
+		static Matrix4 orthographic(float left, float right, float bottom, float top, float near, float far);
+		static Matrix4 perspectivefov(float fov, float aspect, float near, float far);
+		static Matrix4 perspectiveoffcenter(float left, float right, float bottom, float top, float near, float far);
+
+		static Matrix4 lookAt(const Vector3 &eye, const Vector3 &target, const Vector3 &up);
+
+		static Matrix4 translation(const Vector3 &translation);
+		static Matrix4 rotation(float angle, const Vector3 &axis);
+		static Matrix4 scale(const Vector3 &scale);
+		static Matrix4 invert(const Matrix4 &matrix);
+
 		bool operator ==(const Matrix4 &other) const;
 		bool operator !=(const Matrix4 &other) const;
 	};

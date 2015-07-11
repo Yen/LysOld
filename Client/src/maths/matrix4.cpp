@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "mathsfunctions.hpp"
+
 namespace lys
 {
 
@@ -200,6 +202,134 @@ namespace lys
 		for (int i = 0; i < 4 * 4; i++) elements[i] = temp[i] * determinant;
 
 		return *this;
+	}
+
+	Matrix4 Matrix4::orthographic(float left, float right, float bottom, float top, float near, float far)
+	{
+		Matrix4 result(1.0f);
+
+		result.blocks[0].x = 2.0f / (right - left);
+		result.blocks[1].y = 2.0f / (top - bottom);
+		result.blocks[2].z = 2.0f / (near - far);
+
+		result.blocks[3].x = (left + right) / (left - right);
+		result.blocks[3].y = (bottom + top) / (bottom - top);
+		result.blocks[3].z = (far + near) / (far - near);
+
+		return result;
+	}
+
+	Matrix4 Matrix4::perspectivefov(float fov, float aspect, float near, float far)
+	{
+		float ymax = near * tan(0.5f * fov);
+		float ymin = -ymax;
+		float xmin = ymin * aspect;
+		float xmax = ymax * aspect;
+
+		return perspectiveoffcenter(xmin, xmax, ymin, ymax, near, far);
+	}
+
+	Matrix4 Matrix4::perspectiveoffcenter(float left, float right, float bottom, float top, float near, float far)
+	{
+		Matrix4 result(1.0f);
+
+		float x = (2.0f * near) / (right - left);
+		float y = (2.0f * near) / (top - bottom);
+
+		float a = (right + left) / (right - left);
+		float b = (top + bottom) / (top - bottom);
+		float c = -(far + near) / (far - near);
+		float d = -(2.0f * far * near) / (far - near);
+
+		result.blocks[0].x = x;
+		result.blocks[1].y = y;
+		result.blocks[2].x = a;
+		result.blocks[2].y = b;
+		result.blocks[2].z = c;
+		result.blocks[2].w = -1.0f;
+		result.blocks[3].z = d;
+		result.blocks[3].w = 0.0f;
+
+		return result;
+	}
+
+	Matrix4 Matrix4::lookAt(const Vector3 &eye, const Vector3 &target, const Vector3 &up)
+	{
+		Vector3 z = Vector3::normalize(eye - target);
+		Vector3 x = Vector3::normalize(Vector3::cross(up, z));
+		Vector3 y = Vector3::normalize(Vector3::cross(z, x));
+
+		Matrix4 result(1.0f);
+
+		result.blocks[0].x = x.x;
+		result.blocks[0].y = y.x;
+		result.blocks[0].z = z.x;
+
+		result.blocks[1].x = x.y;
+		result.blocks[1].y = y.y;
+		result.blocks[1].z = z.y;
+
+		result.blocks[2].x = x.z;
+		result.blocks[2].y = y.z;
+		result.blocks[2].z = z.z;
+
+		result.blocks[3].x = -((x.x * eye.x) + (x.y * eye.y) + (x.z * eye.z));
+		result.blocks[3].y = -((y.x * eye.x) + (y.y * eye.y) + (y.z * eye.z));
+		result.blocks[3].z = -((z.x * eye.x) + (z.y * eye.y) + (z.z * eye.z));
+
+		return result;
+	}
+
+	Matrix4 Matrix4::translation(const Vector3 &translation)
+	{
+		Matrix4 result(1.0f);
+
+		result.blocks[3].x = translation.x;
+		result.blocks[3].y = translation.y;
+		result.blocks[3].z = translation.z;
+
+		return result;
+	}
+
+	Matrix4 Matrix4::rotation(float angle, const Vector3 &axis)
+	{
+		Matrix4 result(1.0f);
+
+		float r = maths::toRadians(angle);
+		float c = cos(r);
+		float s = sin(r);
+		float omc = 1.0f - c;
+
+		result.blocks[0].x = axis.x * omc + c;
+		result.blocks[0].y = axis.y * axis.x * omc + axis.z * s;
+		result.blocks[0].z = axis.x * axis.z * omc - axis.y * s;
+
+		result.blocks[1].x = axis.x * axis.y * omc - axis.z * s;
+		result.blocks[1].y = axis.y * omc + c;
+		result.blocks[1].z = axis.y * axis.z * omc + axis.x * s;
+
+		result.blocks[2].x = axis.x * axis.z * omc + axis.y * s;
+		result.blocks[2].y = axis.y * axis.z * omc - axis.x * s;
+		result.blocks[2].z = axis.z * omc + c;
+
+		return result;
+	}
+
+	Matrix4 Matrix4::scale(const Vector3 &scale)
+	{
+		Matrix4 result(1.0f);
+
+		result.blocks[0].x = scale.x;
+		result.blocks[1].y = scale.y;
+		result.blocks[2].z = scale.z;
+
+		return result;
+	}
+
+	Matrix4 Matrix4::invert(const Matrix4 &matrix)
+	{
+		Matrix4 result = matrix;
+		return result.invert();
 	}
 
 	bool Matrix4::operator ==(const Matrix4 &other) const

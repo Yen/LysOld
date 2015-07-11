@@ -166,6 +166,7 @@
     <ClCompile Include="src\logic\fixedtimer.cpp" />
     <ClCompile Include="src\lys.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\maths\mathsfunctions.cpp" />
     <ClCompile Include="src\maths\matrix4.cpp" />
     <ClCompile Include="src\maths\metric2.cpp" />
     <ClCompile Include="src\maths\metric3.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="src\logic\fixedtimer.hpp" />
     <ClInclude Include="src\lys.hpp" />
     <ClInclude Include="src\maths.hpp" />
+    <ClInclude Include="src\maths\mathsfunctions.hpp" />
     <ClInclude Include="src\maths\matrix4.hpp" />
     <ClInclude Include="src\maths\metric2.hpp" />
     <ClInclude Include="src\maths\metric3.hpp" />

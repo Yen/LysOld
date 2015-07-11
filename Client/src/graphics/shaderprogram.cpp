@@ -113,6 +113,11 @@ namespace lys
 		glUniform4f(getUniformLocation(name), value.x, value.y, value.z, value.w);
 	}
 
+	void ShaderProgram::setUniformMat4(const GLchar *name, const Matrix4 &value)
+	{
+		glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, value.elements);
+	}
+
 	GLint ShaderProgram::getUniformLocation(const GLchar *name)
 	{
 		GLint location = glGetUniformLocation(_id, name);

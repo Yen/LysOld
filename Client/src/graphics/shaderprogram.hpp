@@ -33,6 +33,8 @@ namespace lys
 		void setUniform2f(const GLchar *name, const Vector2 &value);
 		void setUniform3f(const GLchar *name, const Vector3 &value);
 		void setUniform4f(const GLchar *name, const Vector4 &value);
+
+		void setUniformMat4(const GLchar *name, const Matrix4 &value);
 	private:
 		GLint getUniformLocation(const GLchar *name);
 	};

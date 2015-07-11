@@ -36,6 +36,8 @@ namespace lys
 		int frames = 0;
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glDisable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_TEST);
 
 		std::vector<ShaderData> shaders;
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/basic.vert")));
@@ -43,6 +45,12 @@ namespace lys
 
 		ShaderProgram shader(shaders);
 		shader.enable();
+
+		Matrix4 pr = Matrix4::perspectivefov(M_PI / 4.0f, _window->getSize().x / _window->getSize().y, 1, 100);
+		Matrix4 vw = Matrix4::lookAt(Vector3(0.0f, 3.0f, -5.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f));
+
+		shader.setUniformMat4("uni_pr_matrix", pr);
+		shader.setUniformMat4("uni_vw_matrix", vw);
 
 		_window->setVisible(true);
 		bool running = true;
@@ -83,10 +91,10 @@ namespace lys
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			glBegin(GL_QUADS);
-			glVertex2f(-0.5f, -0.5f);
-			glVertex2f(0.5f, -0.5f);
-			glVertex2f(0.5f, 0.5f);
-			glVertex2f(-0.5f, 0.5f);
+			glVertex3f(-0.5f, -0.5f, 0.0f);
+			glVertex3f( 0.5f, -0.5f, 0.0f);
+			glVertex3f( 0.5f,  0.5f, 0.0f);
+			glVertex3f(-0.5f,  0.5f, 0.0f);
 			glEnd();
 
 			_window->swapBuffers();
