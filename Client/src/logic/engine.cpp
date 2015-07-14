@@ -39,8 +39,8 @@ namespace lys
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		TestElement a(Vector3(10.0f, 10.0f, 0.0f), Vector2(100.0f, 50.0f));
-		TestElement b(Vector3(200.0f, 400.0f, 0.0f), Vector2(500.0f, 100.0f));
+		TestElement a(Vector3(10.0f, 10.0f, 0.0f), Vector2(100.0f, 50.0f), Vector4(0.7f, 0.2f, 0.7f, 1.0f));
+		TestElement b(Vector3(200.0f, 400.0f, 0.0f), Vector2(500.0f, 100.0f), Vector4(0.3f, 0.4f, 0.6f, 1.0f));
 
 		_uimanager->resize(_window->getSize());
 

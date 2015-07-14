@@ -1,7 +1,6 @@
 #pragma once
 
-#include "..\window.hpp"
-#include "..\logic\fixedtimer.hpp"
+#include "..\maths.hpp"
 
 namespace lys
 {
@@ -9,7 +8,9 @@ namespace lys
 	class UIElement
 	{
 	public:
-		virtual void draw(Window *window, const FixedTimerData &time) = 0;
+		Vector3 position;
+		Vector2 size;
+		Vector4 color;
 	};
 
 }
