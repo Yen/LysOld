@@ -12,6 +12,15 @@ namespace lys
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/ui.vert")));
 		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/ui.frag")));
 		_shader = new ShaderProgram(shaders);
+		_shader->enable();
+
+		int tids[LYS_UI_MAX_TEXTURES];
+		for (int i = 0; i < LYS_UI_MAX_TEXTURES; i++)
+		{
+			tids[i] = i;
+		}
+
+		_shader->setUniform1iv("uni_textures", LYS_UI_MAX_TEXTURES, tids);
 
 		glGenVertexArrays(1, &_vao);
 		glBindVertexArray(_vao);
@@ -25,10 +34,12 @@ namespace lys
 		glEnableVertexAttribArray(LYS_UI_SHADER_POSITION);
 		glEnableVertexAttribArray(LYS_UI_SHADER_COLOR);
 		glEnableVertexAttribArray(LYS_UI_SHADER_COORD);
+		glEnableVertexAttribArray(LYS_UI_SHADER_TEXTURE);
 
 		glVertexAttribPointer(LYS_UI_SHADER_POSITION, 3, GL_FLOAT, GL_FALSE, LYS_UI_VERTEX_SIZE, (const GLvoid *)(offsetof(UIVertex, position)));
 		glVertexAttribPointer(LYS_UI_SHADER_COLOR, 4, GL_FLOAT, GL_FALSE, LYS_UI_VERTEX_SIZE, (const GLvoid *)(offsetof(UIVertex, color)));
 		glVertexAttribPointer(LYS_UI_SHADER_COORD, 2, GL_FLOAT, GL_FALSE, LYS_UI_VERTEX_SIZE, (const GLvoid *)(offsetof(UIVertex, coord)));
+		glVertexAttribPointer(LYS_UI_SHADER_TEXTURE, 1, GL_FLOAT, GL_FALSE, LYS_UI_VERTEX_SIZE, (const GLvoid *)(offsetof(UIVertex, texture)));
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -57,6 +68,10 @@ namespace lys
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * LYS_UI_INDICES_COUNT, indices, GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		_defaultTexture = new Texture("data/images/uiDefault.png");
+
+		begin();
 	}
 
 	UIManager::~UIManager()
@@ -69,59 +84,86 @@ namespace lys
 
 	void UIManager::push(UIElement *element)
 	{
-		_elements.push(element);
+		if (_textureCount >= LYS_UI_MAX_TEXTURES)
+		{
+			flush();
+		}
+
+		float tid;
+
+		Texture *working = element->texture;
+		if (working == nullptr)
+		{
+			working = _defaultTexture;
+		}
+
+		Texture **tex = std::find(_textures, _textures + _textureCount, working);
+		if (tex != _textures + _textureCount)
+		{
+			tid = (float)std::distance(_textures, tex);
+		}
+		else
+		{
+			tid = (float)_textureCount;
+			_textures[_textureCount] = working;
+			_textureCount++;
+		}
+
+		_buffer->position = element->position;
+		_buffer->color = element->color;
+		_buffer->coord = Vector2(0.0f, 0.0f);
+		_buffer->texture = tid;
+		_buffer++;
+
+		_buffer->position = Vector3(element->position.x + element->size.x, element->position.y, element->position.z);
+		_buffer->color = element->color;
+		_buffer->coord = Vector2(1.0f, 0.0f);
+		_buffer->texture = tid;
+		_buffer++;
+
+		_buffer->position = Vector3(element->position.x + element->size.x, element->position.y + element->size.y, element->position.z);
+		_buffer->color = element->color;
+		_buffer->coord = Vector2(1.0f, 1.0f);
+		_buffer->texture = tid;
+		_buffer++;
+
+		_buffer->position = Vector3(element->position.x, element->position.y + element->size.y, element->position.z);
+		_buffer->color = element->color;
+		_buffer->coord = Vector2(0.0f, 1.0f);
+		_buffer->texture = tid;
+		_buffer++;
+
+		_elementCount++;
 	}
 
-	void UIManager::flush(Window *window, const FixedTimerData &time)
+	void UIManager::flush()
+	{
+		end();
+
+		draw();
+
+		begin();
+	}
+
+	void UIManager::resize(const Metric2 &size)
+	{
+		_shader->enable();
+		_shader->setUniformMat4("uni_pr_matrix", Matrix4::orthographic(0, (float)size.x, 0, (float)size.y, -1, 100));
+	}
+
+	void UIManager::draw()
 	{
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		_shader->enable();
 
-		while (!_elements.empty())
+		for (int i = 0; i < _textureCount; i++)
 		{
-			UIElement *working = _elements.front();
-
-			_buffer->position = working->position;
-			_buffer->color = working->color;
-			_buffer->coord = Vector2(0.0f, 0.0f);
-			_buffer++;
-
-			_buffer->position = Vector3(working->position.x + working->size.x, working->position.y, working->position.z);
-			_buffer->color = working->color;
-			_buffer->coord = Vector2(1.0f, 0.0f);
-			_buffer++;
-
-			_buffer->position = Vector3(working->position.x + working->size.x, working->position.y + working->size.y, working->position.z);
-			_buffer->color = working->color;
-			_buffer->coord = Vector2(1.0f, 1.0f);
-			_buffer++;
-
-			_buffer->position = Vector3(working->position.x, working->position.y + working->size.y, working->position.z);
-			_buffer->color = working->color;
-			_buffer->coord = Vector2(0.0f, 1.0f);
-			_buffer++;
-
-			_elementCount++;
-
-			_elements.pop();
+			glActiveTexture(GL_TEXTURE0 + i);
+			_textures[i]->bind();
 		}
 
-		draw();
-	}
-
-	void UIManager::begin()
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-		_buffer = (UIVertex *)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		_elementCount = 0;
-	}
-
-	void UIManager::draw()
-	{
 		glBindVertexArray(_vao);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
 
@@ -131,17 +173,21 @@ namespace lys
 		glBindVertexArray(0);
 	}
 
+	void UIManager::begin()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+		_buffer = (UIVertex *)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		_elementCount = 0;
+		_textureCount = 0;
+	}
+
 	void UIManager::end()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-
-	void UIManager::resize(const Metric2 &size)
-	{
-		_shader->enable();
-		_shader->setUniformMat4("uni_pr_matrix", Matrix4::orthographic(0, (float)size.x, 0, (float)size.y, -1, 100));
 	}
 
 }

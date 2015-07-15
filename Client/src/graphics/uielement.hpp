@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\maths.hpp"
+#include "texture.hpp"
 
 namespace lys
 {
@@ -11,6 +12,7 @@ namespace lys
 		Vector3 position;
 		Vector2 size;
 		Vector4 color;
+		Texture *texture;
 	};
 
 }

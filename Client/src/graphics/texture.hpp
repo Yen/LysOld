@@ -12,6 +12,7 @@ namespace lys
 		GLuint _id;
 		unsigned int _bits;
 	public:
+		Texture(const std::string &path, const GLenum &min, const GLenum &mag, const GLenum &wrapS, const GLenum &wrapT);
 		Texture(const std::string &path);
 		~Texture();
 

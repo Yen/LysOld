@@ -7,7 +7,7 @@
 namespace lys
 {
 
-	Texture::Texture(const std::string &path)
+	Texture::Texture(const std::string &path, const GLenum &min, const GLenum &mag, const GLenum &wrapS, const GLenum &wrapT)
 	{
 		GLsizei width, height;
 		BYTE *pixels = utils::loadImage(path, &width, &height, &_bits);
@@ -15,8 +15,10 @@ namespace lys
 		glGenTextures(1, &_id);
 		glBindTexture(GL_TEXTURE_2D, _id);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT);
 
 		if (_bits != 24 && _bits != 32)
 		{
@@ -34,6 +36,10 @@ namespace lys
 
 		delete[] pixels;
 	}
+
+	Texture::Texture(const std::string &path)
+		: Texture(path, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
+	{}
 
 	Texture::~Texture()
 	{

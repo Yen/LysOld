@@ -137,5 +137,20 @@
     <Image Include="data\images\spectrum.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="data\images\uiDefault.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\temp\default0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\temp\default1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\temp\default2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\temp\default3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

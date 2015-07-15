@@ -40,11 +40,10 @@ namespace lys
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		TestElement a(Vector3(10.0f, 10.0f, 0.0f), Vector2(600.0f, 400.0f), Vector4(0.7f, 0.2f, 0.7f, 1.0f));
-		TestElement b(Vector3(200.0f, 50.0f, 1.0f), Vector2(600.0f, 400.0f), Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		Texture texa("data/images/spectrum.jpg");
 
-		Texture tex("data/images/spectrum.jpg");
-		tex.bind();
+		TestElement a(Vector3(10.0f, 30.0f, 0.0f), Vector2(600.0f, 400.0f), Vector4(0.7f, 0.2f, 0.7f, 1.0f), &texa);
+		TestElement b(Vector3(200.0f, 50.0f, 1.0f), Vector2(600.0f, 400.0f), Vector4(1.0f, 1.0f, 1.0f, 1.0f), nullptr);
 
 		_uimanager->resize(_window->getSize());
 
@@ -87,13 +86,10 @@ namespace lys
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			_uimanager->begin();
-
 			_uimanager->push(&a);
 			_uimanager->push(&b);
 
-			_uimanager->end();
-			_uimanager->flush(_window, time);
+			_uimanager->flush();
 
 			_window->swapBuffers();
 			frames++;
