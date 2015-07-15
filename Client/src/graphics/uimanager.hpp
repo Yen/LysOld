@@ -15,6 +15,7 @@ namespace lys
 	public:
 		Vector3 position;
 		Vector4 color;
+		Vector2 coord;
 	};
 
 #define LYS_UI_MAX_ELEMENTS			1000
@@ -25,6 +26,7 @@ namespace lys
 
 #define LYS_UI_SHADER_POSITION		0
 #define LYS_UI_SHADER_COLOR			1
+#define LYS_UI_SHADER_COORD			2
 
 	class UIManager
 	{
@@ -35,7 +37,7 @@ namespace lys
 		GLuint _vbo;
 		GLuint _ibo;
 		UIVertex *_buffer;
-		GLsizei _count;
+		GLsizei _elementCount;
 	public:
 		UIManager();
 		~UIManager();
@@ -43,7 +45,12 @@ namespace lys
 		void push(UIElement *element);
 		void flush(Window *window, const FixedTimerData &time);
 
+		void begin();
+		void end();
+
 		void resize(const Metric2 &size);
+	private:
+		void draw();
 	};
 
 }

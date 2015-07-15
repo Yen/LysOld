@@ -7,6 +7,7 @@
 #include "..\maths.hpp"
 #include "..\utils.hpp"
 #include "..\graphics\uielements\testelement.hpp"
+#include "..\graphics\texture.hpp"
 
 namespace lys
 {
@@ -39,8 +40,11 @@ namespace lys
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		TestElement a(Vector3(10.0f, 10.0f, 0.0f), Vector2(100.0f, 50.0f), Vector4(0.7f, 0.2f, 0.7f, 1.0f));
-		TestElement b(Vector3(200.0f, 400.0f, 0.0f), Vector2(500.0f, 100.0f), Vector4(0.3f, 0.4f, 0.6f, 1.0f));
+		TestElement a(Vector3(10.0f, 10.0f, 0.0f), Vector2(600.0f, 400.0f), Vector4(0.7f, 0.2f, 0.7f, 1.0f));
+		TestElement b(Vector3(200.0f, 50.0f, 1.0f), Vector2(600.0f, 400.0f), Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+
+		Texture tex("data/images/spectrum.jpg");
+		tex.bind();
 
 		_uimanager->resize(_window->getSize());
 
@@ -83,9 +87,12 @@ namespace lys
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			_uimanager->begin();
+
 			_uimanager->push(&a);
 			_uimanager->push(&b);
 
+			_uimanager->end();
 			_uimanager->flush(_window, time);
 
 			_window->swapBuffers();

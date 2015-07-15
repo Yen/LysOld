@@ -63,6 +63,9 @@
     <ClCompile Include="src\graphics\uielements\testelement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
@@ -116,11 +119,23 @@
     <ClInclude Include="src\graphics\uielements\testelement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\basic.vert" />
-    <None Include="data\basic.frag" />
     <None Include="data\shaders\ui.vert" />
     <None Include="data\shaders\ui.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="data\images\memes.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\dank.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\spectrum.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
