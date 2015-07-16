@@ -39,7 +39,7 @@ namespace lys
 		GLsizei _elementCount;
 		GLsizei _textureCount;
 		Texture *_defaultTexture;
-		Texture *_textures[LYS_UI_MAX_TEXTURES];
+		const Texture *_textures[LYS_UI_MAX_TEXTURES];
 	public:
 		UIManager();
 		~UIManager();

@@ -1,6 +1,7 @@
 #include "uimanager.hpp"
 
 #include "..\utils.hpp"
+#include "framebuffer.hpp"
 
 namespace lys
 {
@@ -91,13 +92,13 @@ namespace lys
 
 		float tid;
 
-		Texture *working = element->texture;
+		const Texture *working = element->texture;
 		if (working == nullptr)
 		{
 			working = _defaultTexture;
 		}
 
-		Texture **tex = std::find(_textures, _textures + _textureCount, working);
+		const Texture **tex = std::find(_textures, _textures + _textureCount, working);
 		if (tex != _textures + _textureCount)
 		{
 			tid = (float)std::distance(_textures, tex);

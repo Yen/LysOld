@@ -41,6 +41,17 @@ namespace lys
 		: Texture(path, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
 	{}
 
+	Texture::Texture(const Metric2 &size)
+	{
+		glGenTextures(1, &_id);
+
+		glBindTexture(GL_TEXTURE_2D, _id);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, size.x, size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
 	Texture::~Texture()
 	{
 		glDeleteTextures(1, &_id);
@@ -54,6 +65,11 @@ namespace lys
 	void Texture::unbind() const
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	const GLuint &Texture::getID() const
+	{
+		return _id;
 	}
 
 }

@@ -165,6 +165,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\framebuffer.cpp" />
     <ClCompile Include="src\graphics\shaderprogram.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\graphics\uielements\testelement.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\framebuffer.hpp" />
     <ClInclude Include="src\graphics\shaderprogram.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
     <ClInclude Include="src\graphics\uielement.hpp" />

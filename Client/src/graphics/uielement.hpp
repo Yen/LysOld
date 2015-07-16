@@ -12,7 +12,7 @@ namespace lys
 		Vector3 position;
 		Vector2 size;
 		Vector4 color;
-		Texture *texture;
+		const Texture *texture;
 	};
 
 }

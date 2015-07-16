@@ -3,6 +3,8 @@
 #include <string>
 #include <GL\glew.h>
 
+#include "..\maths.hpp"
+
 namespace lys
 {
 
@@ -14,10 +16,13 @@ namespace lys
 	public:
 		Texture(const std::string &path, const GLenum &min, const GLenum &mag, const GLenum &wrapS, const GLenum &wrapT);
 		Texture(const std::string &path);
+		Texture(const Metric2 &size);
 		~Texture();
 
 		void bind() const;
 		void unbind() const;
+
+		const GLuint &getID() const;
 	};
 
 }
