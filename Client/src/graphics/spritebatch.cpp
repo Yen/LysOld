@@ -82,6 +82,11 @@ namespace lys
 		_sprites.push_back(sprite);
 	}
 
+	bool compare(const SpriteData *left, const SpriteData *right)
+	{
+		return (left->texture < right->texture);
+	}
+
 	void SpriteBatch::renderBatch()
 	{
 		if (_sprites.empty())
@@ -102,7 +107,7 @@ namespace lys
 		GLsizei batchCount = 0;
 		unsigned char textureOffset = 0;
 
-		std::sort(std::begin(_sprites), std::end(_sprites));
+		std::sort(std::begin(_sprites), std::end(_sprites), compare);
 
 		while (!_sprites.empty())
 		{

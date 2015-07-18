@@ -17,8 +17,6 @@ namespace lys
 		Vector2 size;
 		Vector4 color;
 		const Texture *texture;
-	public:
-		bool operator <(SpriteData const &other) { return texture < other.texture; }
 	};
 
 	class SpriteVertex
