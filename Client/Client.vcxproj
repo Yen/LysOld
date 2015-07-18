@@ -167,9 +167,8 @@
   <ItemGroup>
     <ClCompile Include="src\graphics\framebuffer.cpp" />
     <ClCompile Include="src\graphics\shaderprogram.cpp" />
+    <ClCompile Include="src\graphics\spritebatch.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
-    <ClCompile Include="src\graphics\uielements\testelement.cpp" />
-    <ClCompile Include="src\graphics\uimanager.cpp" />
     <ClCompile Include="src\logic\engine.cpp" />
     <ClCompile Include="src\logic\fixedtimer.cpp" />
     <ClCompile Include="src\lys.cpp" />
@@ -187,10 +186,8 @@
   <ItemGroup>
     <ClInclude Include="src\graphics\framebuffer.hpp" />
     <ClInclude Include="src\graphics\shaderprogram.hpp" />
+    <ClInclude Include="src\graphics\spritebatch.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
-    <ClInclude Include="src\graphics\uielement.hpp" />
-    <ClInclude Include="src\graphics\uielements\testelement.hpp" />
-    <ClInclude Include="src\graphics\uimanager.hpp" />
     <ClInclude Include="src\logic\engine.hpp" />
     <ClInclude Include="src\logic\fixedtimer.hpp" />
     <ClInclude Include="src\lys.hpp" />
@@ -206,8 +203,8 @@
     <ClInclude Include="src\window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\shaders\ui.frag" />
-    <None Include="data\shaders\ui.vert" />
+    <None Include="data\shaders\spritebatch.frag" />
+    <None Include="data\shaders\spritebatch.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\images\dank.png" />
