@@ -19,6 +19,13 @@ namespace lys
 		const Texture *texture;
 	};
 
+	class SpriteInterface
+	{
+	public:
+		virtual const SpriteData *getSpriteData() const = 0;
+		virtual unsigned short getSpriteCount() const = 0;
+	};
+
 	class SpriteVertex
 	{
 	public:
@@ -34,14 +41,21 @@ namespace lys
 
 #if LYS_SPRITEBATCH_INCICES_COUNT < 256
 #define LYS_SPRITEBATCH_INDICES_TYPE	GL_UNSIGNED_BYTE
-	typedef GLubyte SpriteBatchIndice;
 #elif LYS_SPRITEBATCH_INCICES_COUNT < 65536
 #define LYS_SPRITEBATCH_INDICES_TYPE	GL_UNSIGNED_SHORT
-	typedef GLushort SpriteBatchIndice;
 #else
 #define LYS_SPRITEBATCH_INDICES_TYPE	GL_UNSIGNED_INT
-	typedef GLuint SpriteBatchIndice;
 #endif
+
+	typedef
+#if LYS_SPRITEBATCH_INDICES_TYPE == GL_UNSIGNED_BYTE
+		GLubyte
+#elif LYS_SPRITEBATCH_INDICES_TYPE == GL_UNSIGNED_SHORT
+		GLushort
+#else
+		GLuint
+#endif
+		SpriteBatchIndice;
 
 #define LYS_SPRITEBATCH_VERTEX_SIZE		sizeof(SpriteVertex)
 #define LYS_SPRITEBATCH_SPRITE_SIZE		LYS_SPRITEBATCH_VERTEX_SIZE * 4
@@ -55,7 +69,7 @@ namespace lys
 	class SpriteBatch
 	{
 	public:
-		std::deque<const SpriteData *>_sprites;
+		std::deque<const SpriteData *> _sprites;
 		ShaderProgram *_shader;
 		GLuint _vao;
 		GLuint _vbo;
@@ -69,6 +83,7 @@ namespace lys
 		~SpriteBatch();
 
 		void submit(const SpriteData *sprite);
+		void submit(const SpriteInterface *spriteInterface);
 		void renderBatch();
 
 		void resize(const Metric2 &size);

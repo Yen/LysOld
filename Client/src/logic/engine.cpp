@@ -6,7 +6,6 @@
 #include "..\lys.hpp"
 #include "..\maths.hpp"
 #include "..\utils.hpp"
-#include "..\graphics\texture.hpp"
 
 namespace lys
 {
@@ -43,26 +42,6 @@ namespace lys
 		test.size = Vector2(100, 100);
 		test.color = Vector4(1, 1, 1, 1);
 		test.texture = nullptr;
-
-		Texture tex("data/images/dank.png");
-
-		SpriteData test2;
-		test2.position = Vector3(100, 100, 1);
-		test2.size = Vector2(100, 100);
-		test2.color = Vector4(1, 1, 1, 2);
-		test2.texture = &tex;
-
-		SpriteData test3;
-		test3.position = Vector3(200, 200, 2);
-		test3.size = Vector2(200, 200);
-		test3.color = Vector4(1, 1, 1, 1);
-		test3.texture = nullptr;
-
-		SpriteData tests[600];
-		for (int i = 0; i < 600; i++)
-		{
-			tests[i] = { Vector3((float)i * 4, 0, 3), Vector2(4,4), Vector4(1,1,1,1), nullptr };
-		}
 
 		//
 
@@ -111,13 +90,6 @@ namespace lys
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			_spriteBatch->submit(&test);
-			_spriteBatch->submit(&test2);
-			_spriteBatch->submit(&test3);
-
-			for (int i = 0; i < 600; i++)
-			{
-				_spriteBatch->submit(&tests[i]);
-			}
 
 			_spriteBatch->renderBatch();
 

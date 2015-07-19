@@ -84,6 +84,14 @@ namespace lys
 		_sprites.push_back(sprite);
 	}
 
+	void SpriteBatch::submit(const SpriteInterface *spriteInterface)
+	{
+		for (unsigned short i = 0; i < spriteInterface->getSpriteCount(); i++)
+		{
+			_sprites.push_back(&spriteInterface->getSpriteData()[i]);
+		}
+	}
+
 	bool compare(const SpriteData *left, const SpriteData *right)
 	{
 		return (left->texture < right->texture);
