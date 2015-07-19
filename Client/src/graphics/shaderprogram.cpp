@@ -9,7 +9,6 @@ namespace lys
 
 	ShaderProgram::ShaderProgram(const std::vector<ShaderData> &shaders)
 	{
-		LYS_LOG("Creating new shader program (%d) shader files", shaders.size());
 		_id = glCreateProgram();
 
 		std::vector<GLuint> valid;

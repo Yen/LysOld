@@ -13,6 +13,7 @@ namespace lys
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/spritebatch.vert")));
 		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/spritebatch.frag")));
 		_shader = new ShaderProgram(shaders);
+
 		int textureIDs[LYS_SPRITEBATCH_MAX_TEXTURES];
 		for (int i = 0; i < LYS_SPRITEBATCH_MAX_TEXTURES; i++)
 		{
@@ -74,6 +75,7 @@ namespace lys
 		glDeleteBuffers(1, &_ibo);
 		glDeleteBuffers(1, &_vbo);
 		glDeleteVertexArrays(1, &_vao);
+		delete _defaultTexture;
 		delete _shader;
 	}
 
@@ -127,7 +129,7 @@ namespace lys
 
 			// If all texture slots are full, draw then reset
 
-			if (textureOffset >= LYS_SPRITEBATCH_MAX_TEXTURES)
+			if ((textureOffset >= LYS_SPRITEBATCH_MAX_TEXTURES) || (batchCount >= LYS_SPRITEBATCH_MAX_SPRITES))
 			{
 				end();
 				drawCall(batchCount * 6, textureOffset);
@@ -152,6 +154,7 @@ namespace lys
 			// Set next texture in array to sprites texture
 
 			float textureID;
+
 			const Texture **result = std::find(_textures, _textures + textureOffset, texture);
 
 			if (result != _textures + textureOffset)

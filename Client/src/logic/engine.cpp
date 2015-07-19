@@ -7,22 +7,20 @@
 #include "..\maths.hpp"
 #include "..\utils.hpp"
 #include "..\graphics\texture.hpp"
-#include "..\graphics\framebuffer.hpp"
-#include "..\graphics\spritebatch.hpp"
 
 namespace lys
 {
 
 	Engine::Engine()
 	{
-		LYS_LOG("Creating new engine");
 		_window = new Window("Lys", Metric2(960, 540), false);
 		_timer = new FixedTimer;
+		_spriteBatch = new SpriteBatch;
 	}
 
 	Engine::~Engine()
 	{
-		LYS_LOG("Destroying engine");
+		delete _spriteBatch;
 		delete _timer;
 		delete _window;
 	}
@@ -39,9 +37,6 @@ namespace lys
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 		//
-
-		SpriteBatch batch;
-		batch.resize(_window->getSize());
 
 		SpriteData test;
 		test.position = Vector3(0, 0, 0);
@@ -63,7 +58,15 @@ namespace lys
 		test3.color = Vector4(1, 1, 1, 1);
 		test3.texture = nullptr;
 
+		SpriteData tests[600];
+		for (int i = 0; i < 600; i++)
+		{
+			tests[i] = { Vector3((float)i * 4, 0, 3), Vector2(4,4), Vector4(1,1,1,1), nullptr };
+		}
+
 		//
+
+		_spriteBatch->resize(_window->getSize());
 
 		_timer->reset();
 		_window->setVisible(true);
@@ -92,7 +95,7 @@ namespace lys
 				case WindowMessage::WINDOWSIZECHANGED:
 				{
 					glViewport(0, 0, _window->getSize().x, _window->getSize().y);
-					batch.resize(_window->getSize());
+					_spriteBatch->resize(_window->getSize());
 					break;
 				}
 				}
@@ -103,16 +106,25 @@ namespace lys
 
 			_timer->update();
 
+			// Draw
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			batch.submit(&test);
-			batch.submit(&test2);
-			batch.submit(&test3);
+			_spriteBatch->submit(&test);
+			_spriteBatch->submit(&test2);
+			_spriteBatch->submit(&test3);
 
-			batch.renderBatch();
+			for (int i = 0; i < 600; i++)
+			{
+				_spriteBatch->submit(&tests[i]);
+			}
+
+			_spriteBatch->renderBatch();
 
 			_window->swapBuffers();
 			frames++;
+
+			// End draw
 
 			if (time.current > seconds)
 			{

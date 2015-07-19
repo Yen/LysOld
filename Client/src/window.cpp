@@ -8,8 +8,6 @@ namespace lys
 	Window::Window(const std::string &title, const Metric2 &size, const bool &visible)
 		: _title(title), _size(size), _visible(visible)
 	{
-		LYS_LOG("Creating new window (%s)", _title.data());
-
 		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
 			std::stringstream err;
@@ -84,7 +82,6 @@ namespace lys
 
 	Window::~Window()
 	{
-		LYS_LOG("Destroying window");
 		SDL_GL_DeleteContext(_context);
 		SDL_DestroyWindow(_window);
 	}

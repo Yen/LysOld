@@ -71,21 +71,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

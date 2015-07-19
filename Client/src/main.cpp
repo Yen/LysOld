@@ -1,4 +1,4 @@
-﻿#include <SDL\SDL_main.h>
+﻿#include <SDL2\SDL_main.h>
 
 #include "lys.hpp"
 #include "logic\engine.hpp"
