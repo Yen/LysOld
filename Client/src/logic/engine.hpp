@@ -3,6 +3,7 @@
 #include "..\window.hpp"
 #include "fixedtimer.hpp"
 #include "..\graphics\spritebatch.hpp"
+#include "..\graphics\meshbatch.hpp"
 
 namespace lys
 {
@@ -13,6 +14,7 @@ namespace lys
 		Window *_window;
 		FixedTimer *_timer;
 		SpriteBatch *_spriteBatch;
+		MeshBatch *_meshBatch;
 	public:
 		Engine();
 		~Engine();

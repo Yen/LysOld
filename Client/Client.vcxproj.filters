@@ -129,6 +129,8 @@
   <ItemGroup>
     <None Include="data\shaders\spritebatch.vert" />
     <None Include="data\shaders\spritebatch.frag" />
+    <None Include="data\shaders\meshbatch.vert" />
+    <None Include="data\shaders\meshbatch.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\images\memes.png">

@@ -209,6 +209,8 @@
     <ClInclude Include="src\window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\shaders\meshbatch.frag" />
+    <None Include="data\shaders\meshbatch.vert" />
     <None Include="data\shaders\spritebatch.frag" />
     <None Include="data\shaders\spritebatch.vert" />
   </ItemGroup>

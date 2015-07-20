@@ -2,28 +2,34 @@
 
 #include <GL\glew.h>
 #include <deque>
+#include <vector>
 
 #include "..\maths.hpp"
+#include "shaderprogram.hpp"
 
 namespace lys
 {
 
-	typedef unsigned short MeshDataCount;
-
 	class MeshData
 	{
 	public:
-		Vector3 *vertices;
-		MeshDataCount verticesCount;
-
-		unsigned short *indices;
-		MeshDataCount indicesCount;
+		struct MeshDataVertex
+		{
+			Vector3 position;
+			Vector3 normal;
+			Vector2 coord;
+		};
+	public:
+		std::vector<MeshDataVertex> vertices;
+		std::vector<unsigned short> indices;
 	};
 
 	class MeshVertex
 	{
 	public:
 		Vector3 position;
+		Vector3 normal;
+		Vector2 coord;
 	};
 
 #define LYS_MESHBATCH_MAX_VERTICES	1000
@@ -54,6 +60,7 @@ namespace lys
 	{
 	private:
 		std::deque<const MeshData *> _meshes;
+		ShaderProgram *_shader;
 	public:
 		MeshBatch();
 		~MeshBatch();

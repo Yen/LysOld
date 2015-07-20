@@ -15,10 +15,12 @@ namespace lys
 		_window = new Window("Lys", Metric2(960, 540), false);
 		_timer = new FixedTimer;
 		_spriteBatch = new SpriteBatch;
+		_meshBatch = new MeshBatch;
 	}
 
 	Engine::~Engine()
 	{
+		delete _meshBatch;
 		delete _spriteBatch;
 		delete _timer;
 		delete _window;
@@ -43,9 +45,12 @@ namespace lys
 		test.color = Vector4(1, 1, 1, 1);
 		test.texture = nullptr;
 
+		MeshData test2 = utils::loadMeshOBJ("");
+
 		//
 
 		_spriteBatch->resize(_window->getSize());
+		_meshBatch->resize(_window->getSize());
 
 		_timer->reset();
 		_window->setVisible(true);
@@ -75,6 +80,7 @@ namespace lys
 				{
 					glViewport(0, 0, _window->getSize().x, _window->getSize().y);
 					_spriteBatch->resize(_window->getSize());
+					_meshBatch->resize(_window->getSize());
 					break;
 				}
 				}
@@ -89,9 +95,19 @@ namespace lys
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			// Meshbatch
+
+			_meshBatch->submit(&test2);
+
+			_meshBatch->renderBatch();
+
+			// Spritebatch
+
 			_spriteBatch->submit(&test);
 
 			_spriteBatch->renderBatch();
+
+			//
 
 			_window->swapBuffers();
 			frames++;
