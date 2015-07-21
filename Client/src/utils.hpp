@@ -14,7 +14,7 @@ namespace lys
 
 		std::string readFile(const std::string &path);
 
-		BYTE *loadImage(const std::string &path, GLsizei *width, GLsizei *height, unsigned int *bits);
+		std::vector<BYTE> loadImage(const std::string &path, GLsizei *width, GLsizei *height, unsigned int *bits);
 
 		MeshData loadMeshOBJ(const std::string &path);
 

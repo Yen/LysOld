@@ -10,7 +10,7 @@ namespace lys
 	Texture::Texture(const std::string &path, const GLenum &min, const GLenum &mag, const GLenum &wrapS, const GLenum &wrapT)
 	{
 		GLsizei width, height;
-		BYTE *pixels = utils::loadImage(path, &width, &height, &_bits);
+		std::vector<BYTE> pixels = utils::loadImage(path, &width, &height, &_bits);
 
 		glGenTextures(1, &_id);
 		glBindTexture(GL_TEXTURE_2D, _id);
@@ -30,11 +30,9 @@ namespace lys
 		GLuint internalFormat = _bits == 32 ? GL_RGBA : GL_RGB;
 		GLuint format = _bits == 32 ? GL_BGRA : GL_BGR;
 
-		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, pixels);
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, pixels.data());
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-
-		delete[] pixels;
 	}
 
 	Texture::Texture(const std::string &path)

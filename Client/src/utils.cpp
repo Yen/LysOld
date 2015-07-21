@@ -20,18 +20,17 @@ namespace lys
 			}
 			fseek(file, 0, SEEK_END);
 			long length = ftell(file);
-			char *data = new char[length + 1];
-			memset(data, 0, length + 1);
+			std::vector<char> data(length + 1);
+			memset(data.data(), 0, length + 1);
 			fseek(file, 0, SEEK_SET);
-			fread(data, 1, length, file);
+			fread(data.data(), 1, length, file);
 			fclose(file);
 
-			std::string result(data);
-			delete[] data;
+			std::string result(data.data());
 			return result;
 		}
 
-		BYTE *loadImage(const std::string &path, GLsizei *width, GLsizei *height, unsigned int *bits)
+		std::vector<BYTE> loadImage(const std::string &path, GLsizei *width, GLsizei *height, unsigned int *bits)
 		{
 			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 			FIBITMAP *dib = nullptr;
@@ -44,7 +43,6 @@ namespace lys
 				std::stringstream err;
 				err << "Unknown image format (" << path << ")";
 				throw std::exception(err.str().data());
-				return nullptr;
 			}
 
 			if (FreeImage_FIFSupportsReading(fif))
@@ -54,7 +52,6 @@ namespace lys
 				std::stringstream err;
 				err << "Unable to read image data (" << path << ")";
 				throw std::exception(err.str().data());
-				return nullptr;
 			}
 
 			if (dib == nullptr)
@@ -62,7 +59,6 @@ namespace lys
 				std::stringstream err;
 				err << "Error reading image data (" << path << ")";
 				throw std::exception(err.str().data());
-				return nullptr;
 			}
 
 			BYTE *pixels = FreeImage_GetBits(dib);
@@ -71,8 +67,8 @@ namespace lys
 			*bits = FreeImage_GetBPP(dib);
 
 			int size = *width * *height * (*bits / 8);
-			BYTE *result = new BYTE[size];
-			memcpy(result, pixels, size);
+			std::vector<BYTE> result(size);
+			memcpy(result.data(), pixels, size);
 			FreeImage_Unload(dib);
 			return result;
 		}
