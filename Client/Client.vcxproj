@@ -189,6 +189,8 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dependencies\include\glfw\GL\glxew.h" />
+    <ClInclude Include="Dependencies\include\glfw\GL\wglew.h" />
     <ClInclude Include="src\graphics\framebuffer.hpp" />
     <ClInclude Include="src\graphics\meshbatch.hpp" />
     <ClInclude Include="src\graphics\shaderprogram.hpp" />

@@ -40,13 +40,13 @@ namespace lys
 		test.color = Vector4(1, 1, 1, 1);
 		test.texture = nullptr;
 
-		MeshData test2 = utils::loadMeshOBJ("");
+		MeshData test2 = utils::loadMeshOBJ("data/meshes/cube.obj");
 		test2.modelMatrix = Matrix4::rotation(45, Vector3(0, 1, 0));
 		test2.color = Vector4(1, 1, 1, 1);
 
-		Texture tex("data/images/spectrum.jpg");
+		Texture tex("data/images/capsule0.jpg");
 
-		MeshData test3 = utils::loadMeshOBJ("");
+		MeshData test3 = utils::loadMeshOBJ("data/meshes/capsule.obj");
 		test3.modelMatrix = Matrix4::translation(Vector3(1, 0, 0));
 		test3.texture = &tex;
 		test3.color = Vector4(1, 1, 1, 1);

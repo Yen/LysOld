@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <iterator>
 
 namespace lys
 {
@@ -77,13 +78,169 @@ namespace lys
 		{
 			MeshData result;
 
-			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(0, 0, 0), Vector3(0, 0, 0), Vector2(0, 0) });
+			/*result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(0, 0, 0), Vector3(0, 0, 0), Vector2(0, 0) });
 			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(1, 0, 0), Vector3(0, 0, 0), Vector2(1, 0) });
 			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(1, 1, 0), Vector3(0, 0, 0), Vector2(1, 1) });
 
 			result.indices.push_back(0);
 			result.indices.push_back(1);
-			result.indices.push_back(2);
+			result.indices.push_back(2);*/
+
+			struct FaceInfo
+			{
+				unsigned short vertexIndex[3];
+				unsigned short normalIndex[3];
+				unsigned short coordIndex[3];
+			};
+
+			std::vector<Vector3> vertices;
+			std::vector<Vector3> normals;
+			std::vector<Vector2> coords;
+
+			std::vector<FaceInfo> faces;
+
+			std::string data = readFile(path);
+			std::istringstream in(data);
+			std::string line;
+
+			while (std::getline(in, line))
+			{
+				std::istringstream buffer(line);
+				std::istream_iterator<std::string> start(buffer), end;
+
+				std::deque<std::string> tokens(start, end);
+
+				if (tokens.empty()) continue;
+
+				std::string &type = tokens.front();
+
+				if (type == "v")
+				{
+					Vector3 result;
+					tokens.pop_front();
+					std::istringstream buffer(tokens.front());
+					buffer >> result.x;
+
+					tokens.pop_front();
+					buffer = std::istringstream(tokens.front());
+					buffer >> result.y;
+
+					tokens.pop_front();
+					buffer = std::istringstream(tokens.front());
+					buffer >> result.z;
+
+					vertices.push_back(result);
+				}
+				else if (type == "vn")
+				{
+					Vector3 result;
+					tokens.pop_front();
+					std::istringstream buffer(tokens.front());
+					buffer >> result.x;
+
+					tokens.pop_front();
+					buffer = std::istringstream(tokens.front());
+					buffer >> result.y;
+
+					tokens.pop_front();
+					buffer = std::istringstream(tokens.front());
+					buffer >> result.z;
+
+					normals.push_back(result);
+				}
+				else if (type == "vt")
+				{
+					Vector2 result;
+					tokens.pop_front();
+					std::istringstream buffer(tokens.front());
+					buffer >> result.x;
+
+					tokens.pop_front();
+					buffer = std::istringstream(tokens.front());
+					buffer >> result.y;
+
+					coords.push_back(result);
+				}
+				else if (type == "f")
+				{
+					tokens.pop_front();
+					FaceInfo result;
+
+					for (unsigned char i = 0; i < 3; i++)
+					{
+						std::string ver;
+						std::string tex;
+						std::string nor;
+
+						std::string &working = tokens.front();
+
+						size_t offset = working.find('/');
+						ver = working.substr(0, offset);
+
+						working = working.substr(ver.size() + 1, working.size() - ver.size());
+
+						offset = working.find('/');
+						tex = working.substr(0, offset);
+
+						working = working.substr(tex.size() + 1, working.size() - tex.size());
+
+						nor = working;
+
+						if (!ver.empty())
+						{
+							std::istringstream buffer(ver);
+							buffer >> result.vertexIndex[i];
+							result.vertexIndex[i]--;
+						}
+
+						if (!nor.empty())
+						{
+							std::istringstream buffer(nor);
+							buffer >> result.normalIndex[i];
+							result.normalIndex[i]--;
+						}
+
+						if (!tex.empty())
+						{
+							std::istringstream buffer(tex);
+							buffer >> result.coordIndex[i];
+							result.coordIndex[i]--;
+						}
+
+						tokens.pop_front();
+					}
+
+					faces.push_back(result);
+				}
+			}
+
+			// how 2 data
+
+			for (unsigned short i = 0; i < faces.size(); i++)
+			{
+				FaceInfo &working = faces[i];
+
+				for (unsigned char c = 0; c < 3; c++)
+				{
+					Vector3 pos;
+					Vector3 nor;
+					Vector2 cor;
+					if (!vertices.empty())
+					{
+						pos = vertices[working.vertexIndex[c]];
+					}
+					if (!normals.empty())
+					{
+						nor = normals[working.normalIndex[c]];
+					}
+					if (!coords.empty())
+					{
+						cor = coords[working.coordIndex[c]];
+					}
+					result.vertices.push_back(MeshData::MeshDataVertex{ pos, nor, cor });
+					result.indices.push_back((i * 3) + c);
+				}
+			}
 
 			return result;
 		}

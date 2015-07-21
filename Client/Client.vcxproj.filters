@@ -125,6 +125,12 @@
     <ClInclude Include="src\graphics\meshbatch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dependencies\include\glfw\GL\glxew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\include\glfw\GL\wglew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\spritebatch.vert" />
