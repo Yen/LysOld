@@ -19,13 +19,17 @@ namespace lys
 		: _shader(createShader()), _defaultTexture(Texture("data/images/meshDefault.png"))
 	{
 		_shader.enable();
-		_shader.setUniformMat4("uni_vw_matrix", Matrix4::lookAt(Vector3(0, 2, 5), Vector3(0, 0, 0), Vector3(0, 1, 0)));
+		_vwMatrix = Matrix4::lookAt(Vector3(0, 2, 5), Vector3(0, 0, 0), Vector3(0, 1, 0));
+		_shader.setUniformMat4("uni_vw_matrix", _vwMatrix);
 		int textureIDs[LYS_MESHBATCH_MAX_TEXTURES];
 		for (int i = 0; i < LYS_MESHBATCH_MAX_TEXTURES; i++)
 		{
 			textureIDs[i] = i;
 		};
 		_shader.setUniform1iv("uni_textures", LYS_MESHBATCH_MAX_TEXTURES, textureIDs);
+		_shader.setUniform3f("uni_light_color", Vector3(1.0f, 1.0f, 1.0f));
+		_shader.setUniform3f("uni_light_direction", Vector3(0.0f, 0.0f, 0.0f) - Vector3(1.0f, 1.0f, 0.0f).normalize());
+		_shader.setUniform1f("uni_light_intensity", 0.5f);
 
 		glGenVertexArrays(1, &_vao);
 		glBindVertexArray(_vao);
@@ -39,11 +43,13 @@ namespace lys
 		glEnableVertexAttribArray(LYS_MESHBATCH_SHADER_COLOR);
 		glEnableVertexAttribArray(LYS_MESHBATCH_SHADER_TEXTURE);
 		glEnableVertexAttribArray(LYS_MESHBATCH_SHADER_COORDS);
+		glEnableVertexAttribArray(LYS_MESHBATCH_SHADER_NORMAL);
 
 		glVertexAttribPointer(LYS_MESHBATCH_SHADER_POSITION, 3, GL_FLOAT, GL_FALSE, LYS_MESHBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(MeshVertex, position)));
 		glVertexAttribPointer(LYS_MESHBATCH_SHADER_COLOR, 4, GL_FLOAT, GL_FALSE, LYS_MESHBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(MeshVertex, color)));
 		glVertexAttribPointer(LYS_MESHBATCH_SHADER_TEXTURE, 1, GL_FLOAT, GL_FALSE, LYS_MESHBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(MeshVertex, texture)));
 		glVertexAttribPointer(LYS_MESHBATCH_SHADER_COORDS, 2, GL_FLOAT, GL_FALSE, LYS_MESHBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(MeshVertex, coords)));
+		glVertexAttribPointer(LYS_MESHBATCH_SHADER_NORMAL, 3, GL_FLOAT, GL_FALSE, LYS_MESHBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(MeshVertex, normal)));
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -152,11 +158,14 @@ namespace lys
 				indexCount++;
 			}
 
+			Matrix4 vwmlMatrix = _vwMatrix * current->modelMatrix;
+			vwmlMatrix.invert().transpose();
+
 			for (MeshData::MeshDataVertex vert : current->vertices)
 			{
 				_buffer->position = Vector4::transform(Vector4(vert.position, 1), current->modelMatrix).xyz;
 				_buffer->color = current->color;
-				_buffer->normal = vert.normal;
+				_buffer->normal = vwmlMatrix * vert.normal;
 				_buffer->texture = textureID;
 				_buffer->coords = vert.coords;
 

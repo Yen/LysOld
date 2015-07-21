@@ -83,6 +83,7 @@ namespace lys
 		MeshBatchIndice *_indexBuffer;
 		const Texture _defaultTexture;
 		const Texture *_textures[LYS_MESHBATCH_MAX_TEXTURES];
+		Matrix4 _vwMatrix;
 	public:
 		MeshBatch();
 		~MeshBatch();

@@ -41,7 +41,7 @@ namespace lys
 		test.texture = nullptr;
 
 		MeshData test2 = utils::loadMeshOBJ("data/meshes/cube.obj");
-		test2.modelMatrix = Matrix4::rotation(45, Vector3(0, 1, 0));
+		test2.modelMatrix = Matrix4(1);
 		test2.color = Vector4(1, 1, 1, 1);
 
 		Texture tex("data/images/capsule0.jpg");
@@ -97,13 +97,15 @@ namespace lys
 
 			_timer.update();
 
+			test3.modelMatrix = Matrix4::rotation(time.current * 30, Vector3(0, 1, 0));
+
 			// Draw
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// Meshbatch
 
-			_meshBatch.submit(&test2);
+			//_meshBatch.submit(&test2);
 			_meshBatch.submit(&test3);
 
 			_meshBatch.renderBatch();

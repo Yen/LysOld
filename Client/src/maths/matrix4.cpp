@@ -204,6 +204,29 @@ namespace lys
 		return *this;
 	}
 
+	Matrix4 Matrix4::invert(const Matrix4 &matrix)
+	{
+		Matrix4 result = matrix;
+		return result.invert();
+	}
+
+	Matrix4 &Matrix4::transpose()
+	{
+		Matrix4 result = *this;
+		result.blocks[0] = Vector4(blocks[0].x, blocks[1].x, blocks[2].x, blocks[3].x);
+		result.blocks[1] = Vector4(blocks[0].y, blocks[1].y, blocks[2].y, blocks[3].y);
+		result.blocks[2] = Vector4(blocks[0].z, blocks[1].z, blocks[2].z, blocks[3].z);
+		result.blocks[3] = Vector4(blocks[0].w, blocks[1].w, blocks[2].w, blocks[3].w);
+		*this = result;
+		return *this;
+	}
+
+	Matrix4 Matrix4::transpose(const Matrix4 &matrix)
+	{
+		Matrix4 result = matrix;
+		return result.transpose();
+	}
+
 	Matrix4 Matrix4::orthographic(float left, float right, float bottom, float top, float near, float far)
 	{
 		Matrix4 result(1.0f);
@@ -324,12 +347,6 @@ namespace lys
 		result.blocks[2].z = scale.z;
 
 		return result;
-	}
-
-	Matrix4 Matrix4::invert(const Matrix4 &matrix)
-	{
-		Matrix4 result = matrix;
-		return result.invert();
 	}
 
 	bool Matrix4::operator ==(const Matrix4 &other) const

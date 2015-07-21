@@ -28,6 +28,10 @@ namespace lys
 		friend Vector4 operator *(const Matrix4 &left, const Vector4 &right);
 
 		Matrix4 &invert();
+		static Matrix4 invert(const Matrix4 &matrix);
+
+		Matrix4 &transpose();
+		static Matrix4 transpose(const Matrix4 &matrix);
 
 		static Matrix4 orthographic(float left, float right, float bottom, float top, float near, float far);
 		static Matrix4 perspectivefov(float fov, float aspect, float near, float far);
@@ -38,7 +42,6 @@ namespace lys
 		static Matrix4 translation(const Vector3 &translation);
 		static Matrix4 rotation(float angle, const Vector3 &axis);
 		static Matrix4 scale(const Vector3 &scale);
-		static Matrix4 invert(const Matrix4 &matrix);
 
 		bool operator ==(const Matrix4 &other) const;
 		bool operator !=(const Matrix4 &other) const;
