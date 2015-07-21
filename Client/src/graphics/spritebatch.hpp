@@ -70,13 +70,13 @@ namespace lys
 	{
 	public:
 		std::deque<const SpriteData *> _sprites;
-		ShaderProgram *_shader;
+		ShaderProgram _shader;
 		GLuint _vao;
 		GLuint _vbo;
 		GLuint _ibo;
 		Metric2 _size;
 		SpriteVertex *_buffer;
-		const Texture *_defaultTexture;
+		const Texture _defaultTexture;
 		const Texture *_textures[LYS_SPRITEBATCH_MAX_TEXTURES];
 	public:
 		SpriteBatch();

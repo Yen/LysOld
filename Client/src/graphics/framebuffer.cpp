@@ -6,11 +6,10 @@ namespace lys
 {
 
 	FrameBuffer::FrameBuffer(const Metric2 &size)
-		: _size(size)
+		: _size(size), _texture(Texture(size))
 	{
 		glGenFramebuffers(1, &_id);
 		glGenRenderbuffers(1, &_depthBuffer);
-		_texture = new Texture(size);
 
 		glBindRenderbuffer(GL_RENDERBUFFER, _depthBuffer);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, _size.x, _size.y);
@@ -18,7 +17,7 @@ namespace lys
 
 		glBindFramebuffer(GL_FRAMEBUFFER, _id);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthBuffer);
-		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, _texture->getID(), 0);
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, _texture.getID(), 0);
 		GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
 		glDrawBuffers(1, drawBuffers);
 
@@ -29,7 +28,6 @@ namespace lys
 
 	FrameBuffer::~FrameBuffer()
 	{
-		delete _texture;
 		glDeleteRenderbuffers(1, &_depthBuffer);
 		glDeleteFramebuffers(1, &_id);
 	}
@@ -48,7 +46,7 @@ namespace lys
 
 	const Texture *FrameBuffer::getTexture() const
 	{
-		return _texture;
+		return &_texture;
 	}
 
 }

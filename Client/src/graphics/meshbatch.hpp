@@ -60,7 +60,7 @@ namespace lys
 	{
 	private:
 		std::deque<const MeshData *> _meshes;
-		ShaderProgram *_shader;
+		ShaderProgram _shader;
 	public:
 		MeshBatch();
 		~MeshBatch();

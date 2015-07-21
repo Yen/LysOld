@@ -13,7 +13,7 @@ namespace lys
 	private:
 		GLuint _id;
 		GLuint _depthBuffer;
-		Texture *_texture;
+		Texture _texture;
 		Metric2 _size;
 	public:
 		FrameBuffer(const Metric2 &size);

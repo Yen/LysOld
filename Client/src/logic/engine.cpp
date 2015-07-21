@@ -11,25 +11,20 @@ namespace lys
 {
 
 	Engine::Engine()
+		: _window(Window("Lys", Metric2(960, 540), false))
 	{
-		_window = new Window("Lys", Metric2(960, 540), false);
-		_timer = new FixedTimer;
-		_spriteBatch = new SpriteBatch;
-		_meshBatch = new MeshBatch;
+
 	}
 
 	Engine::~Engine()
 	{
-		delete _meshBatch;
-		delete _spriteBatch;
-		delete _timer;
-		delete _window;
+
 	}
 
 	void Engine::run()
 	{
-		_timer->reset();
-		const FixedTimerData &time = _timer->getTimerData();
+		_timer.reset();
+		const FixedTimerData &time = _timer.getTimerData();
 
 		WindowMessage message;
 		int seconds = 0;
@@ -49,15 +44,15 @@ namespace lys
 
 		//
 
-		_spriteBatch->resize(_window->getSize());
-		_meshBatch->resize(_window->getSize());
+		_spriteBatch.resize(_window.getSize());
+		_meshBatch.resize(_window.getSize());
 
-		_timer->reset();
-		_window->setVisible(true);
+		_timer.reset();
+		_window.setVisible(true);
 		bool running = true;
 		while (running)
 		{
-			while (_window->pollMessages(message))
+			while (_window.pollMessages(message))
 			{
 				switch (message)
 				{
@@ -68,19 +63,19 @@ namespace lys
 				}
 				case WindowMessage::FOCUSGAINED:
 				{
-					_window->setSwapInterval(0);
+					_window.setSwapInterval(0);
 					break;
 				}
 				case WindowMessage::FOCUSLOST:
 				{
-					_window->setSwapInterval(1);
+					_window.setSwapInterval(1);
 					break;
 				}
 				case WindowMessage::WINDOWSIZECHANGED:
 				{
-					glViewport(0, 0, _window->getSize().x, _window->getSize().y);
-					_spriteBatch->resize(_window->getSize());
-					_meshBatch->resize(_window->getSize());
+					glViewport(0, 0, _window.getSize().x, _window.getSize().y);
+					_spriteBatch.resize(_window.getSize());
+					_meshBatch.resize(_window.getSize());
 					break;
 				}
 				}
@@ -89,7 +84,7 @@ namespace lys
 			}
 			if (!running) continue;
 
-			_timer->update();
+			_timer.update();
 
 			// Draw
 
@@ -97,19 +92,19 @@ namespace lys
 
 			// Meshbatch
 
-			_meshBatch->submit(&test2);
+			_meshBatch.submit(&test2);
 
-			_meshBatch->renderBatch();
+			_meshBatch.renderBatch();
 
 			// Spritebatch
 
-			_spriteBatch->submit(&test);
+			_spriteBatch.submit(&test);
 
-			_spriteBatch->renderBatch();
+			_spriteBatch.renderBatch();
 
 			//
 
-			_window->swapBuffers();
+			_window.swapBuffers();
 			frames++;
 
 			// End draw
@@ -118,7 +113,7 @@ namespace lys
 			{
 				std::stringstream title;
 				title << "Lys FPS: " << frames;
-				_window->setTitle(title.str());
+				_window.setTitle(title.str());
 
 				seconds++;
 				frames = 0;

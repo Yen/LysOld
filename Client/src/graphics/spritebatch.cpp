@@ -7,22 +7,24 @@
 namespace lys
 {
 
-	SpriteBatch::SpriteBatch()
+	static ShaderProgram createShader()
 	{
 		std::vector<ShaderData> shaders;
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/spritebatch.vert")));
 		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/spritebatch.frag")));
-		_shader = new ShaderProgram(shaders);
+		return ShaderProgram(shaders);
+	}
 
+	SpriteBatch::SpriteBatch()
+		: _shader(createShader()), _defaultTexture(Texture("data/images/spriteDefault.png"))
+	{
 		int textureIDs[LYS_SPRITEBATCH_MAX_TEXTURES];
 		for (int i = 0; i < LYS_SPRITEBATCH_MAX_TEXTURES; i++)
 		{
 			textureIDs[i] = i;
 		};
-		_shader->enable();
-		_shader->setUniform1iv("uni_textures", LYS_SPRITEBATCH_MAX_TEXTURES, textureIDs);
-
-		_defaultTexture = new Texture("data/images/spriteDefault.png");
+		_shader.enable();
+		_shader.setUniform1iv("uni_textures", LYS_SPRITEBATCH_MAX_TEXTURES, textureIDs);
 
 		glGenVertexArrays(1, &_vao);
 		glBindVertexArray(_vao);
@@ -75,8 +77,6 @@ namespace lys
 		glDeleteBuffers(1, &_ibo);
 		glDeleteBuffers(1, &_vbo);
 		glDeleteVertexArrays(1, &_vao);
-		delete _defaultTexture;
-		delete _shader;
 	}
 
 	void SpriteBatch::submit(const SpriteData *sprite)
@@ -92,7 +92,7 @@ namespace lys
 		}
 	}
 
-	bool compare(const SpriteData *left, const SpriteData *right)
+	static bool compare(const SpriteData *left, const SpriteData *right)
 	{
 		return (left->texture < right->texture);
 	}
@@ -106,7 +106,7 @@ namespace lys
 
 		begin();
 
-		_shader->enable();
+		_shader.enable();
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_ALPHA_TEST);
@@ -152,7 +152,7 @@ namespace lys
 			const Texture *texture;
 			if (current->texture == nullptr)
 			{
-				texture = _defaultTexture;
+				texture = &_defaultTexture;
 			}
 			else
 			{
@@ -209,8 +209,8 @@ namespace lys
 	void SpriteBatch::resize(const Metric2 &size)
 	{
 		_size = size;
-		_shader->enable();
-		_shader->setUniformMat4("uni_pr_matrix", Matrix4::orthographic(0, (float)_size.x, 0, (float)_size.y, -1, 100));
+		_shader.enable();
+		_shader.setUniformMat4("uni_pr_matrix", Matrix4::orthographic(0, (float)_size.x, 0, (float)_size.y, -1, 100));
 	}
 
 	void SpriteBatch::begin()

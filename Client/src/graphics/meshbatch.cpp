@@ -5,19 +5,23 @@
 namespace lys
 {
 
-	MeshBatch::MeshBatch()
+	static ShaderProgram createShader()
 	{
 		std::vector<ShaderData> shaders;
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/meshbatch.vert")));
 		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/meshbatch.frag")));
-		_shader = new ShaderProgram(shaders);
-		_shader->enable();
-		_shader->setUniformMat4("uni_vw_matrix", Matrix4::lookAt(Vector3(0, 2, 5), Vector3(0, 0, 0), Vector3(0, 1, 0)));
+		return ShaderProgram(shaders);
+	}
+
+	MeshBatch::MeshBatch()
+		: _shader(createShader())
+	{
+		_shader.enable();
+		_shader.setUniformMat4("uni_vw_matrix", Matrix4::lookAt(Vector3(0, 2, 5), Vector3(0, 0, 0), Vector3(0, 1, 0)));
 	}
 
 	MeshBatch::~MeshBatch()
 	{
-		delete _shader;
 	}
 
 	void MeshBatch::submit(const MeshData *mesh)
@@ -32,7 +36,7 @@ namespace lys
 			return;
 		}
 
-		_shader->enable();
+		_shader.enable();
 
 		while (!_meshes.empty())
 		{
@@ -50,8 +54,8 @@ namespace lys
 
 	void MeshBatch::resize(const Metric2 &size)
 	{
-		_shader->enable();
-		_shader->setUniformMat4("uni_pr_matrix", Matrix4::perspectivefov(45, (float)size.x / (float)size.y, 1, 1000));
+		_shader.enable();
+		_shader.setUniformMat4("uni_pr_matrix", Matrix4::perspectivefov(45, (float)size.x / (float)size.y, 1, 1000));
 	}
 
 }

@@ -11,10 +11,10 @@ namespace lys
 	class Engine
 	{
 	private:
-		Window *_window;
-		FixedTimer *_timer;
-		SpriteBatch *_spriteBatch;
-		MeshBatch *_meshBatch;
+		Window _window;
+		FixedTimer _timer;
+		SpriteBatch _spriteBatch;
+		MeshBatch _meshBatch;
 	public:
 		Engine();
 		~Engine();
