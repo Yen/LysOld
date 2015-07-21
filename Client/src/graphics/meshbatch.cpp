@@ -163,7 +163,7 @@ namespace lys
 
 			for (MeshData::MeshDataVertex vert : current->vertices)
 			{
-				_buffer->position = Vector4::transform(Vector4(vert.position, 1), current->modelMatrix).xyz;
+				_buffer->position = Vector3::transform(vert.position, current->modelMatrix);
 				_buffer->color = current->color;
 				_buffer->normal = vwmlMatrix * vert.normal;
 				_buffer->texture = textureID;

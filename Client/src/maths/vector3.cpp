@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+#include "matrix4.hpp"
+
 namespace lys
 {
 
@@ -126,6 +128,32 @@ namespace lys
 	{
 		Vector3 result = left;
 		return result.cross(right);
+	}
+
+	float Vector3::dot(const Vector3 &other) const
+	{
+		return x * other.x + y * other.y + z * other.z;
+	}
+
+	float Vector3::dot(const Vector3 &left, const Vector3 &right)
+	{
+		return left.dot(right);
+	}
+
+	Vector3 &Vector3::transform(const Matrix4 &other)
+	{
+		Vector3 result;
+		result.x = Vector3::dot(*this, Vector3(other.blocks[0].x, other.blocks[1].x, other.blocks[2].x));
+		result.y = Vector3::dot(*this, Vector3(other.blocks[0].y, other.blocks[1].y, other.blocks[2].y));
+		result.z = Vector3::dot(*this, Vector3(other.blocks[0].z, other.blocks[1].z, other.blocks[2].z));
+		*this = result;
+		return *this;
+	}
+
+	Vector3 Vector3::transform(const Vector3 &left, const Matrix4 &right)
+	{
+		Vector3 result = left;
+		return result.transform(right);
 	}
 
 	bool Vector3::operator ==(const Vector3 &other) const

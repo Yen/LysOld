@@ -5,6 +5,8 @@
 namespace lys
 {
 
+	class Matrix4;
+
 	class Vector3
 	{
 	public:
@@ -44,6 +46,12 @@ namespace lys
 
 		Vector3 &cross(const Vector3 &other);
 		static Vector3 cross(const Vector3 &left, const Vector3 &right);
+
+		float dot(const Vector3 &other) const;
+		static float dot(const Vector3 &left, const Vector3 &right);
+
+		Vector3 &transform(const Matrix4 &other);
+		static Vector3 transform(const Vector3 &left, const Matrix4 &right);
 
 		bool operator ==(const Vector3 &other) const;
 		bool operator !=(const Vector3 &other) const;
