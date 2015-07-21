@@ -14,5 +14,5 @@ in vertex_data
 
 void main(void)
 {
-	out_color = frag_in.color * texture(uni_textures[int(frag_in.texture)], frag_in.coords);
+	out_color = frag_in.color * texture(uni_textures[int(frag_in.texture + 0.5)], frag_in.coords);
 }

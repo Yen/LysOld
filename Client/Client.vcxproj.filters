@@ -142,9 +142,6 @@
     <Image Include="data\images\spectrum.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="data\images\uiDefault.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="data\images\temp\default0.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -155,6 +152,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="data\images\temp\default3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\spriteDefault.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="data\images\meshDefault.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

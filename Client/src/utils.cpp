@@ -77,9 +77,9 @@ namespace lys
 		{
 			MeshData result;
 
-			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(0,0,0), Vector3(0,0,0),Vector2(0,0) });
-			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(1,0,0), Vector3(0,0,0),Vector2(0,0) });
-			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(1,1,0), Vector3(0,0,0),Vector2(0,0) });
+			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(0, 0, 0), Vector3(0, 0, 0), Vector2(0, 0) });
+			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(1, 0, 0), Vector3(0, 0, 0), Vector2(1, 0) });
+			result.vertices.push_back(MeshData::MeshDataVertex{ Vector3(1, 1, 0), Vector3(0, 0, 0), Vector2(1, 1) });
 
 			result.indices.push_back(0);
 			result.indices.push_back(1);

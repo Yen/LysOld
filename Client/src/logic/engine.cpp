@@ -41,11 +41,22 @@ namespace lys
 		test.texture = nullptr;
 
 		MeshData test2 = utils::loadMeshOBJ("");
+		test2.modelMatrix = Matrix4::rotation(45, Vector3(0, 1, 0));
+		test2.color = Vector4(1, 1, 1, 1);
+
+		Texture tex("data/images/spectrum.jpg");
+
+		MeshData test3 = utils::loadMeshOBJ("");
+		test3.modelMatrix = Matrix4::translation(Vector3(1, 0, 0));
+		test3.texture = &tex;
+		test3.color = Vector4(1, 1, 1, 1);
 
 		//
 
 		_spriteBatch.resize(_window.getSize());
 		_meshBatch.resize(_window.getSize());
+
+		LYS_LOG("Engine loop started");
 
 		_timer.reset();
 		_window.setVisible(true);
@@ -93,6 +104,7 @@ namespace lys
 			// Meshbatch
 
 			_meshBatch.submit(&test2);
+			_meshBatch.submit(&test3);
 
 			_meshBatch.renderBatch();
 

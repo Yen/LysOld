@@ -6,9 +6,12 @@
 
 #include "..\maths.hpp"
 #include "shaderprogram.hpp"
+#include "texture.hpp"
 
 namespace lys
 {
+
+	typedef unsigned short MeshDataIndice;
 
 	class MeshData
 	{
@@ -17,23 +20,29 @@ namespace lys
 		{
 			Vector3 position;
 			Vector3 normal;
-			Vector2 coord;
+			Vector2 coords;
 		};
 	public:
 		std::vector<MeshDataVertex> vertices;
-		std::vector<unsigned short> indices;
+		std::vector<MeshDataIndice> indices;
+		Matrix4 modelMatrix;
+		const Texture *texture;
+		Vector4 color;
 	};
 
 	class MeshVertex
 	{
 	public:
 		Vector3 position;
+		Vector4 color;
 		Vector3 normal;
-		Vector2 coord;
+		float texture;
+		Vector2 coords;
 	};
 
 #define LYS_MESHBATCH_MAX_VERTICES	1000
 #define LYS_MESHBATCH_MAX_INDICES	LYS_MESHBATCH_MAX_VERTICES
+#define LYS_MESHBATCH_MAX_TEXTURES	32
 
 #if LYS_MESHBATCH_MAX_INDICES < 256
 #define LYS_MESHBATCH_INDICES_TYPE	GL_UNSIGNED_BYTE
@@ -60,6 +69,7 @@ namespace lys
 #define LYS_MESHBATCH_SHADER_COLOR			1
 #define LYS_MESHBATCH_SHADER_TEXTURE		2
 #define LYS_MESHBATCH_SHADER_COORDS			3
+#define LYS_MESHBATCH_SHADER_NORMAL			4
 
 	class MeshBatch
 	{
@@ -71,6 +81,8 @@ namespace lys
 		GLuint _ibo;
 		MeshVertex *_buffer;
 		MeshBatchIndice *_indexBuffer;
+		const Texture _defaultTexture;
+		const Texture *_textures[LYS_MESHBATCH_MAX_TEXTURES];
 	public:
 		MeshBatch();
 		~MeshBatch();

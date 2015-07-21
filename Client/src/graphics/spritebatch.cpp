@@ -108,9 +108,15 @@ namespace lys
 
 		_shader.enable();
 
+		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CCW);
+		glCullFace(GL_BACK);
+
 		glEnable(GL_DEPTH_TEST);
+
 		glEnable(GL_ALPHA_TEST);
 		glAlphaFunc(GL_GREATER, 0);
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -238,7 +244,7 @@ namespace lys
 		glBindVertexArray(_vao);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
 
-		glDrawElements(GL_TRIANGLES, indexCount, LYS_SPRITEBATCH_INDICES_TYPE, nullptr);
+		glDrawElements(GL_TRIANGLES, indexCount, LYS_MESHBATCH_INDICES_TYPE, nullptr);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
