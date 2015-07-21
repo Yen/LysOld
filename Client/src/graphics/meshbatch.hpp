@@ -56,11 +56,21 @@ namespace lys
 #define LYS_MESHBATCH_VERTEX_SIZE	sizeof(MeshVertex)
 #define LYS_MESHBATCH_BUFFER_SIZE	LYS_MESHBATCH_VERTEX_SIZE * LYS_MESHBATCH_MAX_VERTICES
 
+#define LYS_MESHBATCH_SHADER_POSITION		0
+#define LYS_MESHBATCH_SHADER_COLOR			1
+#define LYS_MESHBATCH_SHADER_TEXTURE		2
+#define LYS_MESHBATCH_SHADER_COORDS			3
+
 	class MeshBatch
 	{
 	private:
 		std::deque<const MeshData *> _meshes;
 		ShaderProgram _shader;
+		GLuint _vao;
+		GLuint _vbo;
+		GLuint _ibo;
+		MeshVertex *_buffer;
+		MeshBatchIndice *_indexBuffer;
 	public:
 		MeshBatch();
 		~MeshBatch();
@@ -69,6 +79,10 @@ namespace lys
 		void renderBatch();
 
 		void resize(const Metric2 &size);
+	private:
+		void begin();
+		void end();
+		void drawCall(const GLsizei &indexCount, const unsigned char &textureCount);
 	};
 
 }

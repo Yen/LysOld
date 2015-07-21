@@ -18,10 +18,36 @@ namespace lys
 	{
 		_shader.enable();
 		_shader.setUniformMat4("uni_vw_matrix", Matrix4::lookAt(Vector3(0, 2, 5), Vector3(0, 0, 0), Vector3(0, 1, 0)));
+
+		glGenVertexArrays(1, &_vao);
+		glBindVertexArray(_vao);
+
+		glGenBuffers(1, &_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+
+		glBufferData(GL_ARRAY_BUFFER, LYS_MESHBATCH_BUFFER_SIZE, nullptr, GL_DYNAMIC_DRAW);
+
+		glEnableVertexAttribArray(LYS_MESHBATCH_SHADER_POSITION);
+
+		glVertexAttribPointer(LYS_MESHBATCH_SHADER_POSITION, 3, GL_FLOAT, GL_FALSE, LYS_MESHBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(MeshVertex, position)));
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glBindVertexArray(0);
+
+		glGenBuffers(1, &_ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
+
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, LYS_MESHBATCH_MAX_INDICES * sizeof(MeshBatchIndice), nullptr, GL_DYNAMIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	MeshBatch::~MeshBatch()
 	{
+		glDeleteBuffers(1, &_ibo);
+		glDeleteBuffers(1, &_vbo);
+		glDeleteVertexArrays(1, &_vao);
 	}
 
 	void MeshBatch::submit(const MeshData *mesh)
@@ -36,26 +62,77 @@ namespace lys
 			return;
 		}
 
+		begin();
+
 		_shader.enable();
+
+		GLsizei vertexCount = 0;
+		GLsizei indexCount = 0;
 
 		while (!_meshes.empty())
 		{
 			const MeshData *current = _meshes.front();
 			_meshes.pop_front();
 
-			glBegin(GL_QUADS);
-			glVertex3i(0, 0, 0);
-			glVertex3i(1, 0, 0);
-			glVertex3i(1, 1, 0);
-			glVertex3i(0, 1, 0);
-			glEnd();
+			for (unsigned short index : current->indices)
+			{
+				*_indexBuffer = index + vertexCount;
+
+				_indexBuffer++;
+				indexCount++;
+			}
+
+			for (MeshData::MeshDataVertex vert : current->vertices)
+			{
+				_buffer->position = vert.position;
+
+				_buffer++;
+				vertexCount++;
+			}
 		}
+
+		end();
+
+		drawCall(indexCount, 0);
 	}
 
 	void MeshBatch::resize(const Metric2 &size)
 	{
 		_shader.enable();
 		_shader.setUniformMat4("uni_pr_matrix", Matrix4::perspectivefov(45, (float)size.x / (float)size.y, 1, 1000));
+	}
+
+	void MeshBatch::begin()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+		_buffer = (MeshVertex *)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
+		_indexBuffer = (MeshBatchIndice *)glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	void MeshBatch::end()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
+		glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	void MeshBatch::drawCall(const GLsizei &indexCount, const unsigned char &textureCount)
+	{
+		glBindVertexArray(_vao);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
+
+		glDrawElements(GL_TRIANGLES, indexCount, LYS_MESHBATCH_INDICES_TYPE, nullptr);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
 	}
 
 }
