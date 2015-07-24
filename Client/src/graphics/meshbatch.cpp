@@ -19,7 +19,7 @@ namespace lys
 		: _shader(createShader()), _defaultTexture(Texture("data/images/meshDefault.png"))
 	{
 		_shader.enable();
-		_vwMatrix = Matrix4::lookAt(Vector3(0, 2, 5), Vector3(0, 0, 0), Vector3(0, 1, 0));
+		_vwMatrix = Matrix4::lookAt(Vector3(0, 0, 5), Vector3(0, 0, 0), Vector3(0, 1, 0));
 		_shader.setUniformMat4("uni_vw_matrix", _vwMatrix);
 		int textureIDs[LYS_MESHBATCH_MAX_TEXTURES];
 		for (int i = 0; i < LYS_MESHBATCH_MAX_TEXTURES; i++)

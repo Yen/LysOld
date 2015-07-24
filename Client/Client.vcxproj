@@ -174,9 +174,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\framebuffer.cpp" />
+    <ClCompile Include="src\graphics\interfacebatch.cpp" />
+    <ClCompile Include="src\graphics\sprite.cpp" />
     <ClCompile Include="src\graphics\meshbatch.cpp" />
     <ClCompile Include="src\graphics\shaderprogram.cpp" />
-    <ClCompile Include="src\graphics\spritebatch.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\logic\engine.cpp" />
     <ClCompile Include="src\logic\fixedtimer.cpp" />
@@ -196,9 +197,10 @@
     <ClInclude Include="Dependencies\include\glfw\GL\glxew.h" />
     <ClInclude Include="Dependencies\include\glfw\GL\wglew.h" />
     <ClInclude Include="src\graphics\framebuffer.hpp" />
+    <ClInclude Include="src\graphics\interfacebatch.hpp" />
+    <ClInclude Include="src\graphics\sprite.hpp" />
     <ClInclude Include="src\graphics\meshbatch.hpp" />
     <ClInclude Include="src\graphics\shaderprogram.hpp" />
-    <ClInclude Include="src\graphics\spritebatch.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
     <ClInclude Include="src\logic\engine.hpp" />
     <ClInclude Include="src\logic\fixedtimer.hpp" />
@@ -215,12 +217,15 @@
     <ClInclude Include="src\window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\shaders\interfacebatch.frag" />
+    <None Include="data\shaders\interfacebatch.vert" />
     <None Include="data\shaders\meshbatch.frag" />
     <None Include="data\shaders\meshbatch.vert" />
     <None Include="data\shaders\spritebatch.frag" />
     <None Include="data\shaders\spritebatch.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="data\images\capsule0.jpg" />
     <Image Include="data\images\dank.png" />
     <Image Include="data\images\memes.png" />
     <Image Include="data\images\meshDefault.png" />
@@ -230,6 +235,7 @@
     <Image Include="data\images\temp\default1.png" />
     <Image Include="data\images\temp\default2.png" />
     <Image Include="data\images\temp\default3.png" />
+    <Image Include="data\images\temp\default4.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

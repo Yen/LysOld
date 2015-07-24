@@ -143,9 +143,9 @@ namespace lys
 	Vector3 &Vector3::transform(const Matrix4 &other)
 	{
 		Vector3 result;
-		result.x = Vector3::dot(*this, Vector3(other.blocks[0].x, other.blocks[1].x, other.blocks[2].x));
-		result.y = Vector3::dot(*this, Vector3(other.blocks[0].y, other.blocks[1].y, other.blocks[2].y));
-		result.z = Vector3::dot(*this, Vector3(other.blocks[0].z, other.blocks[1].z, other.blocks[2].z));
+		result.x = Vector3::dot(*this, Vector3(other.blocks[0].x, other.blocks[1].x, other.blocks[2].x)) + other.blocks[3].x;
+		result.y = Vector3::dot(*this, Vector3(other.blocks[0].y, other.blocks[1].y, other.blocks[2].y)) + other.blocks[3].y;
+		result.z = Vector3::dot(*this, Vector3(other.blocks[0].z, other.blocks[1].z, other.blocks[2].z)) + other.blocks[3].z;
 		*this = result;
 		return *this;
 	}
