@@ -5,14 +5,13 @@
 
 #include "..\lys.hpp"
 #include "..\maths.hpp"
-#include "..\utils.hpp"
-#include "..\graphics\interfacebatch.hpp"
+#include "levels\menu.hpp"
 
 namespace lys
 {
 
 	Engine::Engine()
-		: _window(Window("Lys", Metric2(960, 540), false))
+		: _window(Window("Lys", Metric2(960, 540), false)), _level(std::unique_ptr<Level>(new Menu))
 	{
 
 	}
@@ -27,22 +26,18 @@ namespace lys
 		_timer.reset();
 		const FixedTimerData &time = _timer.getTimerData();
 
+		TimePoint levelStart = time.current;
+		unsigned int updates = 0;
+
 		WindowMessage message;
-		int seconds = 0;
-		int frames = 0;
+		unsigned int seconds = 0;
+		unsigned int frames = 0;
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		InterfaceBatch batch;
-
-		Texture tex("data/images/spectrum.jpg");
-
-		Sprite test(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &tex);
-		Sprite test2(Vector3(210, 210, 0), Vector2(100, 100), Vector4(1, 0, 1, 1));
+		_level->resize(_window);
 
 		//
-
-		batch.resize(_window.getSize());
 
 		LYS_LOG("Engine loop started");
 
@@ -73,7 +68,7 @@ namespace lys
 				case WindowMessage::WINDOWSIZECHANGED:
 				{
 					glViewport(0, 0, _window.getSize().x, _window.getSize().y);
-					batch.resize(_window.getSize());
+					_level->resize(_window);
 					break;
 				}
 				}
@@ -84,18 +79,24 @@ namespace lys
 
 			_timer.update();
 
+			// Update
+
+			while ((time.current - levelStart) * _level->getUPS() > updates)
+			{
+				_level->update(_window, time);
+				updates++;
+			}
+
 			// Draw
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			batch.submit(&test);
-			batch.submit(&test2);
-			batch.renderBatch();
+			_level->draw(_window, time);
 
 			_window.swapBuffers();
 			frames++;
 
-			// End draw
+			// End
 
 			if (time.current > seconds)
 			{

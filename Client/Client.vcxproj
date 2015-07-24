@@ -181,6 +181,8 @@
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\logic\engine.cpp" />
     <ClCompile Include="src\logic\fixedtimer.cpp" />
+    <ClCompile Include="src\logic\level.cpp" />
+    <ClCompile Include="src\logic\levels\menu.cpp" />
     <ClCompile Include="src\lys.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maths\mathsfunctions.cpp" />
@@ -204,6 +206,8 @@
     <ClInclude Include="src\graphics\texture.hpp" />
     <ClInclude Include="src\logic\engine.hpp" />
     <ClInclude Include="src\logic\fixedtimer.hpp" />
+    <ClInclude Include="src\logic\level.hpp" />
+    <ClInclude Include="src\logic\levels\menu.hpp" />
     <ClInclude Include="src\lys.hpp" />
     <ClInclude Include="src\maths.hpp" />
     <ClInclude Include="src\maths\mathsfunctions.hpp" />
