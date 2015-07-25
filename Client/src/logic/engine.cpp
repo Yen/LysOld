@@ -11,9 +11,10 @@ namespace lys
 {
 
 	Engine::Engine()
-		: _window(Window("Lys", Metric2(960, 540), false)), _level(std::unique_ptr<Level>(new Menu))
+		: _window(Window("Lys", Metric2(960, 540), false))
 	{
-
+		_timer.reset();
+		changeLevel(new Menu, _timer.getTimerData());
 	}
 
 	Engine::~Engine()
@@ -25,9 +26,6 @@ namespace lys
 	{
 		_timer.reset();
 		const FixedTimerData &time = _timer.getTimerData();
-
-		TimePoint levelStart = time.current;
-		unsigned int updates = 0;
 
 		WindowMessage message;
 		unsigned int seconds = 0;
@@ -81,10 +79,13 @@ namespace lys
 
 			// Update
 
-			while ((time.current - levelStart) * _level->getUPS() > updates)
+			if (_level->getUPS() != 0)
 			{
-				_level->update(_window, time);
-				updates++;
+				while ((time.current - _levelStart) * _level->getUPS() > _levelUpdates)
+				{
+					_level->update(_window, time);
+					_levelUpdates++;
+				}
 			}
 
 			// Draw
@@ -108,6 +109,17 @@ namespace lys
 				frames = 0;
 			}
 		}
+
+		LYS_LOG("Engine loop escaped");
+	}
+
+	template <typename T>
+	void Engine::changeLevel(T *level, const FixedTimerData &time)
+	{
+		static_assert(std::is_base_of<Level, T>::value, "Not base class of Level");
+		_level = std::make_unique<T>(*level);
+		_levelStart = time.current;
+		_levelUpdates = 0;
 	}
 
 }

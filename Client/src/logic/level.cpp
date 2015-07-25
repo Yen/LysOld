@@ -11,19 +11,18 @@ namespace lys
 		: _ups(ups)
 	{}
 
-	const int &Level::getUPS() const
+	Level::~Level()
+	{}
+
+	const unsigned int &Level::getUPS() const
 	{
 		return _ups;
 	}
 
-	Level::~Level()
-	{
-		return;
-	}
+	void Level::update(Window &window, const FixedTimerData &time)
+	{}
 
 	void Level::resize(Window &window)
-	{
-		return;
-	};
+	{};
 
 }

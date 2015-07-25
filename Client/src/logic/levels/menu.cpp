@@ -4,7 +4,7 @@ namespace lys
 {
 
 	Menu::Menu()
-		: _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), &_tex)), _tex("data/images/spectrum.jpg")
+		: Level(60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), &_tex)), _tex("data/images/spectrum.jpg")
 	{
 
 	}
