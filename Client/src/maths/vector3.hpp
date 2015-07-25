@@ -7,6 +7,8 @@ namespace lys
 
 	class Matrix4;
 
+	class Metric3;
+
 	class Vector3
 	{
 	public:
@@ -55,6 +57,8 @@ namespace lys
 
 		bool operator ==(const Vector3 &other) const;
 		bool operator !=(const Vector3 &other) const;
+
+		operator Metric3() const;
 	private:
 		float length();
 	};

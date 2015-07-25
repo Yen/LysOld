@@ -11,6 +11,7 @@ namespace lys
 	{
 	private:
 		InterfaceBatch _interface;
+		Texture _tex;
 		Sprite _test;
 	public:
 		Menu();

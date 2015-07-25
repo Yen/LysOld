@@ -68,7 +68,7 @@ namespace lys
 		~InterfaceBatch();
 
 		void submit(const Sprite *sprite);
-		void submitArray(const Sprite *sprite[], const size_t &count);
+		void submit(const Sprite sprites[], const size_t &count);
 
 		void renderBatch();
 

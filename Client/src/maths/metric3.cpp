@@ -1,5 +1,7 @@
 #include "metric3.hpp"
 
+#include "vector3.hpp"
+
 namespace lys
 {
 
@@ -23,6 +25,11 @@ namespace lys
 	bool Metric3::operator !=(const Metric3 &other) const
 	{
 		return !(*this == other);
+	}
+
+	Metric3::operator Vector3() const
+	{
+		return Vector3((float)x, (float)y, (float)z);
 	}
 
 }

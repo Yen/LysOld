@@ -3,6 +3,8 @@
 namespace lys
 {
 
+	class Vector2;
+
 	class Metric2
 	{
 	public:
@@ -14,6 +16,8 @@ namespace lys
 
 		bool operator ==(const Metric2 &other) const;
 		bool operator !=(const Metric2 &other) const;
+
+		operator Vector2() const;
 	};
 
 }

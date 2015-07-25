@@ -84,11 +84,11 @@ namespace lys
 		_sprites.push_back(sprite);
 	}
 
-	void InterfaceBatch::submitArray(const Sprite *sprite[], const size_t &count)
+	void InterfaceBatch::submit(const Sprite sprites[], const size_t &count)
 	{
 		for (size_t i = 0; i < count; i++)
 		{
-			submit(sprite[i]);
+			submit(&sprites[i]);
 		}
 	}
 

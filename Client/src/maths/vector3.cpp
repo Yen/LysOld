@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "matrix4.hpp"
+#include "metric3.hpp"
 
 namespace lys
 {
@@ -169,6 +170,11 @@ namespace lys
 	float Vector3::length()
 	{
 		return sqrtf(x * x + y * y + z * z);
+	}
+
+	Vector3::operator Metric3() const
+	{
+		return Metric3((int)x, (int)y, (int)z);
 	}
 
 }

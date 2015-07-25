@@ -1,5 +1,7 @@
 #include "metric2.hpp"
 
+#include "vector2.hpp"
+
 namespace lys
 {
 
@@ -19,6 +21,11 @@ namespace lys
 	bool Metric2::operator !=(const Metric2 &other) const
 	{
 		return !(*this == other);
+	}
+
+	Metric2::operator Vector2() const
+	{
+		return Vector2((float)x, (float)y);
 	}
 
 }
