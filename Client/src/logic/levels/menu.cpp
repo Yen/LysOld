@@ -1,16 +1,22 @@
-#include "menu.hpp"
+﻿#include "menu.hpp"
+
+#include <sstream>
 
 namespace lys
 {
 
 	Menu::Menu()
-		: Level(60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), &_tex)), _tex("data/images/spectrum.jpg")
+		: Level(60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex("data/images/spectrum.jpg"), _label("ayy", Vector3(250, 250, 1), Font("data/fonts/JOKERMAN.TTF"))
 	{
-
+		_label.getFont().setHeight(400);
 	}
 
 	void Menu::update(Window &window, const FixedTimerData &time)
 	{
+		std::stringstream ss;
+		ss << time.current;
+		_label.setText(ss.str());
+
 		if (window.getButton(SDL_BUTTON_LEFT))
 		{
 			auto mousepos = window.getMouse();
@@ -28,6 +34,7 @@ namespace lys
 	void Menu::draw(Window &window, const FixedTimerData &time)
 	{
 		_interface.submit(&_test);
+		_interface.submit(&_label);
 
 		_interface.renderBatch();
 	}

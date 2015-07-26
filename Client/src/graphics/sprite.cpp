@@ -20,7 +20,11 @@ namespace lys
 	{}
 
 	Sprite::Sprite(const Vector3 &position, const Vector2 &size, const Vector4 &color, const Texture *texture)
-		: position(position), size(size), color(color), texture(texture), uvs({ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) })
+		: Sprite(position, size, color, texture, SpriteState::DEFAULT)
+	{}
+
+	Sprite::Sprite(const Vector3 &position, const Vector2 &size, const Vector4 &color, const Texture *texture, const SpriteState &state)
+		: position(position), size(size), color(color), texture(texture), uvs({ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) }), state(state)
 	{}
 
 }

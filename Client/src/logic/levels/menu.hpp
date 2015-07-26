@@ -3,6 +3,7 @@
 #include "..\level.hpp"
 #include "..\..\graphics\interfacebatch.hpp"
 #include "..\..\graphics\sprite.hpp"
+#include "..\..\graphics\sprites\label.hpp"
 
 namespace lys
 {
@@ -13,6 +14,7 @@ namespace lys
 		InterfaceBatch _interface;
 		Texture _tex;
 		Sprite _test;
+		Label _label;
 	public:
 		Menu();
 

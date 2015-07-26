@@ -38,11 +38,13 @@ namespace lys
 		glEnableVertexAttribArray(LYS_INTERFACEBATCH_SHADER_COLOR);
 		glEnableVertexAttribArray(LYS_INTERFACEBATCH_SHADER_TEXTURE);
 		glEnableVertexAttribArray(LYS_INTERFACEBATCH_SHADER_COORDS);
+		glEnableVertexAttribArray(LYS_INTERFACEBATCH_SHADER_STATE);
 
 		glVertexAttribPointer(LYS_INTERFACEBATCH_SHADER_POSITION, 3, GL_FLOAT, GL_FALSE, LYS_INTERFACEBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(SpriteVertex, position)));
 		glVertexAttribPointer(LYS_INTERFACEBATCH_SHADER_COLOR, 4, GL_FLOAT, GL_FALSE, LYS_INTERFACEBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(SpriteVertex, color)));
 		glVertexAttribPointer(LYS_INTERFACEBATCH_SHADER_TEXTURE, 1, GL_FLOAT, GL_FALSE, LYS_INTERFACEBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(SpriteVertex, textureID)));
 		glVertexAttribPointer(LYS_INTERFACEBATCH_SHADER_COORDS, 2, GL_FLOAT, GL_FALSE, LYS_INTERFACEBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(SpriteVertex, uv)));
+		glVertexAttribPointer(LYS_INTERFACEBATCH_SHADER_STATE, 1, GL_FLOAT, GL_FALSE, LYS_INTERFACEBATCH_VERTEX_SIZE, (const GLvoid *)(offsetof(SpriteVertex, state)));
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -89,6 +91,14 @@ namespace lys
 		for (size_t i = 0; i < count; i++)
 		{
 			submit(&sprites[i]);
+		}
+	}
+
+	void InterfaceBatch::submit(const MultiSprite *sprite)
+	{
+		for (size_t i = 0; i < sprite->getCount(); i++)
+		{
+			submit(&sprite->getData()[i]);
 		}
 	}
 
@@ -176,21 +186,25 @@ namespace lys
 			_buffer[0].color = current->color;
 			_buffer[0].textureID = tid;
 			_buffer[0].uv = current->uvs[0];
+			_buffer[0].state = (float)current->state;
 
 			_buffer[1].position = Vector3(current->position.x + current->size.x, current->position.y, current->position.z);
 			_buffer[1].color = current->color;
 			_buffer[1].textureID = tid;
 			_buffer[1].uv = current->uvs[1];
+			_buffer[1].state = (float)current->state;
 
 			_buffer[2].position = Vector3(current->position.x + current->size.x, current->position.y + current->size.y, current->position.z);
 			_buffer[2].color = current->color;
 			_buffer[2].textureID = tid;
 			_buffer[2].uv = current->uvs[2];
+			_buffer[2].state = (float)current->state;
 
 			_buffer[3].position = Vector3(current->position.x, current->position.y + current->size.y, current->position.z);
 			_buffer[3].color = current->color;
 			_buffer[3].textureID = tid;
 			_buffer[3].uv = current->uvs[3];
+			_buffer[3].state = (float)current->state;
 
 			_buffer += 4;
 

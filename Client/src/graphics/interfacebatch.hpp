@@ -4,6 +4,7 @@
 #include <deque>
 
 #include "sprite.hpp"
+#include "multisprite.hpp"
 #include "shaderprogram.hpp"
 #include "..\maths.hpp"
 
@@ -17,6 +18,7 @@ namespace lys
 		Vector4 color;
 		float textureID;
 		Vector2 uv;
+		float state;
 	};
 
 #define LYS_INTERFACEBATCH_MAX_SPRITES		1000
@@ -50,6 +52,7 @@ namespace lys
 #define LYS_INTERFACEBATCH_SHADER_COLOR			1
 #define LYS_INTERFACEBATCH_SHADER_TEXTURE		2
 #define LYS_INTERFACEBATCH_SHADER_COORDS		3
+#define LYS_INTERFACEBATCH_SHADER_STATE			4
 
 	class InterfaceBatch
 	{
@@ -69,6 +72,7 @@ namespace lys
 
 		void submit(const Sprite *sprite);
 		void submit(const Sprite sprites[], const size_t &count);
+		void submit(const MultiSprite *sprite);
 
 		void renderBatch();
 

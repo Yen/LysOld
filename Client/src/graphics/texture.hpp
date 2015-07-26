@@ -17,6 +17,7 @@ namespace lys
 		Texture(const std::string &path, const GLenum &min, const GLenum &mag, const GLenum &wrapS, const GLenum &wrapT);
 		Texture(const std::string &path);
 		Texture(const Metric2 &size);
+		Texture(const Metric2 &size, const void *pixels, const GLenum &format);
 		~Texture();
 
 		void bind() const;
