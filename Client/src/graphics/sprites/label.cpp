@@ -13,14 +13,14 @@ namespace lys
 {
 
 	Label::Label(const std::string &text, const Vector3 &position)
-		: Label(text, position, Font::getDefaultFont())
+		: Label(text, position, TypeFace::instance())
 	{}
 
-	Label::Label(const std::string &text, const Vector3 &position, const Font &font)
+	Label::Label(const std::string &text, const Vector3 &position, TypeFace &font)
 		: Label(text, position, Vector4(1, 1, 1, 1), font)
 	{}
 
-	Label::Label(const std::string &text, const Vector3 &position, const Vector4 &color, const Font &font)
+	Label::Label(const std::string &text, const Vector3 &position, const Vector4 &color, TypeFace &font)
 		: _text(text), _position(position), _color(color), _font(font)
 	{
 		repaint();
@@ -38,14 +38,14 @@ namespace lys
 		return _text;
 	}
 
-	void Label::setFont(const Font &font)
+	void Label::setFont(TypeFace &font)
 	{
 		_font = font;
 
 		repaint();
 	}
 
-	Font &Label::getFont()
+	TypeFace &Label::getFont() const
 	{
 		return _font;
 	}
@@ -59,7 +59,18 @@ namespace lys
 
 	const Vector4 &Label::getColor() const
 	{
-		_color;
+		return _color;
+	}
+
+	void Label::setPosition(const Vector3 &position)
+	{
+		_position = position;
+		repaint();
+	}
+
+	const Vector3 &Label::getPosition() const
+	{
+		return _position;
 	}
 
 	const Sprite *Label::getData() const
@@ -77,7 +88,7 @@ namespace lys
 		_characters.clear();
 		_textures.clear();
 
-		const FT_GlyphSlot &g = _font.getFTGlyph();
+		const Glyph &g = _font.getGlyph();
 
 		float x = _position.x;
 		float y = _position.y;
@@ -103,7 +114,6 @@ namespace lys
 				tex = new Texture(Metric2(g->bitmap.width, g->bitmap.rows), g->bitmap.buffer, GL_ALPHA);
 				_textures[*i] = std::shared_ptr<Texture>(tex);
 			}
-
 
 			Sprite glyph = Sprite(Vector3(x2, y2, _position.z), Metric2(g->bitmap.width, g->bitmap.rows), Vector4(1, 1, 1, 1), tex, SpriteState::GLYPH);
 			glyph.uvs[0] = Vector2(0, 1);

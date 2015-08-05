@@ -25,6 +25,7 @@ namespace lys
 	public:
 		Font(const std::string &path);
 		Font(const std::string &path, const FT_UInt &height);
+		~Font();
 
 		const FT_GlyphSlot &getFTGlyph() const;
 		void loadCharacter(const FT_ULong &code);

@@ -37,6 +37,11 @@ namespace lys
 		setHeight(_height);
 	}
 
+	Font::~Font()
+	{
+		FT_Done_Face(_face);
+	}
+
 	const FT_GlyphSlot &Font::getFTGlyph() const
 	{
 		return _glyph;
@@ -61,6 +66,11 @@ namespace lys
 	void Font::setFacePath(const std::string &path)
 	{
 		_facePath = path;
+
+		if (_face != nullptr)
+		{
+			FT_Done_Face(_face);
+		}
 
 		if (FT_New_Face(getLibraryInstance(), _facePath.data(), 0, &_face))
 		{

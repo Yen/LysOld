@@ -6,9 +6,10 @@ namespace lys
 {
 
 	Menu::Menu()
-		: Level(60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex("data/images/spectrum.jpg"), _label("ayy", Vector3(250, 250, 1), Font("data/fonts/JOKERMAN.TTF"))
+		: Level(60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex("data/images/spectrum.jpg"), _label("ayy", Vector3(250, 250, 1))
 	{
 		_label.getFont().setHeight(400);
+		_label.repaint();
 	}
 
 	void Menu::update(Window &window, const FixedTimerData &time)

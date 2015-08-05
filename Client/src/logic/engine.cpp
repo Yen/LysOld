@@ -37,7 +37,7 @@ namespace lys
 
 		//
 
-		LYS_LOG("Engine loop started");
+		LYS_LOG("Engine loop (%p) started", this);
 
 		_timer.reset();
 		_window.setVisible(true);
@@ -110,7 +110,7 @@ namespace lys
 			}
 		}
 
-		LYS_LOG("Engine loop escaped");
+		LYS_LOG("Engine loop (%p) escaped", this);
 	}
 
 	template <typename T>

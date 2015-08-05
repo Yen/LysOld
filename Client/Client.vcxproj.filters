@@ -84,6 +84,12 @@
     <ClCompile Include="src\graphics\font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\type\typelibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\type\typeface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
@@ -164,10 +170,14 @@
     <ClInclude Include="src\graphics\font.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\type\typelibrary.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\type\typeface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\shaders\spritebatch.vert" />
-    <None Include="data\shaders\spritebatch.frag" />
     <None Include="data\shaders\meshbatch.vert" />
     <None Include="data\shaders\meshbatch.frag" />
     <None Include="data\shaders\interfacebatch.vert" />
