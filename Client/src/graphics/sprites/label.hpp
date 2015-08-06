@@ -23,6 +23,7 @@ namespace lys
 		std::string _text;
 		Vector4 _color;
 	public:
+		Label(const Vector3 &position);
 		Label(const std::string &text, const Vector3 &position);
 		Label(const std::string &text, const Vector3 &position, TypeFace &font);
 		Label(const std::string &text, const Vector3 &position, const Vector4 &color, TypeFace &font);

@@ -19,10 +19,10 @@ namespace lys
 		return _ups;
 	}
 
-	void Level::update(Window &window, const FixedTimerData &time)
+	void Level::update(EngineCore &core, const FixedTimerData &time)
 	{}
 
-	void Level::resize(Window &window)
+	void Level::resize(EngineCore &core)
 	{};
 
 }

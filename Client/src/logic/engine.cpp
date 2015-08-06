@@ -11,7 +11,7 @@ namespace lys
 {
 
 	Engine::Engine()
-		: _window(Window("Lys", Metric2(960, 540), false))
+		: _window(Window("Lys", Metric2(960, 540), false)), _core(EngineCore{ _window, _fps })
 	{
 		_timer.reset();
 		changeLevel(new Menu, _timer.getTimerData());
@@ -33,7 +33,7 @@ namespace lys
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		_level->resize(_window);
+		_level->resize(_core);
 
 		//
 
@@ -66,7 +66,7 @@ namespace lys
 				case WindowMessage::WINDOWSIZECHANGED:
 				{
 					glViewport(0, 0, _window.getSize().x, _window.getSize().y);
-					_level->resize(_window);
+					_level->resize(_core);
 					break;
 				}
 				}
@@ -83,7 +83,7 @@ namespace lys
 			{
 				while ((time.current - _levelStart) * _level->getUPS() > _levelUpdates)
 				{
-					_level->update(_window, time);
+					_level->update(_core, time);
 					_levelUpdates++;
 				}
 			}
@@ -92,21 +92,20 @@ namespace lys
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			_level->draw(_window, time);
+			_level->draw(_core, time);
 
 			_window.swapBuffers();
-			frames++;
+			_fps.push(time.current);
 
 			// End
 
 			if (time.current > seconds)
 			{
 				std::stringstream title;
-				title << "Lys FPS: " << frames;
+				title << "Lys FPS: " << _fps.getFPS(time.current);
 				_window.setTitle(title.str());
 
 				seconds++;
-				frames = 0;
 			}
 		}
 

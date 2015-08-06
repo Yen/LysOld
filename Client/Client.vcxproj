@@ -185,6 +185,7 @@
     <ClCompile Include="src\graphics\type\typelibrary.cpp" />
     <ClCompile Include="src\logic\engine.cpp" />
     <ClCompile Include="src\logic\fixedtimer.cpp" />
+    <ClCompile Include="src\logic\fpscounter.cpp" />
     <ClCompile Include="src\logic\level.cpp" />
     <ClCompile Include="src\logic\levels\menu.cpp" />
     <ClCompile Include="src\lys.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="src\graphics\type\typelibrary.hpp" />
     <ClInclude Include="src\logic\engine.hpp" />
     <ClInclude Include="src\logic\fixedtimer.hpp" />
+    <ClInclude Include="src\logic\fpscounter.hpp" />
     <ClInclude Include="src\logic\level.hpp" />
     <ClInclude Include="src\logic\levels\menu.hpp" />
     <ClInclude Include="src\lys.hpp" />

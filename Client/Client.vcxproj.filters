@@ -90,6 +90,9 @@
     <ClCompile Include="src\graphics\type\typeface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\logic\fpscounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
@@ -174,6 +177,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\type\typeface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\logic\fpscounter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,6 +8,8 @@ namespace lys
 
 #define LYS_LEVEL_DEFAULT_UPS 0
 
+	class EngineCore;
+
 	class Level
 	{
 	public:
@@ -19,10 +21,10 @@ namespace lys
 
 		const unsigned int &getUPS() const;
 
-		virtual void update(Window &window, const FixedTimerData &time);
-		virtual void draw(Window &window, const FixedTimerData &time) = 0;
+		virtual void update(EngineCore &core, const FixedTimerData &time);
+		virtual void draw(EngineCore &core, const FixedTimerData &time) = 0;
 
-		virtual void resize(Window &window);
+		virtual void resize(EngineCore &core);
 	};
 
 }

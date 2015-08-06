@@ -12,6 +12,10 @@
 namespace lys
 {
 
+	Label::Label(const Vector3 &position)
+		: Label(std::string(), position, TypeFace::instance())
+	{}
+
 	Label::Label(const std::string &text, const Vector3 &position)
 		: Label(text, position, TypeFace::instance())
 	{}
@@ -101,7 +105,7 @@ namespace lys
 			_font.loadCharacter(*i);
 
 			float x2 = x + g->bitmap_left;
-			float y2 = y - (g->bitmap.rows - g->bitmap_top);
+			float y2 = y - ((float)g->bitmap.rows - (float)g->bitmap_top);
 
 			Texture *tex;
 			auto a = _textures.find(*i);

@@ -18,10 +18,10 @@ namespace lys
 	public:
 		Menu();
 
-		void update(Window &window, const FixedTimerData &time) override;
-		void draw(Window &window, const FixedTimerData &time) override;
+		void update(EngineCore &core, const FixedTimerData &time) override;
+		void draw(EngineCore &core, const FixedTimerData &time) override;
 
-		void resize(Window &window) override;
+		void resize(EngineCore &core) override;
 	};
 
 }
