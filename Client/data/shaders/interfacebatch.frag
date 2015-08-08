@@ -15,20 +15,27 @@ in data
 
 void main(void)
 {
+	vec4 buffer;
+
 	if(frag_in.texture + 0.5 < 0.0)
 	{
-		out_color = frag_in.color;
+		buffer = frag_in.color;
 	}
 	else
 	{
 		int state = int(frag_in.state + 0.5);
 		if(state == 0)
 		{
-			out_color = frag_in.color * texture(uni_textures[int(frag_in.texture + 0.5)], frag_in.uv);
+			buffer = frag_in.color * texture(uni_textures[int(frag_in.texture + 0.5)], frag_in.uv);
 		}
 		else
 		{
-			out_color = frag_in.color * vec4(1, 1, 1, texture2D(uni_textures[int(frag_in.texture + 0.5)], frag_in.uv).a);
+			buffer = frag_in.color * vec4(1, 1, 1, texture2D(uni_textures[int(frag_in.texture + 0.5)], frag_in.uv).a);
 		}
+	}
+
+	if (buffer.a != 0.0)
+	{
+		out_color = buffer;
 	}
 }
