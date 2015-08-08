@@ -2,8 +2,6 @@
 
 #include <sstream>
 
-#include "..\engine.hpp"
-
 namespace lys
 {
 

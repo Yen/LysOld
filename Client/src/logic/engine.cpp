@@ -5,13 +5,14 @@
 
 #include "..\lys.hpp"
 #include "..\maths.hpp"
+#include "level.hpp"
 #include "levels\menu.hpp"
 
 namespace lys
 {
 
 	Engine::Engine()
-		: _window(Window("Lys", Metric2(960, 540), false)), _core(EngineCore{ _window, _fps })
+		: _core{ Window("Lys", Metric2(960, 540), false), FPSCounter() }
 	{
 		_timer.reset();
 		changeLevel(new Menu, _timer.getTimerData());
@@ -40,11 +41,11 @@ namespace lys
 		LYS_LOG("Engine loop (%p) started", this);
 
 		_timer.reset();
-		_window.setVisible(true);
+		_core.window.setVisible(true);
 		bool running = true;
 		while (running)
 		{
-			while (_window.pollMessages(message))
+			while (_core.window.pollMessages(message))
 			{
 				switch (message)
 				{
@@ -55,17 +56,17 @@ namespace lys
 				}
 				case WindowMessage::FOCUSGAINED:
 				{
-					_window.setSwapInterval(0);
+					_core.window.setSwapInterval(0);
 					break;
 				}
 				case WindowMessage::FOCUSLOST:
 				{
-					_window.setSwapInterval(1);
+					_core.window.setSwapInterval(1);
 					break;
 				}
 				case WindowMessage::WINDOWSIZECHANGED:
 				{
-					glViewport(0, 0, _window.getSize().x, _window.getSize().y);
+					glViewport(0, 0, _core.window.getSize().x, _core.window.getSize().y);
 					_level->resize(_core);
 					break;
 				}
@@ -94,16 +95,16 @@ namespace lys
 
 			_level->draw(_core, time);
 
-			_window.swapBuffers();
-			_fps.push(time.current);
+			_core.window.swapBuffers();
+			_core.counter.push(time.current);
 
 			// End
 
 			if (time.current > seconds)
 			{
 				std::stringstream title;
-				title << "Lys FPS: " << _fps.getFPS(time.current);
-				_window.setTitle(title.str());
+				title << "Lys FPS: " << _core.counter.getFPS(time.current);
+				_core.window.setTitle(title.str());
 
 				seconds++;
 			}

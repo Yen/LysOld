@@ -1,13 +1,10 @@
 ﻿#include "label.hpp"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include <locale>
 #include <codecvt>
 #include <algorithm>
 
 #include "..\..\lys.hpp"
-#include "..\font.hpp"
 
 namespace lys
 {

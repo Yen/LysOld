@@ -7,7 +7,6 @@
 
 #include "..\multisprite.hpp"
 #include "..\texture.hpp"
-#include "..\font.hpp"
 #include "..\type\typeface.hpp"
 
 namespace lys

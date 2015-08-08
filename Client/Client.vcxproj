@@ -173,7 +173,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\graphics\framebuffer.cpp" />
     <ClCompile Include="src\graphics\interfacebatch.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
@@ -203,7 +202,6 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\include\glfw\GL\glxew.h" />
     <ClInclude Include="Dependencies\include\glfw\GL\wglew.h" />
-    <ClInclude Include="src\graphics\font.hpp" />
     <ClInclude Include="src\graphics\framebuffer.hpp" />
     <ClInclude Include="src\graphics\interfacebatch.hpp" />
     <ClInclude Include="src\graphics\multisprite.hpp" />

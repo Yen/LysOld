@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\window.hpp"
+#include "engine.hpp"
 #include "fixedtimer.hpp"
 
 namespace lys
