@@ -1,7 +1,5 @@
 #pragma once
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include <string>
 
 #include "typelibrary.hpp"
@@ -17,7 +15,6 @@ namespace lys
 	{
 	private:
 		FT_Face _face;
-		Glyph _glyph;
 		unsigned int _height;
 	public:
 		static TypeFace &instance();

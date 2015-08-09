@@ -34,8 +34,12 @@ void main(void)
 		}
 	}
 
-	if (buffer.a != 0.0)
+	if (buffer.a != 0)
 	{
 		out_color = buffer;
+	}
+	else
+	{
+		discard;
 	}
 }
