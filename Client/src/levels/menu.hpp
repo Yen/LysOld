@@ -1,9 +1,9 @@
 #pragma once
 
-#include "..\level.hpp"
-#include "..\..\graphics\interfacebatch.hpp"
-#include "..\..\graphics\sprite.hpp"
-#include "..\..\graphics\sprites\label.hpp"
+#include "..\logic\level.hpp"
+#include "..\graphics\interfacebatch.hpp"
+#include "..\graphics\sprite.hpp"
+#include "..\graphics\sprites\label.hpp"
 
 namespace lys
 {

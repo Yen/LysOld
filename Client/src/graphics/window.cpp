@@ -17,22 +17,23 @@ namespace lys
 		}
 
 		{
-			int error[3];
+			int error[4];
 
 			error[0] = SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 			error[1] = SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, LYS_GL_MAJOR_VERSION);
 			error[2] = SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, LYS_GL_MINOR_VERSION);
+			error[3] = SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, true);
 
-			if ((error[0] || error[1] || error[2]) != 0)
+			if ((error[0] || error[1] || error[2] || error[3]) != 0)
 			{
 				std::stringstream err;
-				err << "Error setting OpenGL context attribute (" << SDL_GetError() << ")";
+				err << "Error setting OpenGL attribute (" << SDL_GetError() << ")";
 				SDL_ClearError();
 				throw std::exception(err.str().data());
 			}
 		}
 
-		_window = SDL_CreateWindow(_title.data(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x, _size.y, SDL_WINDOW_OPENGL | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN);
+		_window = SDL_CreateWindow(_title.data(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x, _size.y, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN);
 		if (!_window)
 		{
 			std::stringstream err;
@@ -41,36 +42,36 @@ namespace lys
 			throw std::exception(err.str().data());
 		}
 
-		_context = SDL_GL_CreateContext(_window);
-		if (*SDL_GetError() != '\0')
-		{
-			std::stringstream err;
-			err << "Error creating OpenGL context (" << SDL_GetError() << ")";
-			SDL_ClearError();
-			throw std::exception(err.str().data());
-		}
+		//_context = SDL_GL_CreateContext(_window);
+		//if (*SDL_GetError() != '\0')
+		//{
+		//	std::stringstream err;
+		//	err << "Error creating OpenGL context (" << SDL_GetError() << ")";
+		//	SDL_ClearError();
+		//	throw std::exception(err.str().data());
+		//}
 
-		GLenum error = glewInit();
-		if (error != GLEW_OK)
-		{
-			std::stringstream err;
-			err << "Error initializing GLEW (" << glewGetErrorString(error) << ")";
-			SDL_ClearError();
-			throw std::exception(err.str().data());
-		}
+		//GLenum error = glewInit();
+		//if (error != GLEW_OK)
+		//{
+		//	std::stringstream err;
+		//	err << "Error initializing GLEW (" << glewGetErrorString(error) << ")";
+		//	SDL_ClearError();
+		//	throw std::exception(err.str().data());
+		//}
 
-		GLint major, minor;
-		glGetIntegerv(GL_MAJOR_VERSION, &major);
-		glGetIntegerv(GL_MINOR_VERSION, &minor);
+		//GLint major, minor;
+		//glGetIntegerv(GL_MAJOR_VERSION, &major);
+		//glGetIntegerv(GL_MINOR_VERSION, &minor);
 
-		LYS_LOG("Target OpenGL version (%d.%d), system version (%d.%d)", LYS_GL_MAJOR_VERSION, LYS_GL_MINOR_VERSION, major, minor);
+		//LYS_LOG("Target OpenGL version (%d.%d), system version (%d.%d)", LYS_GL_MAJOR_VERSION, LYS_GL_MINOR_VERSION, major, minor);
 
-		if (!(major > LYS_GL_MAJOR_VERSION)) if (minor < LYS_GL_MINOR_VERSION)
-		{
-			LYS_LOG_WARNING("Target OpenGL version not supported by your system");
-		}
+		//if (!(major > LYS_GL_MAJOR_VERSION)) if (minor < LYS_GL_MINOR_VERSION)
+		//{
+		//	LYS_LOG_WARNING("Target OpenGL version not supported by your system");
+		//}
 
-		setSwapInterval(0);
+		//setSwapInterval(0);
 		setVisible(_visible);
 		setFocus(true);
 
@@ -82,14 +83,14 @@ namespace lys
 
 	Window::~Window()
 	{
-		SDL_GL_DeleteContext(_context);
+		//SDL_GL_DeleteContext(_context);
 		SDL_DestroyWindow(_window);
 	}
 
-	void Window::makeCurrent()
-	{
-		SDL_GL_MakeCurrent(_window, _context);
-	}
+	//void Window::makeCurrent()
+	//{
+	//	SDL_GL_MakeCurrent(_window, _context);
+	//}
 
 	void Window::swapBuffers()
 	{
@@ -245,16 +246,16 @@ namespace lys
 		else SDL_HideWindow(_window);
 	}
 
-	const int &Window::getSwapInterval() const
-	{
-		return _swapInterval;
-	}
+	//const int &Window::getSwapInterval() const
+	//{
+	//	return _swapInterval;
+	//}
 
-	void Window::setSwapInterval(const int &swapInterval)
-	{
-		_swapInterval = swapInterval;
-		SDL_GL_SetSwapInterval(_swapInterval);
-	}
+	//void Window::setSwapInterval(const int &swapInterval)
+	//{
+	//	_swapInterval = swapInterval;
+	//	SDL_GL_SetSwapInterval(_swapInterval);
+	//}
 
 	const Metric2 &Window::getMouse() const
 	{

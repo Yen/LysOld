@@ -2,7 +2,8 @@
 
 #include <memory>
 
-#include "..\window.hpp"
+#include "..\graphics\window.hpp"
+#include "..\graphics\graphicscontext.hpp"
 #include "fixedtimer.hpp"
 #include "fpscounter.hpp"
 
@@ -14,6 +15,7 @@ namespace lys
 	public:
 		Window window;
 		FPSCounter counter;
+		GraphicsContext context;
 	};
 
 	class Level;

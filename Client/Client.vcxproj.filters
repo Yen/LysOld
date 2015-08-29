@@ -27,9 +27,6 @@
     <ClCompile Include="src\maths\metric3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\logic\fixedtimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
     <ClCompile Include="src\graphics\sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\logic\levels\menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\logic\level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,21 +84,24 @@
     <ClCompile Include="src\logic\fpscounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\graphicscontext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\levels\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\maths.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\maths\metric2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\maths\metric3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\logic\fixedtimer.hpp">
@@ -158,9 +155,6 @@
     <ClInclude Include="src\logic\level.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\logic\levels\menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\multisprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -174,6 +168,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\logic\fpscounter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\graphicscontext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\levels\menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

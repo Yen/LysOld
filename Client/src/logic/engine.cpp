@@ -6,14 +6,16 @@
 #include "..\lys.hpp"
 #include "..\maths.hpp"
 #include "level.hpp"
-#include "levels\menu.hpp"
+#include "..\levels\menu.hpp"
 
 namespace lys
 {
 
 	Engine::Engine()
-		: _core{ Window("Lys", Metric2(960, 540), false), FPSCounter() }
+		: _core{ Window("Lys", Metric2(960, 540), false), FPSCounter(), GraphicsContext(_core.window) }
 	{
+		_core.context.makeCurrent();
+
 		_timer.reset();
 		changeLevel(new Menu, _timer.getTimerData());
 	}
@@ -56,12 +58,12 @@ namespace lys
 				}
 				case WindowMessage::FOCUSGAINED:
 				{
-					_core.window.setSwapInterval(0);
+					_core.context.setSwapInterval(0);
 					break;
 				}
 				case WindowMessage::FOCUSLOST:
 				{
-					_core.window.setSwapInterval(1);
+					_core.context.setSwapInterval(1);
 					break;
 				}
 				case WindowMessage::WINDOWSIZECHANGED:
