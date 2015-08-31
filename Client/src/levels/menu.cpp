@@ -1,6 +1,7 @@
 ﻿#include "menu.hpp"
 
 #include <sstream>
+#include <thread>
 
 namespace lys
 {

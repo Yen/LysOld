@@ -4,6 +4,7 @@
 #include "..\graphics\interfacebatch.hpp"
 #include "..\graphics\sprite.hpp"
 #include "..\graphics\sprites\label.hpp"
+#include "..\logic\engine.hpp"
 
 namespace lys
 {

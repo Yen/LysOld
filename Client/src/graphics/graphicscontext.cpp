@@ -48,6 +48,11 @@ namespace lys
 		SDL_GL_MakeCurrent(_window, _context);
 	}
 
+	void GraphicsContext::unbindCurrent()
+	{
+		SDL_GL_MakeCurrent(_window, nullptr);
+	}
+
 	const int &GraphicsContext::getSwapInterval() const
 	{
 		return _swapInterval;

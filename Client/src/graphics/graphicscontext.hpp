@@ -17,6 +17,7 @@ namespace lys
 		~GraphicsContext();
 
 		void makeCurrent();
+		void unbindCurrent();
 
 		const int &getSwapInterval() const;
 		void setSwapInterval(const int &swapInterval);

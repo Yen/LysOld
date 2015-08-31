@@ -34,7 +34,6 @@ namespace lys
 		friend class GraphicsContext;
 	private:
 		SDL_Window *_window;
-		//SDL_GLContext _context;
 		SDL_Event _event;
 	private:
 		std::string _title;
@@ -42,7 +41,6 @@ namespace lys
 		bool _visible;
 		Metric2 _position;
 		bool _focus;
-		//int _swapInterval;
 		Metric2 _mouse;
 		bool _buttons[LYS_BUTTON_COUNT];
 		bool _keys[LYS_KEY_COUNT];
@@ -50,7 +48,6 @@ namespace lys
 		Window(const std::string &title, const Metric2 &size, const bool &visible);
 		~Window();
 
-		//void makeCurrent();
 		void swapBuffers();
 		bool pollMessages(WindowMessage &message);
 
@@ -68,9 +65,6 @@ namespace lys
 
 		const bool &getFocus() const;
 		void setFocus(const bool &focus);
-
-		//const int &getSwapInterval() const;
-		//void setSwapInterval(const int &swapInterval);
 
 		const Metric2 &getMouse() const;
 		void setMouse(const Metric2 &mouse);
