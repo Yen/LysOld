@@ -189,6 +189,7 @@
     <ClCompile Include="src\logic\fpscounter.cpp" />
     <ClCompile Include="src\logic\level.cpp" />
     <ClCompile Include="src\levels\menu.cpp" />
+    <ClCompile Include="src\levels\debugoverlay.cpp" />
     <ClCompile Include="src\lys.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maths\mathsfunctions.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="src\logic\fpscounter.hpp" />
     <ClInclude Include="src\logic\level.hpp" />
     <ClInclude Include="src\levels\menu.hpp" />
+    <ClInclude Include="src\levels\debugoverlay.hpp" />
     <ClInclude Include="src\lys.hpp" />
     <ClInclude Include="src\maths.hpp" />
     <ClInclude Include="src\maths\mathsfunctions.hpp" />

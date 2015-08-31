@@ -21,17 +21,35 @@ namespace lys
 		return LoadingScreen();
 	}
 
+	static DebugOverlay createDebugOverlay(GraphicsContext &context)
+	{
+		context.makeCurrent();
+		return DebugOverlay();
+	}
+
 	Engine::Engine()
-		: _core{ Window("Lys", Metric2(960, 540), false), FPSCounter(), GraphicsContext(_core.window), GraphicsContext(_core.window) }, _loadingScreen(createLoadingScreen(_core.loading)), _loading(false), _swapInterval(0)
+		: _core{ Window("Lys", Metric2(960, 540), false), FPSCounter() },
+		_mainContext(_core.window),
+		_loadingContext(_core.window),
+		_debugContext(_core.window),
+		_loadingScreen(createLoadingScreen(_loadingContext)),
+		_debugOverlay(createDebugOverlay(_debugContext)),
+		_loading(false),
+		_swapInterval(0)
 	{
 		_timer.reset();
 
-		_core.context.makeCurrent();
-		_core.context.setSwapInterval(_swapInterval);
+		_mainContext.makeCurrent();
+		_mainContext.setSwapInterval(_swapInterval);
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		_core.loading.makeCurrent();
-		_core.loading.setSwapInterval(_swapInterval);
+		_debugContext.makeCurrent();
+		_debugContext.setSwapInterval(_swapInterval);
+		//Should never be cleared from this context
+		glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
+
+		_loadingContext.makeCurrent();
+		_loadingContext.setSwapInterval(_swapInterval);
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 		_loadingScreen.resize(_core);
@@ -67,13 +85,13 @@ namespace lys
 			if (_loading)
 			{
 				level = &_loadingScreen;
-				context = &_core.loading;
+				context = &_loadingContext;
 				context->makeCurrent();
 			}
 			else
 			{
 				level = _level.get();
-				context = &_core.context;
+				context = &_mainContext;
 				context->makeCurrent();
 				if (_levelNew)
 				{
@@ -107,6 +125,15 @@ namespace lys
 				case WindowMessage::WINDOWSIZECHANGED:
 				{
 					resize(*level);
+					_debugContext.makeCurrent();
+					resize(_debugOverlay);
+					context->makeCurrent();
+					break;
+				}
+				case WindowMessage::KEYDOWN:
+				{
+					if (_core.window.getKey(SDL_SCANCODE_F11))
+						_debug = !_debug;
 					break;
 				}
 				}
@@ -134,6 +161,12 @@ namespace lys
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			level->draw(_core, time);
+
+			if (_debug)
+			{
+				_debugContext.makeCurrent();
+				_debugOverlay.draw(_core, time);
+			}
 
 			_core.window.swapBuffers();
 			_core.counter.push(time.current);
@@ -172,17 +205,17 @@ namespace lys
 
 		_loading = true;
 
-		_core.loading.makeCurrent();
+		_loadingContext.makeCurrent();
 
 		_loadingThread = std::make_unique<std::thread>([&]()
 		{
-			_core.context.makeCurrent();
+			_mainContext.makeCurrent();
 			_level = std::make_unique<T>(*(new T));
 			_levelStart = time.current;
 			_levelUpdates = 0;
 			_levelNew = true;
 
-			_core.context.unbindCurrent();
+			_mainContext.unbindCurrent();
 			_loading = false;
 		});
 	}
