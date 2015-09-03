@@ -11,10 +11,10 @@ namespace lys
 	private:
 		ShaderProgram _shader;
 	public:
-		LoadingScreen();
+		LoadingScreen(const EngineLoadingArgs &args);
 
-		void draw(EngineCore &core, const FixedTimerData &time) override;
-		void resize(EngineCore &core) override;
+		void draw(EngineInternals &internals, EngineArgs &args) override;
+		void resize(EngineInternals &internals) override;
 	};
 
 }

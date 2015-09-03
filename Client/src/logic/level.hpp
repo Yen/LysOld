@@ -7,23 +7,24 @@ namespace lys
 
 #define LYS_LEVEL_DEFAULT_UPS 0
 
-	class EngineCore;
+	class EngineLoadingArgs;
+	class EngineInternals;
+	class EngineArgs;
 
 	class Level
 	{
 	public:
 		const unsigned int _ups;
 	public:
-		Level();
-		Level(const int &ups);
+		Level(const EngineLoadingArgs &args, const int &ups = LYS_LEVEL_DEFAULT_UPS);
 		virtual ~Level();
 
 		const unsigned int &getUPS() const;
 
-		virtual void update(EngineCore &core, const FixedTimerData &time);
-		virtual void draw(EngineCore &core, const FixedTimerData &time) = 0;
+		virtual void update(EngineInternals &internals, EngineArgs &args);
+		virtual void draw(EngineInternals &internals, EngineArgs &args) = 0;
 
-		virtual void resize(EngineCore &core);
+		virtual void resize(EngineInternals &internals);
 	};
 
 }

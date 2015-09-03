@@ -44,7 +44,7 @@ namespace lys
 	{}
 
 	Texture::Texture(const Metric2 &size, const void *pixels, const GLenum &format)
-	{
+	{ 
 		glGenTextures(1, &_id);
 
 		glBindTexture(GL_TEXTURE_2D, _id);

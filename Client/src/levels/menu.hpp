@@ -4,7 +4,6 @@
 #include "..\graphics\interfacebatch.hpp"
 #include "..\graphics\sprite.hpp"
 #include "..\graphics\sprites\label.hpp"
-#include "..\logic\engine.hpp"
 
 namespace lys
 {
@@ -17,12 +16,12 @@ namespace lys
 		Sprite _test;
 		Label _label;
 	public:
-		Menu();
+		Menu(const EngineLoadingArgs &args);
 
-		void update(EngineCore &core, const FixedTimerData &time) override;
-		void draw(EngineCore &core, const FixedTimerData &time) override;
+		void update(EngineInternals &internals, EngineArgs &args) override;
+		void draw(EngineInternals &internals, EngineArgs &args) override;
 
-		void resize(EngineCore &core) override;
+		void resize(EngineInternals &internals) override;
 	};
 
 }

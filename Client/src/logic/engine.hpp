@@ -14,11 +14,24 @@
 namespace lys
 {
 
-	class EngineCore
+	class EngineLoadingArgs
 	{
 	public:
-		Window window;
-		FPSCounter counter;
+		const GraphicsContext &context;
+	};
+
+	class EngineInternals
+	{
+	public:
+		Window &window;
+		FPSCounter &counter;
+	};
+
+	class EngineArgs
+	{
+	public:
+		const FixedTimerData &time;
+		GraphicsContext &context;
 	};
 
 	class Level;
@@ -26,7 +39,8 @@ namespace lys
 	class Engine
 	{
 	private:
-		EngineCore _core;
+		Window _window;
+		FPSCounter _counter;
 		FixedTimer _timer;
 		std::unique_ptr<Level> _level;
 		GraphicsContext _mainContext;
@@ -41,6 +55,7 @@ namespace lys
 		std::atomic<bool> _levelNew;
 		int _swapInterval;
 		bool _debug;
+		EngineInternals _internals;
 	public:
 		Engine();
 		~Engine();

@@ -3,11 +3,7 @@
 namespace lys
 {
 
-	Level::Level()
-		: Level(LYS_LEVEL_DEFAULT_UPS)
-	{}
-
-	Level::Level(const int &ups)
+	Level::Level(const EngineLoadingArgs &args, const int &ups)
 		: _ups(ups)
 	{}
 
@@ -19,10 +15,10 @@ namespace lys
 		return _ups;
 	}
 
-	void Level::update(EngineCore &core, const FixedTimerData &time)
+	void Level::update(EngineInternals &internals, EngineArgs &args)
 	{}
 
-	void Level::resize(EngineCore &core)
+	void Level::resize(EngineInternals &internals)
 	{};
 
 }

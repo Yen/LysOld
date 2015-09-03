@@ -10,7 +10,6 @@
 #include "..\maths.hpp"
 #include "level.hpp"
 #include "..\levels\menu.hpp"
-#include "..\levels\loadingscreen.hpp"
 
 namespace lys
 {
@@ -18,24 +17,25 @@ namespace lys
 	static LoadingScreen createLoadingScreen(GraphicsContext &context)
 	{
 		context.makeCurrent();
-		return LoadingScreen();
+		return LoadingScreen(EngineLoadingArgs{ context });
 	}
 
 	static DebugOverlay createDebugOverlay(GraphicsContext &context)
 	{
 		context.makeCurrent();
-		return DebugOverlay();
+		return DebugOverlay(EngineLoadingArgs{ context });
 	}
 
 	Engine::Engine()
-		: _core{ Window("Lys", Metric2(960, 540), false), FPSCounter() },
-		_mainContext(_core.window),
-		_loadingContext(_core.window),
-		_debugContext(_core.window),
+		: _window("Lys", Metric2(960, 540), false),
+		_mainContext(_window),
+		_loadingContext(_window),
+		_debugContext(_window),
 		_loadingScreen(createLoadingScreen(_loadingContext)),
 		_debugOverlay(createDebugOverlay(_debugContext)),
 		_loading(false),
-		_swapInterval(0)
+		_swapInterval(0),
+		_internals{ _window, _counter }
 	{
 		_timer.reset();
 
@@ -52,7 +52,7 @@ namespace lys
 		_loadingContext.setSwapInterval(_swapInterval);
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		_loadingScreen.resize(_core);
+		_loadingScreen.resize(_internals);
 
 		changeLevel<Menu>(_timer.getTimerData());
 	}
@@ -75,7 +75,7 @@ namespace lys
 
 		_timer.reset();
 
-		_core.window.setVisible(true);
+		_window.setVisible(true);
 		bool running = true;
 		while (running)
 		{
@@ -103,7 +103,7 @@ namespace lys
 			if (context->getSwapInterval() != _swapInterval)
 				context->setSwapInterval(_swapInterval);
 
-			while (_core.window.pollMessages(message))
+			while (_window.pollMessages(message))
 			{
 				switch (message)
 				{
@@ -132,7 +132,7 @@ namespace lys
 				}
 				case WindowMessage::KEYDOWN:
 				{
-					if (_core.window.getKey(SDL_SCANCODE_F11))
+					if (_window.getKey(SDL_SCANCODE_F11))
 						_debug = !_debug;
 					break;
 				}
@@ -148,10 +148,9 @@ namespace lys
 
 			if (level->getUPS() != 0)
 			{
-				TimePoint a = time.current - _levelStart;
 				while ((time.current - _levelStart) * _level->getUPS() > _levelUpdates)
 				{
-					level->update(_core, time);
+					level->update(_internals, EngineArgs{ time, *context });
 					_levelUpdates++;
 				}
 			}
@@ -160,24 +159,24 @@ namespace lys
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			level->draw(_core, time);
+			level->draw(_internals, EngineArgs{ time, *context });
 
 			if (_debug)
 			{
 				_debugContext.makeCurrent();
-				_debugOverlay.draw(_core, time);
+				_debugOverlay.draw(_internals, EngineArgs{ time, *context });
 			}
 
-			_core.window.swapBuffers();
-			_core.counter.push(time.current);
+			_window.swapBuffers();
+			_counter.push(time.current);
 
 			// End
 
 			if (time.current > seconds)
 			{
 				std::stringstream title;
-				title << "Lys FPS: " << _core.counter.getFPS(time.current);
-				_core.window.setTitle(title.str());
+				title << "Lys FPS: " << _counter.getFPS(time.current);
+				_window.setTitle(title.str());
 
 				seconds++;
 			}
@@ -185,11 +184,13 @@ namespace lys
 
 		LYS_LOG("Engine loop (%p) escaped", this);
 
-		_core.window.setVisible(false);
+		_window.setVisible(false);
 
 		LYS_LOG("Waiting for other threads to cleanup");
 
 		_loadingThread->join();
+
+		glFinish();
 	}
 
 	template <typename T>
@@ -210,7 +211,7 @@ namespace lys
 		_loadingThread = std::make_unique<std::thread>([&]()
 		{
 			_mainContext.makeCurrent();
-			_level = std::make_unique<T>(*(new T));
+			_level = std::make_unique<T>(EngineLoadingArgs{ _loadingContext });
 			_levelStart = time.current;
 			_levelUpdates = 0;
 			_levelNew = true;
@@ -222,8 +223,8 @@ namespace lys
 
 	void Engine::resize(Level &level)
 	{
-		glViewport(0, 0, _core.window.getSize().x, _core.window.getSize().y);
-		level.resize(_core);
+		glViewport(0, 0, _window.getSize().x, _window.getSize().y);
+		level.resize(_internals);
 	}
 
 }

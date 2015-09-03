@@ -6,3 +6,4 @@
 - [GLEW](http://glew.sourceforge.net/)
 - [FreeImage](http://freeimage.sourceforge.net/)
 - [FreeType](http://www.freetype.org/)
+- [Boost](http://www.boost.org/)

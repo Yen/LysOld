@@ -5,7 +5,11 @@
 namespace lys
 {
 
-	void DebugOverlay::draw(EngineCore &core, const FixedTimerData &time)
+	DebugOverlay::DebugOverlay(const EngineLoadingArgs &args)
+		: Level(args)
+	{}
+
+	void DebugOverlay::draw(EngineInternals &internals, EngineArgs &args)
 	{
 		ShaderProgram::disable();
 

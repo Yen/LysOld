@@ -71,22 +71,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\boost\boost_1_59_0;$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\boost\boost_1_59_0\stage\$(Platform)\lib;$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\boost\boost_1_59_0;$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\boost\boost_1_59_0\stage\$(Platform)\lib;$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\boost\boost_1_59_0;$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\boost\boost_1_59_0\stage\$(Platform)\lib;$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\boost\boost_1_59_0;$(ProjectDir)Dependencies\include\freeimage;$(ProjectDir)Dependencies\include\sdl2;$(ProjectDir)Dependencies\include\freetype;$(ProjectDir)Dependencies\include\glew;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\boost\boost_1_59_0\stage\$(Platform)\lib;$(ProjectDir)Dependencies\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

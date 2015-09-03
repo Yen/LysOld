@@ -16,21 +16,21 @@ namespace lys
 		return ShaderProgram(shaders);
 	}
 
-	LoadingScreen::LoadingScreen()
-		: _shader(createShader())
+	LoadingScreen::LoadingScreen(const EngineLoadingArgs &args)
+		: Level(args), _shader(createShader())
 	{
 		_shader.enable();
 		_shader.setUniformMat4("uni_vw_matrix", Matrix4::lookAt(Vector3(0, 0, 5), Vector3(0, 0, 0), Vector3(0, 1, 0)));
 	}
 
-	void LoadingScreen::draw(EngineCore &core, const FixedTimerData &time)
+	void LoadingScreen::draw(EngineInternals &internals, EngineArgs &args)
 	{
 		//TODO: Cube with lighting or something
 
 		glDisable(GL_CULL_FACE);
 
 		_shader.enable();
-		_shader.setUniformMat4("uni_ml_matrix", Matrix4::rotation(time.current * 45, Vector3(0, 1, 0)));
+		_shader.setUniformMat4("uni_ml_matrix", Matrix4::rotation(args.time.current * 45, Vector3(0, 1, 0)));
 
 		glBegin(GL_QUADS);
 		glVertex3f(-2, -2, 0);
@@ -40,10 +40,10 @@ namespace lys
 		glEnd();
 	}
 
-	void LoadingScreen::resize(EngineCore &core)
+	void LoadingScreen::resize(EngineInternals &internals)
 	{
 		_shader.enable();
-		_shader.setUniformMat4("uni_pr_matrix", Matrix4::perspectivefov(90, (float)core.window.getSize().x / (float)core.window.getSize().y, 1, 100));
+		_shader.setUniformMat4("uni_pr_matrix", Matrix4::perspectivefov(90, (float)internals.window.getSize().x / (float)internals.window.getSize().y, 1, 100));
 	}
 
 }
