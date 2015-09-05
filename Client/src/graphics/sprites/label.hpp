@@ -7,7 +7,7 @@
 
 #include "..\multisprite.hpp"
 #include "..\texture.hpp"
-#include "..\type\typeface.hpp"
+#include "..\..\logic\engine.hpp"
 
 namespace lys
 {
@@ -18,20 +18,24 @@ namespace lys
 		Vector3 _position;
 		std::vector<Sprite> _characters;
 		std::map<wchar_t, std::shared_ptr<Texture>> _textures;
-		TypeFace &_font;
 		std::string _text;
 		Vector4 _color;
+		unsigned int _height;
+		std::string _font;
 	public:
-		Label(const Vector3 &position);
-		Label(const std::string &text, const Vector3 &position);
-		Label(const std::string &text, const Vector3 &position, TypeFace &font);
-		Label(const std::string &text, const Vector3 &position, const Vector4 &color, TypeFace &font);
+		Label(const Vector3 &position, const unsigned int &height);
+		Label(const std::string &text, const Vector3 &position, const unsigned int &height);
+		Label(const std::string &text, const Vector3 &position, const unsigned int &height, const Vector4 &color);
+		Label(const std::string &text, const Vector3 &position, const unsigned int &height, const Vector4 &color, const std::string &font);
 
 		void setText(const std::string &text);
 		const std::string &getText() const;
 
-		void setFont(TypeFace &font);
-		TypeFace &getFont() const;
+		void setHeight(const unsigned int height);
+		const unsigned int &getHeight() const;
+
+		void setFont(const std::string &font);
+		const std::string &getFont() const;
 
 		void setColor(const Vector4 &color);
 		const Vector4 &getColor() const;
@@ -42,7 +46,7 @@ namespace lys
 		const Sprite *getData() const override;
 		const size_t getCount() const override;
 
-		void repaint();
+		void repaint(EngineInternals &internals);
 	};
 
 }

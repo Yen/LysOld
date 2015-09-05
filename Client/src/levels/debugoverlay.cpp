@@ -5,8 +5,8 @@
 namespace lys
 {
 
-	DebugOverlay::DebugOverlay(const EngineLoadingArgs &args)
-		: Level(args)
+	DebugOverlay::DebugOverlay(EngineInternals &internals, const EngineLoadingArgs &args)
+		: Level(internals, args)
 	{}
 
 	void DebugOverlay::draw(EngineInternals &internals, EngineArgs &args)

@@ -1,18 +1,17 @@
 ﻿#include "menu.hpp"
 
 #include <sstream>
-#include <thread>
 
 #include "..\logic\engine.hpp"
+#include "..\utils.hpp"
 
 namespace lys
 {
 
-	Menu::Menu(const EngineLoadingArgs &args)
-		: Level(args, 60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex("data/images/spectrum.jpg"), _label(Vector3(0, 0, 1))
+	Menu::Menu(EngineInternals &internals, const EngineLoadingArgs &args)
+		: Level(internals, args, 60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex("data/images/spectrum.jpg"), _label(Vector3(0, 0, 1), 20)
 	{
-		_label.getFont().setHeight(20);
-		_label.repaint();
+		_label.repaint(internals);
 	}
 
 	void Menu::update(EngineInternals &internals, EngineArgs &args)
@@ -20,6 +19,7 @@ namespace lys
 		std::stringstream ss;
 		ss << "FPS: " << internals.counter.getFPS(args.time.current);
 		_label.setText(ss.str());
+		_label.repaint(internals);
 
 		if (internals.window.getButton(SDL_BUTTON_LEFT))
 		{
@@ -46,7 +46,7 @@ namespace lys
 	void Menu::resize(EngineInternals &internals)
 	{
 		_interface.resize(internals.window.getSize());
-		_label.setPosition(Vector3(10, internals.window.getSize().y - (float)_label.getFont().getHeight() - 10, _label.getPosition().z));
+		_label.setPosition(Vector3(10, internals.window.getSize().y - (float)_label.getHeight() - 10, _label.getPosition().z));
 	}
 
 }

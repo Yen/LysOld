@@ -10,6 +10,7 @@
 #include "fpscounter.hpp"
 #include "..\levels\loadingscreen.hpp"
 #include "..\levels\debugoverlay.hpp"
+#include "..\graphics\type\typeengine.hpp"
 
 namespace lys
 {
@@ -25,6 +26,7 @@ namespace lys
 	public:
 		Window &window;
 		FPSCounter &counter;
+		TypeEngine &typeEngine;
 	};
 
 	class EngineArgs
@@ -36,11 +38,14 @@ namespace lys
 
 	class Level;
 
+#define LYS_ENGINE_DEFAULT_FONT "opensans"
+
 	class Engine
 	{
 	private:
 		Window _window;
 		FPSCounter _counter;
+		TypeEngine _typeEngine;
 		FixedTimer _timer;
 		std::unique_ptr<Level> _level;
 		GraphicsContext _mainContext;
@@ -58,13 +63,39 @@ namespace lys
 		EngineInternals _internals;
 	public:
 		Engine();
-		~Engine();
 
 		void run();
 	private:
-		template <typename T>
-		void changeLevel(const FixedTimerData &time);
 		void resize(Level &level);
+	public:
+		template <typename T>
+		void changeLevel()
+		{
+			static_assert(std::is_base_of<Level, T>::value, "Not base class of Level");
+			static_assert(std::is_constructible<T, EngineInternals &, const EngineLoadingArgs &>::value, "Level must contain correct constructor");
+
+			if (_loading)
+			{
+				LYS_LOG_WARNING("Change level(%s) aborted, a level is already loading", typeid(T).name());
+				return;
+			}
+
+			_loading = true;
+
+			_loadingContext.makeCurrent();
+
+			_loadingThread = std::make_unique<std::thread>([&]()
+			{
+				_mainContext.makeCurrent();
+				_level = std::make_unique<T>(_internals, EngineLoadingArgs{ _loadingContext });
+				_levelStart = _timer.getTimerData().current;
+				_levelUpdates = 0;
+				_levelNew = true;
+
+				_mainContext.unbindCurrent();
+				_loading = false;
+			});
+		}
 	};
 
 }

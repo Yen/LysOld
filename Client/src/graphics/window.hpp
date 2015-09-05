@@ -29,6 +29,13 @@ namespace lys
 		WINDOWSIZECHANGED
 	};
 
+	enum WindowMode
+	{
+		WINDOWED,
+		FULLSCREEN_DESKTOP,
+		FULLSCREEN
+	};
+
 	class Window
 	{
 		friend class GraphicsContext;
@@ -38,6 +45,7 @@ namespace lys
 	private:
 		std::string _title;
 		Metric2 _size;
+		WindowMode _mode;
 		bool _visible;
 		Metric2 _position;
 		bool _focus;
@@ -68,6 +76,9 @@ namespace lys
 
 		const Metric2 &getMouse() const;
 		void setMouse(const Metric2 &mouse);
+
+		const WindowMode &getWindowMode() const;
+		void setWindowMode(const WindowMode &mode);
 
 		const bool &getButton(const unsigned int &button) const;
 		const bool &getKey(const unsigned int &key) const;

@@ -25,7 +25,7 @@ namespace lys
 
 		void reset();
 		void update();
-		const FixedTimerData &getTimerData();
+		const FixedTimerData &getTimerData() const;
 	};
 
 }

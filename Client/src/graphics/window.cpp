@@ -221,6 +221,22 @@ namespace lys
 		SDL_WarpMouseInWindow(_window, _mouse.x, _mouse.y);
 	}
 
+	const WindowMode &Window::getWindowMode() const
+	{
+		return _mode;
+	}
+
+	void Window::setWindowMode(const WindowMode &mode)
+	{
+		_mode = mode;
+		if (_mode == WindowMode::FULLSCREEN)
+			SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
+		else if (_mode == WindowMode::FULLSCREEN_DESKTOP)
+			SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		else
+			SDL_SetWindowFullscreen(_window, 0);
+	}
+
 	const bool &Window::getButton(const unsigned int &button) const
 	{
 		return _buttons[button];

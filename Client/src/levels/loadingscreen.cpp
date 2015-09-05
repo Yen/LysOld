@@ -16,8 +16,8 @@ namespace lys
 		return ShaderProgram(shaders);
 	}
 
-	LoadingScreen::LoadingScreen(const EngineLoadingArgs &args)
-		: Level(args), _shader(createShader())
+	LoadingScreen::LoadingScreen(EngineInternals &internals, const EngineLoadingArgs &args)
+		: Level(internals, args), _shader(createShader())
 	{
 		_shader.enable();
 		_shader.setUniformMat4("uni_vw_matrix", Matrix4::lookAt(Vector3(0, 0, 5), Vector3(0, 0, 0), Vector3(0, 1, 0)));
@@ -30,7 +30,7 @@ namespace lys
 		glDisable(GL_CULL_FACE);
 
 		_shader.enable();
-		_shader.setUniformMat4("uni_ml_matrix", Matrix4::rotation(args.time.current * 45, Vector3(0, 1, 0)));
+		_shader.setUniformMat4("uni_ml_matrix", Matrix4::rotation((float)args.time.current * 45, Vector3(0, 1, 0)));
 
 		glBegin(GL_QUADS);
 		glVertex3f(-2, -2, 0);

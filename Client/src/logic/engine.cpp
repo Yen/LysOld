@@ -14,16 +14,16 @@
 namespace lys
 {
 
-	static LoadingScreen createLoadingScreen(GraphicsContext &context)
+	static LoadingScreen createLoadingScreen(EngineInternals &internals, GraphicsContext &context)
 	{
 		context.makeCurrent();
-		return LoadingScreen(EngineLoadingArgs{ context });
+		return LoadingScreen(internals, EngineLoadingArgs{ context });
 	}
 
-	static DebugOverlay createDebugOverlay(GraphicsContext &context)
+	static DebugOverlay createDebugOverlay(EngineInternals &internals, GraphicsContext &context)
 	{
 		context.makeCurrent();
-		return DebugOverlay(EngineLoadingArgs{ context });
+		return DebugOverlay(internals, EngineLoadingArgs{ context });
 	}
 
 	Engine::Engine()
@@ -31,11 +31,11 @@ namespace lys
 		_mainContext(_window),
 		_loadingContext(_window),
 		_debugContext(_window),
-		_loadingScreen(createLoadingScreen(_loadingContext)),
-		_debugOverlay(createDebugOverlay(_debugContext)),
+		_loadingScreen(createLoadingScreen(_internals, _loadingContext)),
+		_debugOverlay(createDebugOverlay(_internals, _debugContext)),
 		_loading(false),
 		_swapInterval(0),
-		_internals{ _window, _counter }
+		_internals{ _window, _counter, _typeEngine }
 	{
 		_timer.reset();
 
@@ -54,16 +54,14 @@ namespace lys
 
 		_loadingScreen.resize(_internals);
 
-		changeLevel<Menu>(_timer.getTimerData());
-	}
-
-	Engine::~Engine()
-	{
-
+		_typeEngine.loadFace(LYS_ENGINE_DEFAULT_FONT, "data/fonts/OpenSans-Regular.ttf", 0);
 	}
 
 	void Engine::run()
 	{
+		if (!_loading && _level == nullptr)
+			throw std::exception("No level was set for engine to start");
+
 		_timer.reset();
 		const FixedTimerData &time = _timer.getTimerData();
 
@@ -100,6 +98,8 @@ namespace lys
 				}
 			}
 
+			EngineArgs args{ time, *context };
+
 			if (context->getSwapInterval() != _swapInterval)
 				context->setSwapInterval(_swapInterval);
 
@@ -132,7 +132,7 @@ namespace lys
 				}
 				case WindowMessage::KEYDOWN:
 				{
-					if (_window.getKey(SDL_SCANCODE_F11))
+					if (_window.getKey(SDL_SCANCODE_F9))
 						_debug = !_debug;
 					break;
 				}
@@ -150,7 +150,7 @@ namespace lys
 			{
 				while ((time.current - _levelStart) * _level->getUPS() > _levelUpdates)
 				{
-					level->update(_internals, EngineArgs{ time, *context });
+					level->update(_internals, args);
 					_levelUpdates++;
 				}
 			}
@@ -159,12 +159,12 @@ namespace lys
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			level->draw(_internals, EngineArgs{ time, *context });
+			level->draw(_internals, args);
 
 			if (_debug)
 			{
 				_debugContext.makeCurrent();
-				_debugOverlay.draw(_internals, EngineArgs{ time, *context });
+				_debugOverlay.draw(_internals, args);
 			}
 
 			_window.swapBuffers();
@@ -191,34 +191,6 @@ namespace lys
 		_loadingThread->join();
 
 		glFinish();
-	}
-
-	template <typename T>
-	void Engine::changeLevel(const FixedTimerData &time)
-	{
-		static_assert(std::is_base_of<Level, T>::value, "Not base class of Level");
-
-		if (_loading)
-		{
-			LYS_LOG_WARNING("Change level(%s) aborted, a level is already loading", typeid(T).name());
-			return;
-		}
-
-		_loading = true;
-
-		_loadingContext.makeCurrent();
-
-		_loadingThread = std::make_unique<std::thread>([&]()
-		{
-			_mainContext.makeCurrent();
-			_level = std::make_unique<T>(EngineLoadingArgs{ _loadingContext });
-			_levelStart = time.current;
-			_levelUpdates = 0;
-			_levelNew = true;
-
-			_mainContext.unbindCurrent();
-			_loading = false;
-		});
 	}
 
 	void Engine::resize(Level &level)

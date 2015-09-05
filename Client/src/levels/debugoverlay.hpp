@@ -8,7 +8,7 @@ namespace lys
 	class DebugOverlay : public Level
 	{
 	public:
-		DebugOverlay(const EngineLoadingArgs &args);
+		DebugOverlay(EngineInternals &internals, const EngineLoadingArgs &args);
 
 		void draw(EngineInternals &internals, EngineArgs &args) override;
 	};

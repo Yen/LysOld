@@ -2,6 +2,7 @@
 
 #include "lys.hpp"
 #include "logic\engine.hpp"
+#include "levels\menu.hpp"
 
 namespace lys
 {
@@ -11,16 +12,17 @@ namespace lys
 		try
 		{
 			Engine engine;
+			engine.changeLevel<Menu>();
 			engine.run();
 		}
 		catch (const std::exception &e)
 		{
-			LYS_LOG_ERR("Unhandled standard exception occured (%s)", e.what());
+			LYS_LOG_FAITAL("Unhandled standard exception occured (%s)", e.what());
 			return 1;
 		}
 		catch (...)
 		{
-			LYS_LOG_ERR("Unhandled unknown exception type occured");
+			LYS_LOG_FAITAL("Unhandled unknown exception type occured");
 			return 1;
 		}
 

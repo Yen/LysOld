@@ -28,7 +28,7 @@ namespace lys
 		_data.delta = _data.current - _data.previous;
 	}
 
-	const FixedTimerData &FixedTimer::getTimerData()
+	const FixedTimerData &FixedTimer::getTimerData() const
 	{
 		return _data;
 	}

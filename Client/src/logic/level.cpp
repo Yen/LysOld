@@ -3,7 +3,7 @@
 namespace lys
 {
 
-	Level::Level(const EngineLoadingArgs &args, const int &ups)
+	Level::Level(EngineInternals &internals, const EngineLoadingArgs &args, const int &ups)
 		: _ups(ups)
 	{}
 

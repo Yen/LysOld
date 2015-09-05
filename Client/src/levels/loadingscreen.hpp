@@ -11,7 +11,7 @@ namespace lys
 	private:
 		ShaderProgram _shader;
 	public:
-		LoadingScreen(const EngineLoadingArgs &args);
+		LoadingScreen(EngineInternals &internals, const EngineLoadingArgs &args);
 
 		void draw(EngineInternals &internals, EngineArgs &args) override;
 		void resize(EngineInternals &internals) override;

@@ -16,7 +16,7 @@ namespace lys
 		Sprite _test;
 		Label _label;
 	public:
-		Menu(const EngineLoadingArgs &args);
+		Menu(EngineInternals &internals, const EngineLoadingArgs &args);
 
 		void update(EngineInternals &internals, EngineArgs &args) override;
 		void draw(EngineInternals &internals, EngineArgs &args) override;
