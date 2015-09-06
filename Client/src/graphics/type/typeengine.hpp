@@ -28,12 +28,13 @@ namespace lys
 	{
 	private:
 		FT_Library _library;
+		FT_Stroker _stroker;
 		std::map<std::string, FT_Face> _faces;
 	public:
 		TypeEngine();
 		~TypeEngine();
 
-		Glyph getGlyph(const wchar_t character, const unsigned int height, const std::string &faceName);
+		Glyph getGlyph(const wchar_t &character, const unsigned int &height, const unsigned int &outline, const std::string &faceName);
 		bool loadFace(const std::string &name, const std::string &path, const FT_Long &index);
 		bool unloadFace(const std::string &name);
 	private:

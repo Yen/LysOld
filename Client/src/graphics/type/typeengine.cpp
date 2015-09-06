@@ -13,14 +13,19 @@ namespace lys
 		{
 			throw std::exception("Error initializing FreeType library");
 		}
+		if (FT_Stroker_New(_library, &_stroker) != 0)
+		{
+			throw std::exception("Error initializing FreeType stroker");
+		}
 	}
 
 	TypeEngine::~TypeEngine()
 	{
+		FT_Stroker_Done(_stroker);
 		FT_Done_FreeType(_library);
 	}
 
-	Glyph TypeEngine::getGlyph(const wchar_t character, const unsigned int height, const std::string &faceName)
+	Glyph TypeEngine::getGlyph(const wchar_t &character, const unsigned int &height, const unsigned int &outline, const std::string &faceName)
 	{
 		FT_Face &face = getFace(faceName);
 		FT_Set_Pixel_Sizes(face, 0, height);
@@ -28,6 +33,13 @@ namespace lys
 
 		FT_Glyph glyph;
 		FT_Get_Glyph(face->glyph, &glyph);
+
+		if (outline != 0)
+		{
+			FT_Stroker_Set(_stroker, outline, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+			FT_Glyph_StrokeBorder(&glyph, _stroker, false, true);
+		}
+
 		FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, nullptr, true);
 		FT_BitmapGlyph bitmap = reinterpret_cast<FT_BitmapGlyph>(glyph);
 

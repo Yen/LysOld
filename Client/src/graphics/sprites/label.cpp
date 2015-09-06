@@ -98,7 +98,7 @@ namespace lys
 
 		for (std::wstring::const_iterator i = result.begin(); i != result.end(); i++)
 		{
-			Glyph &g = internals.typeEngine.getGlyph(*i, _height, _font);
+			Glyph &g = internals.typeEngine.getGlyph(*i, _height, 0, _font);
 
 			float x2 = x + g.bitmap.left;
 			float y2 = y - ((float)g.bitmap.height - (float)g.bitmap.top);
