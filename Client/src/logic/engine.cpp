@@ -1,4 +1,4 @@
-#include "engine.hpp"
+﻿#include "engine.hpp"
 
 #include <GL\glew.h>
 #include <sstream>
@@ -53,8 +53,6 @@ namespace lys
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 		_loadingScreen.resize(_internals);
-
-		_typeEngine.loadFace(LYS_ENGINE_DEFAULT_FONT, "data/fonts/OpenSans-Regular.ttf", 0);
 	}
 
 	void Engine::run()

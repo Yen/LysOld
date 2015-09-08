@@ -9,20 +9,26 @@
 namespace lys
 {
 
-	Label::Label(const Vector3 &position, const unsigned int &height)
-		: Label(std::string(), position, height)
+#define LYS_LABEL_DEFAULT_HEIGHT 20
+
+	Label::Label(TypeFace &face)
+		: Label(face, Vector3(0, 0, 0))
 	{}
 
-	Label::Label(const std::string &text, const Vector3 &position, const unsigned int &height)
-		: Label(text, position, height, Vector4(1, 1, 1, 1))
+	Label::Label(TypeFace &face, const Vector3 &position)
+		: Label(face, Vector3(0, 0, 0), std::string())
 	{}
 
-	Label::Label(const std::string &text, const Vector3 &position, const unsigned int &height, const Vector4 &color)
-		: Label(text, position, height, color, LYS_ENGINE_DEFAULT_FONT)
+	Label::Label(TypeFace &face, const Vector3 &position, const std::string &text)
+		: Label(face, position, text, LYS_LABEL_DEFAULT_HEIGHT)
 	{}
 
-	Label::Label(const std::string &text, const Vector3 &position, const unsigned int &height, const Vector4 &color, const std::string &font)
-		: _text(text), _position(position), _height(height), _color(color), _font(font)
+	Label::Label(TypeFace &face, const Vector3 &position, const std::string &text, const unsigned int &height)
+		: Label(face, position, text, height, Vector4(1, 1, 1, 1))
+	{}
+
+	Label::Label(TypeFace &face, const Vector3 &position, const std::string &text, const unsigned int &height, const Vector4 &color)
+		: _face(&face), _position(position), _text(text), _height(height), _color(color)
 	{}
 
 	void Label::setText(const std::string &text)
@@ -45,14 +51,14 @@ namespace lys
 		return _height;
 	}
 
-	void Label::setFont(const std::string &font)
+	void Label::setFace(TypeFace &face)
 	{
-		_font = font;
+		_face = &face;
 	}
 
-	const std::string &Label::getFont() const
+	const TypeFace &Label::getFace() const
 	{
-		return _font;
+		return *_face;
 	}
 
 	void Label::setColor(const Vector4 &color)
@@ -98,14 +104,13 @@ namespace lys
 
 		for (std::wstring::const_iterator i = result.begin(); i != result.end(); i++)
 		{
-			Glyph &g = internals.typeEngine.getGlyph(*i, _height, 0, _font);
+			Glyph &g = internals.typeEngine.getGlyph(*i, _height, *_face);
 
 			float x2 = x + g.bitmap.left;
 			float y2 = y - ((float)g.bitmap.height - (float)g.bitmap.top);
 
 			Texture *tex;
-			auto a = _textures.find(*i);
-			if (a != _textures.end())
+			if (_textures.find(*i) != _textures.end())
 			{
 				tex = _textures[*i].get();
 			}

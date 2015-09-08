@@ -181,7 +181,7 @@
     <ClCompile Include="src\graphics\shaderprogram.cpp" />
     <ClCompile Include="src\graphics\sprites\label.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
-    <ClCompile Include="src\graphics\type\typeengine.cpp" />
+    <ClCompile Include="src\graphics\typeengine.cpp" />
     <ClCompile Include="src\levels\loadingscreen.cpp" />
     <ClCompile Include="src\logic\engine.cpp" />
     <ClCompile Include="src\logic\fixedtimer.cpp" />
@@ -213,7 +213,7 @@
     <ClInclude Include="src\graphics\shaderprogram.hpp" />
     <ClInclude Include="src\graphics\sprites\label.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
-    <ClInclude Include="src\graphics\type\typeengine.hpp" />
+    <ClInclude Include="src\graphics\typeengine.hpp" />
     <ClInclude Include="src\levels\loadingscreen.hpp" />
     <ClInclude Include="src\logic\engine.hpp" />
     <ClInclude Include="src\logic\fixedtimer.hpp" />

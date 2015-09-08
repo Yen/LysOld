@@ -10,7 +10,7 @@
 #include "fpscounter.hpp"
 #include "..\levels\loadingscreen.hpp"
 #include "..\levels\debugoverlay.hpp"
-#include "..\graphics\type\typeengine.hpp"
+#include "..\graphics\typeengine.hpp"
 
 namespace lys
 {

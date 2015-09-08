@@ -93,7 +93,7 @@
     <ClCompile Include="src\graphics\framebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\type\typeengine.cpp">
+    <ClCompile Include="src\graphics\typeengine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,7 +185,7 @@
     <ClInclude Include="src\graphics\framebuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\type\typeengine.hpp">
+    <ClInclude Include="src\graphics\typeengine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
