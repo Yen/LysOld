@@ -257,7 +257,11 @@
     <Image Include="data\images\temp\default4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="data\fonts\OpenSans-Regular.ttf" />
+    <Font Include="data\core\defaultfonts\NotoSans-Regular.ttf" />
+    <Font Include="data\core\defaultfonts\other\NotoSansCJKjp-Regular.otf" />
+    <Font Include="data\core\defaultfonts\other\NotoSansCJKkr-Regular.otf" />
+    <Font Include="data\core\defaultfonts\other\NotoSansCJKsc-Regular.otf" />
+    <Font Include="data\fonts\NotoSans-Regular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

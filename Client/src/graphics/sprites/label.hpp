@@ -21,13 +21,13 @@ namespace lys
 		std::string _text;
 		Vector4 _color;
 		unsigned int _height;
-		TypeFace *_face;
+		TypeEngine::Face *_face;
 	public:
-		Label(TypeFace &face);
-		Label(TypeFace &face, const Vector3 &position);
-		Label(TypeFace &face, const Vector3 &position, const std::string &text);
-		Label(TypeFace &face, const Vector3 &position, const std::string &text, const unsigned int &height);
-		Label(TypeFace &face, const Vector3 &position, const std::string &text, const unsigned int &height, const Vector4 &color);
+		Label(TypeEngine::Face *face);
+		Label(TypeEngine::Face *face, const Vector3 &position);
+		Label(TypeEngine::Face *face, const Vector3 &position, const std::string &text);
+		Label(TypeEngine::Face *face, const Vector3 &position, const std::string &text, const unsigned int &height);
+		Label(TypeEngine::Face *face, const Vector3 &position, const std::string &text, const unsigned int &height, const Vector4 &color);
 
 		void setText(const std::string &text);
 		const std::string &getText() const;
@@ -35,8 +35,8 @@ namespace lys
 		void setHeight(const unsigned int height);
 		const unsigned int &getHeight() const;
 
-		void setFace(TypeFace &face);
-		const TypeFace &getFace() const;
+		void setFace(TypeEngine::Face &face);
+		const TypeEngine::Face &getFace() const;
 
 		void setColor(const Vector4 &color);
 		const Vector4 &getColor() const;

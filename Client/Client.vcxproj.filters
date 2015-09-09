@@ -235,6 +235,10 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="data\fonts\OpenSans-Regular.ttf" />
+    <Font Include="data\fonts\NotoSans-Regular.ttf" />
+    <Font Include="data\core\defaultfonts\NotoSans-Regular.ttf" />
+    <Font Include="data\core\defaultfonts\other\NotoSansCJKsc-Regular.otf" />
+    <Font Include="data\core\defaultfonts\other\NotoSansCJKjp-Regular.otf" />
+    <Font Include="data\core\defaultfonts\other\NotoSansCJKkr-Regular.otf" />
   </ItemGroup>
 </Project>

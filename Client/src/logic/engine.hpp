@@ -38,8 +38,6 @@ namespace lys
 
 	class Level;
 
-#define LYS_ENGINE_DEFAULT_FONT "opensans"
-
 	class Engine
 	{
 	private:

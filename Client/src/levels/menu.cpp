@@ -9,7 +9,7 @@ namespace lys
 {
 
 	Menu::Menu(EngineInternals &internals, const EngineLoadingArgs &args)
-		: Level(internals, args, 60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex("data/images/spectrum.jpg"), _label(internals.typeEngine.getDefault(), Vector3(0, 0, 1))
+		: Level(internals, args, 60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex("data/images/spectrum.jpg"), _label(nullptr, Vector3(0, 0, 1))
 	{
 		_label.repaint(internals);
 	}
@@ -17,7 +17,7 @@ namespace lys
 	void Menu::update(EngineInternals &internals, EngineArgs &args)
 	{
 		std::stringstream ss;
-		ss << "FPS: " << internals.counter.getFPS(args.time.current);
+		ss << u8"FPS カッパ 卡帕 카파: " << internals.counter.getFPS(args.time.current);
 		_label.setText(ss.str());
 		_label.repaint(internals);
 
