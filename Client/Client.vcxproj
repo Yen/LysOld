@@ -244,10 +244,8 @@
     <None Include="data\shaders\test.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="data\images\capsule0.jpg" />
     <Image Include="data\images\dank.png" />
     <Image Include="data\images\memes.png" />
-    <Image Include="data\images\meshDefault.png" />
     <Image Include="data\images\spectrum.jpg" />
     <Image Include="data\images\spriteDefault.png" />
     <Image Include="data\images\temp\default0.png" />

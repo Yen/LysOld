@@ -224,13 +224,7 @@
     <Image Include="data\images\spriteDefault.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="data\images\meshDefault.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="data\images\temp\default4.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="data\images\capsule0.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

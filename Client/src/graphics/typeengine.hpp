@@ -73,6 +73,7 @@ namespace lys
 		std::list<Face *> _faces;
 		std::list<Stroke *> _strokes;
 		std::vector<std::unique_ptr<Face>> _defaultFaces;
+		std::vector<std::pair<Face *, unsigned int>> _defaultCache;
 		Face *_defaultFace;
 	public:
 		TypeEngine();

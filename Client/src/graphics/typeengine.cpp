@@ -1,6 +1,7 @@
 ﻿#include "typeengine.hpp"
 
 #include <sstream> 
+#include <algorithm>
 #include <boost/filesystem.hpp>
 
 #include "..\lys.hpp"
@@ -104,6 +105,7 @@ namespace lys
 #pragma endregion Stroke
 
 	TypeEngine::TypeEngine()
+		: _defaultCache(std::numeric_limits<wchar_t>::max())
 	{
 		if (FT_Init_FreeType(&_library) != 0)
 		{
@@ -121,6 +123,8 @@ namespace lys
 		{
 			_defaultFaces.push_back(std::make_unique<Face>(*this, i->path().string()));
 		}
+
+		std::fill(_defaultCache.begin(), _defaultCache.end(), std::pair<Face *, unsigned int>(nullptr, 0));
 	}
 
 	TypeEngine::~TypeEngine()
@@ -139,23 +143,37 @@ namespace lys
 
 	TypeEngine::Glyph TypeEngine::getGlyph(const wchar_t &character, const unsigned int &height, Face *face, Stroke *stroke)
 	{
-		Face *buf = face;
-		if (buf == nullptr || !buf->containsCharacter(character))
+		Face *f = face;
+		unsigned int i = 0;
+		if ((f == nullptr || !f->containsCharacter(character)) && character != 0)
 		{
-			for (auto &f : _defaultFaces)
+			auto &buffer = _defaultCache[character];
+			if (buffer.first != nullptr)
 			{
-				if (!f->containsCharacter(character))
-					continue;
-				buf = f.get();
-				break;
+				f = buffer.first;
+				i = buffer.second;
 			}
-			if (buf == nullptr)
-				buf = _defaultFace;
+			else
+			{
+				for (auto &it : _defaultFaces)
+				{
+					if (!it->containsCharacter(character))
+						continue;
+					f = it.get();
+					i = f->getCharacterIndex(character);
+					buffer.first = f;
+					buffer.second = i;
+					break;
+				}
+			}
 		}
-		buf->setHeight(height);
-		buf->loadGlyph(buf->getCharacterIndex(character));
+		if (f == nullptr)
+			f = _defaultFace;
 
-		FT_Glyph &glyph = buf->getGlyph();
+		f->setHeight(height);
+		f->loadGlyph(i);
+
+		FT_Glyph &glyph = f->getGlyph();
 
 		if (stroke != nullptr)
 		{
@@ -165,13 +183,8 @@ namespace lys
 		FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, nullptr, true);
 		FT_BitmapGlyph bitmap = reinterpret_cast<FT_BitmapGlyph>(glyph);
 
-		Glyph result{ Glyph::Bitmap{ bitmap->bitmap.buffer, bitmap->bitmap.width, bitmap->bitmap.rows, bitmap->left, bitmap->top }, Vector2{ (float)(buf->_face->glyph->advance.x >> 6), (float)(buf->_face->glyph->advance.y >> 6) } };
+		Glyph result{ Glyph::Bitmap{ bitmap->bitmap.buffer, bitmap->bitmap.width, bitmap->bitmap.rows, bitmap->left, bitmap->top }, Vector2{ (float)(f->_face->glyph->advance.x >> 6), (float)(f->_face->glyph->advance.y >> 6) } };
 		return result;
 	}
-
-	//TypeEngine::Face &TypeEngine::getDefault()
-	//{
-	//	return _default;
-	//}
 
 }
