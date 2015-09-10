@@ -55,6 +55,14 @@ namespace lys
 		_loadingScreen.resize(_internals);
 	}
 
+	Engine::~Engine()
+	{
+		LYS_LOG("Waiting for other engine threads to clean up");
+
+		if (_loadingThread != nullptr)
+			_loadingThread->join();
+	}
+
 	void Engine::run()
 	{
 		if (!_loading && _level == nullptr)
@@ -86,6 +94,11 @@ namespace lys
 			}
 			else
 			{
+				if (_loadingException != nullptr)
+				{
+					LYS_LOG("Exception was thrown in engine loading thread");
+					std::rethrow_exception(_loadingException);
+				}
 				level = _level.get();
 				context = &_mainContext;
 				context->makeCurrent();
@@ -183,10 +196,6 @@ namespace lys
 		LYS_LOG("Engine loop (%p) escaped", this);
 
 		_window.setVisible(false);
-
-		LYS_LOG("Waiting for other threads to cleanup");
-
-		_loadingThread->join();
 
 		glFinish();
 	}

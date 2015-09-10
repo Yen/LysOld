@@ -16,7 +16,7 @@ namespace lys
 	{}
 
 	Label::Label(TypeEngine::Face *face, const Vector3 &position)
-		: Label(face, Vector3(0, 0, 0), std::string())
+		: Label(face, position, std::string())
 	{}
 
 	Label::Label(TypeEngine::Face *face, const Vector3 &position, const std::string &text)

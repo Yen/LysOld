@@ -107,6 +107,8 @@ namespace lys
 		return (left->texture < right->texture);
 	}
 
+	//TODO: Sort transparent objects that overlap the blend without depth test
+
 	void InterfaceBatch::renderBatch()
 	{
 		if (_sprites.empty())
@@ -123,9 +125,11 @@ namespace lys
 		glCullFace(GL_BACK);
 
 		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_ALPHA_TEST);
 
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
 		std::sort(std::begin(_sprites), std::end(_sprites), compare);
 

@@ -3,6 +3,7 @@
 #include <memory>
 #include <thread>
 #include <atomic>
+#include <future>
 
 #include "..\graphics\window.hpp"
 #include "..\graphics\graphicscontext.hpp"
@@ -53,6 +54,7 @@ namespace lys
 		DebugOverlay _debugOverlay;
 		std::atomic<bool> _loading;
 		std::unique_ptr<std::thread> _loadingThread;
+		std::exception_ptr _loadingException;
 		TimePoint _levelStart;
 		unsigned int _levelUpdates;
 		std::atomic<bool> _levelNew;
@@ -61,6 +63,7 @@ namespace lys
 		EngineInternals _internals;
 	public:
 		Engine();
+		~Engine();
 
 		void run();
 	private:
@@ -85,10 +88,18 @@ namespace lys
 			_loadingThread = std::make_unique<std::thread>([&]()
 			{
 				_mainContext.makeCurrent();
-				_level = std::make_unique<T>(_internals, EngineLoadingArgs{ _loadingContext });
-				_levelStart = _timer.getTimerData().current;
-				_levelUpdates = 0;
-				_levelNew = true;
+
+				try
+				{
+					_level = std::make_unique<T>(_internals, EngineLoadingArgs{ _loadingContext });
+					_levelStart = _timer.getTimerData().current;
+					_levelUpdates = 0;
+					_levelNew = true;
+				}
+				catch (...)
+				{
+					_loadingException = std::current_exception();
+				}
 
 				_mainContext.unbindCurrent();
 				_loading = false;

@@ -34,6 +34,7 @@ void main(void)
 		}
 	}
 
+	//Temporary until blending is fixed
 	if (buffer.a > 0.0)
 	{
 		out_color = buffer;
