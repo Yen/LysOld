@@ -167,8 +167,16 @@ namespace lys
 				}
 			}
 		}
+		else
+		{
+			i = f->getCharacterIndex(character);
+		}
+
 		if (f == nullptr)
+		{
 			f = _defaultFace;
+			i = f->getCharacterIndex(character);
+		}
 
 		f->setHeight(height);
 		f->loadGlyph(i);
