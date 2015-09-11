@@ -35,7 +35,7 @@ namespace lys
 		_debugOverlay(createDebugOverlay(_internals, _debugContext)),
 		_loading(false),
 		_swapInterval(0),
-		_internals{ _window, _counter, _typeEngine }
+		_internals{ *this, _window, _counter, _typeEngine }
 	{
 		_timer.reset();
 
@@ -165,6 +165,9 @@ namespace lys
 					_levelUpdates++;
 				}
 			}
+
+			if (_loading && (level != &_loadingScreen))
+				continue;
 
 			// Draw
 

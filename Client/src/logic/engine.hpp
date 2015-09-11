@@ -22,9 +22,12 @@ namespace lys
 		const GraphicsContext &context;
 	};
 
+	class Engine;
+
 	class EngineInternals
 	{
 	public:
+		Engine &engine;
 		Window &window;
 		FPSCounter &counter;
 		TypeEngine &typeEngine;
@@ -85,13 +88,18 @@ namespace lys
 
 			_loadingContext.makeCurrent();
 
+			if (_loadingThread != nullptr)
+			{
+				_loadingThread->join();
+				_loadingThread.release();
+			}
 			_loadingThread = std::make_unique<std::thread>([&]()
 			{
 				_mainContext.makeCurrent();
 
 				try
 				{
-					_level = std::make_unique<T>(_internals, EngineLoadingArgs{ _loadingContext });
+					_level = std::make_unique<T>(_internals, EngineLoadingArgs{ _mainContext });
 					_levelStart = _timer.getTimerData().current;
 					_levelUpdates = 0;
 					_levelNew = true;
@@ -104,6 +112,8 @@ namespace lys
 				_mainContext.unbindCurrent();
 				_loading = false;
 			});
+
+			resize(_loadingScreen);
 		}
 	};
 

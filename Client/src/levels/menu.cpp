@@ -4,6 +4,7 @@
 
 #include "..\logic\engine.hpp"
 #include "..\utils.hpp"
+#include "arena.hpp"
 
 namespace lys
 {
@@ -29,7 +30,8 @@ namespace lys
 			{
 				if ((mousepos.y >= _test.position.y) && (mousepos.y <= _test.position.y + _test.size.y))
 				{
-					LYS_LOG("a");
+					internals.engine.changeLevel<Arena>();
+					return;
 				}
 			}
 		}
