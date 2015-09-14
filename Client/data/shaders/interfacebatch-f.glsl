@@ -1,6 +1,6 @@
 #version 330 core
 
-layout (location = 0) out vec4 out_color;
+layout(location = 0) out vec4 out_color;
 
 uniform sampler2D uni_textures[32];
 
@@ -17,14 +17,14 @@ void main(void)
 {
 	vec4 buffer;
 
-	if(frag_in.texture + 0.5 < 0.0)
+	if (frag_in.texture + 0.5 < 0.0)
 	{
 		buffer = frag_in.color;
 	}
 	else
 	{
 		int state = int(frag_in.state + 0.5);
-		if(state == 0)
+		if (state == 0)
 		{
 			buffer = frag_in.color * texture(uni_textures[int(frag_in.texture + 0.5)], frag_in.uv);
 		}

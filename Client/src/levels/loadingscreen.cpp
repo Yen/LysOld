@@ -11,8 +11,8 @@ namespace lys
 	static ShaderProgram createShader()
 	{
 		std::vector<ShaderData> shaders;
-		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/loadingscreen.vert")));
-		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/loadingscreen.frag")));
+		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/loadingscreen-v.glsl")));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/loadingscreen-f.glsl")));
 		return ShaderProgram(shaders);
 	}
 
@@ -21,6 +21,46 @@ namespace lys
 	{
 		_shader.enable();
 		_shader.setUniformMat4("uni_vw_matrix", Matrix4::lookAt(Vector3(0, 0, 5), Vector3(0, 0, 0), Vector3(0, 1, 0)));
+
+		glGenVertexArrays(1, &_vao);
+		glBindVertexArray(_vao);
+
+		glGenBuffers(1, &_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, nullptr);
+
+		GLfloat vertices[12]
+		{
+			-2, -2, 0,
+			-2,  2, 0,
+			 2,  2, 0,
+			 2, -2, 0
+		};
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 12, vertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glBindVertexArray(0);
+
+		glGenBuffers(1, &_ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
+
+		GLubyte indices[4]
+		{
+			0, 1, 3, 2
+		};
+
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 4, &indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	LoadingScreen::~LoadingScreen()
+	{
+		glDeleteBuffers(1, &_ibo);
+		glDeleteBuffers(1, &_vbo);
+		glDeleteVertexArrays(1, &_vao);
 	}
 
 	void LoadingScreen::draw(EngineInternals &internals, EngineArgs &args)
@@ -32,12 +72,13 @@ namespace lys
 		_shader.enable();
 		_shader.setUniformMat4("uni_ml_matrix", Matrix4::rotation((float)args.time.current * 45, Vector3(0, 1, 0)));
 
-		glBegin(GL_QUADS);
-		glVertex3f(-2, -2, 0);
-		glVertex3f( 2, -2, 0);
-		glVertex3f( 2,  2, 0);
-		glVertex3f(-2,  2, 0);
-		glEnd();
+		glBindVertexArray(_vao);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
+
+		glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, nullptr);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
 	}
 
 	void LoadingScreen::resize(EngineInternals &internals)

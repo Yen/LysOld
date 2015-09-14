@@ -1,10 +1,10 @@
 #version 330 core
 
-layout (location = 0) in vec4 in_position;
-layout (location = 1) in vec4 in_color;
-layout (location = 2) in float in_texture;
-layout (location = 3) in vec2 in_uv;
-layout (location = 4) in float in_state;
+layout(location = 0) in vec4 in_position;
+layout(location = 1) in vec4 in_color;
+layout(location = 2) in float in_texture;
+layout(location = 3) in vec2 in_uv;
+layout(location = 4) in float in_state;
 
 uniform mat4 uni_pr_matrix;
 

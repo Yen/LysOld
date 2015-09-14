@@ -10,8 +10,8 @@ namespace lys
 	static ShaderProgram createShader()
 	{
 		std::vector<ShaderData> shaders;
-		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/interfacebatch.vert")));
-		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/interfacebatch.frag")));
+		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/interfacebatch-v.glsl")));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/interfacebatch-f.glsl")));
 		return ShaderProgram(shaders);
 	}
 
