@@ -11,6 +11,7 @@ namespace lys
 	{
 	private:
 		GLuint _id;
+		GLuint _depth;
 		GLuint _texture;
 		Metric2 _size;
 	public:

@@ -17,7 +17,7 @@ namespace lys
 		}
 		catch (const std::exception &e)
 		{
-			LYS_LOG_FAITAL("Unhandled standard exception occured (%s)", e.what());
+			LYS_LOG_FAITAL("Unhandled standard exception occured:\n########\n%s\n########", e.what());
 			return 1;
 		}
 		catch (...)

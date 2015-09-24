@@ -175,7 +175,9 @@
   <ItemGroup>
     <ClCompile Include="src\graphics\framebuffer.cpp" />
     <ClCompile Include="src\graphics\graphicscontext.cpp" />
+    <ClCompile Include="src\graphics\graphicsprofile.cpp" />
     <ClCompile Include="src\graphics\interfacebatch.cpp" />
+    <ClCompile Include="src\graphics\layer\ui\uilayer.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
     <ClCompile Include="src\graphics\meshbatch.cpp" />
     <ClCompile Include="src\graphics\shaderprogram.cpp" />
@@ -207,7 +209,11 @@
     <ClInclude Include="Dependencies\include\glfw\GL\wglew.h" />
     <ClInclude Include="src\graphics\framebuffer.hpp" />
     <ClInclude Include="src\graphics\graphicscontext.hpp" />
+    <ClInclude Include="src\graphics\graphicsprofile.hpp" />
     <ClInclude Include="src\graphics\interfacebatch.hpp" />
+    <ClInclude Include="src\graphics\layer\layer.hpp" />
+    <ClInclude Include="src\graphics\layer\ui\uielement.hpp" />
+    <ClInclude Include="src\graphics\layer\ui\uilayer.hpp" />
     <ClInclude Include="src\graphics\multisprite.hpp" />
     <ClInclude Include="src\graphics\sprite.hpp" />
     <ClInclude Include="src\graphics\meshbatch.hpp" />
@@ -236,6 +242,8 @@
     <ClInclude Include="src\graphics\window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\shaders\enginescene-f.glsl" />
+    <None Include="data\shaders\enginescene-v.glsl" />
     <None Include="data\shaders\interfacebatch-f.glsl" />
     <None Include="data\shaders\interfacebatch-v.glsl" />
     <None Include="data\shaders\loadingscreen-f.glsl" />

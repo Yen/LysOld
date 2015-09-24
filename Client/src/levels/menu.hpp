@@ -15,6 +15,7 @@ namespace lys
 		Texture _tex;
 		Sprite _test;
 		Label _label;
+		Metric2 _previousMouse;
 	public:
 		Menu(EngineInternals &internals, const EngineLoadingArgs &args);
 

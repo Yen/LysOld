@@ -18,7 +18,8 @@ namespace lys
 	void Menu::update(EngineInternals &internals, EngineArgs &args)
 	{
 		std::stringstream ss;
-		ss << u8"FPS カッパ 卡帕 카파: " << internals.counter.getFPS(args.time.current);
+		const FPSInfo &fps = internals.counter.getFPS(args.time.current);
+		ss << u8"FPS カッパ 卡帕 카파: " << fps.fps << " (" << fps.delay << ")";
 		_label.setText(ss.str());
 		_label.repaint(internals);
 

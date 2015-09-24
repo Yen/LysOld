@@ -18,6 +18,11 @@ namespace lys
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+		glGenRenderbuffers(1, &_depth);
+		glBindRenderbuffer(GL_RENDERBUFFER, _depth);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, _size.x, _size.y);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depth);
+
 		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, _texture, 0);
 		GLenum buffers[1] = { GL_COLOR_ATTACHMENT0 };
 		glDrawBuffers(1, buffers);
@@ -44,6 +49,7 @@ namespace lys
 	void FrameBuffer::bind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, _id);
+		glViewport(0, 0, _size.x, _size.y);
 	}
 
 	void FrameBuffer::bindTexture() const

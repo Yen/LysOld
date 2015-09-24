@@ -7,10 +7,11 @@
 
 #include "..\graphics\window.hpp"
 #include "..\graphics\graphicscontext.hpp"
+#include "..\graphics\graphicsprofile.hpp"
+#include "..\graphics\shaderprogram.hpp"
 #include "fixedtimer.hpp"
 #include "fpscounter.hpp"
 #include "..\levels\loadingscreen.hpp"
-#include "..\levels\debugoverlay.hpp"
 #include "..\graphics\typeengine.hpp"
 
 namespace lys
@@ -29,6 +30,7 @@ namespace lys
 	public:
 		Engine &engine;
 		Window &window;
+		const GraphicsProfile &profile;
 		FPSCounter &counter;
 		TypeEngine &typeEngine;
 	};
@@ -49,20 +51,26 @@ namespace lys
 		FPSCounter _counter;
 		TypeEngine _typeEngine;
 		FixedTimer _timer;
-		std::unique_ptr<Level> _level;
+
 		GraphicsContext _mainContext;
 		GraphicsContext _loadingContext;
-		GraphicsContext _debugContext;
+
+		GraphicsProfile _profile;
+
 		LoadingScreen _loadingScreen;
-		DebugOverlay _debugOverlay;
+		ShaderProgram _sceneShader;
+
+		std::unique_ptr<Level> _level;
+		
 		std::atomic<bool> _loading;
 		std::unique_ptr<std::thread> _loadingThread;
 		std::exception_ptr _loadingException;
+
 		TimePoint _levelStart;
 		unsigned int _levelUpdates;
 		std::atomic<bool> _levelNew;
+
 		int _swapInterval;
-		bool _debug;
 		EngineInternals _internals;
 	public:
 		Engine();
@@ -83,6 +91,8 @@ namespace lys
 				LYS_LOG_WARNING("Change level(%s) aborted, a level is already loading", typeid(T).name());
 				return;
 			}
+
+			glFinish();
 
 			_loading = true;
 

@@ -8,7 +8,7 @@ namespace lys
 		_times.push(time);
 	}
 
-	size_t FPSCounter::getFPS(const TimePoint &current)
+	const FPSInfo &FPSCounter::getFPS(const TimePoint &current)
 	{
 		while (!_times.empty())
 		{
@@ -19,7 +19,9 @@ namespace lys
 			}
 			break;
 		}
-		return _times.size();
+		_info.fps = _times.size();
+		_info.delay = 1000.0f / (float)_info.fps;
+		return _info;
 	}
 
 }

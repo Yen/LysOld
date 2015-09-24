@@ -7,6 +7,7 @@
 #include <atomic>
 
 #include "..\lys.hpp"
+#include "..\utils.hpp"
 #include "..\maths.hpp"
 #include "level.hpp"
 #include "..\levels\menu.hpp"
@@ -14,39 +15,35 @@
 namespace lys
 {
 
-	static LoadingScreen createLoadingScreen(EngineInternals &internals, GraphicsContext &context)
-	{
-		context.makeCurrent();
-		return LoadingScreen(internals, EngineLoadingArgs{ context });
-	}
-
-	static DebugOverlay createDebugOverlay(EngineInternals &internals, GraphicsContext &context)
-	{
-		context.makeCurrent();
-		return DebugOverlay(internals, EngineLoadingArgs{ context });
-	}
-
 	Engine::Engine()
 		: _window("Lys", Metric2(960, 540), false),
+
 		_mainContext(_window),
 		_loadingContext(_window),
-		_debugContext(_window),
-		_loadingScreen(createLoadingScreen(_internals, _loadingContext)),
-		_debugOverlay(createDebugOverlay(_internals, _debugContext)),
+
+		_loadingScreen([&]() -> LoadingScreen
+	{
+		_loadingContext.makeCurrent();
+		return LoadingScreen(_internals, EngineLoadingArgs{ _loadingContext });
+	}()),
+		_sceneShader([&]() -> ShaderProgram
+	{
+		_mainContext.makeCurrent();
+		std::vector<ShaderData> shaders;
+		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/enginescene-v.glsl")));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/enginescene-f.glsl")));
+		return ShaderProgram(shaders);
+	}()),
+
 		_loading(false),
 		_swapInterval(0),
-		_internals{ *this, _window, _counter, _typeEngine }
+		_internals{ *this, _window, _profile, _counter, _typeEngine }
 	{
 		_timer.reset();
 
 		_mainContext.makeCurrent();
 		_mainContext.setSwapInterval(_swapInterval);
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
-		_debugContext.makeCurrent();
-		_debugContext.setSwapInterval(_swapInterval);
-		//Should never be cleared from this context
-		glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 
 		_loadingContext.makeCurrent();
 		_loadingContext.setSwapInterval(_swapInterval);
@@ -90,6 +87,7 @@ namespace lys
 			{
 				level = &_loadingScreen;
 				context = &_loadingContext;
+
 				context->makeCurrent();
 			}
 			else
@@ -101,6 +99,7 @@ namespace lys
 				}
 				level = _level.get();
 				context = &_mainContext;
+
 				context->makeCurrent();
 				if (_levelNew)
 				{
@@ -136,15 +135,10 @@ namespace lys
 				case WindowMessage::WINDOWSIZECHANGED:
 				{
 					resize(*level);
-					_debugContext.makeCurrent();
-					resize(_debugOverlay);
-					context->makeCurrent();
 					break;
 				}
 				case WindowMessage::KEYDOWN:
 				{
-					if (_window.getKey(SDL_SCANCODE_F9))
-						_debug = !_debug;
 					break;
 				}
 				}
@@ -175,12 +169,6 @@ namespace lys
 
 			level->draw(_internals, args);
 
-			if (_debug)
-			{
-				_debugContext.makeCurrent();
-				_debugOverlay.draw(_internals, args);
-			}
-
 			_window.swapBuffers();
 			_counter.push(time.current);
 
@@ -189,7 +177,7 @@ namespace lys
 			if (time.current > seconds)
 			{
 				std::stringstream title;
-				title << "Lys FPS: " << _counter.getFPS(time.current);
+				title << "Lys FPS: " << _counter.getFPS(time.current).fps;
 				_window.setTitle(title.str());
 
 				seconds++;

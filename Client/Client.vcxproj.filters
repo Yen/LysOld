@@ -99,6 +99,12 @@
     <ClCompile Include="src\levels\arena.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\graphicsprofile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layer\ui\uilayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
@@ -194,6 +200,18 @@
     <ClInclude Include="src\levels\arena.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\graphicsprofile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layer\layer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layer\ui\uielement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layer\ui\uilayer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\meshbatch.vert" />
@@ -204,6 +222,8 @@
     <None Include="data\shaders\interfacebatch-v.glsl" />
     <None Include="data\shaders\loadingscreen-f.glsl" />
     <None Include="data\shaders\loadingscreen-v.glsl" />
+    <None Include="data\shaders\enginescene-f.glsl" />
+    <None Include="data\shaders\enginescene-v.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\images\memes.png">
