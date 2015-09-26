@@ -1,11 +1,33 @@
 #include "shaderprogram.hpp"
 
 #include <sstream>
+#include <boost\format.hpp>
 
 #include "..\lys.hpp"
 
 namespace lys
 {
+
+	std::string &ShaderProgram::processShaderSource(std::string &source, const ShaderDefines &defines)
+	{
+		for (auto x : defines)
+		{
+			std::string key = (boost::format("$%1%$") % x.first).str();
+			bool searching = true;
+			while (searching)
+			{
+				auto found = source.find(key);
+				if (found == std::string::npos)
+				{
+					searching = false;
+					continue;
+				}
+
+				source.replace(found, key.length(), x.second);
+			}
+		}
+		return source;
+	}
 
 	ShaderProgram::ShaderProgram(const std::vector<ShaderData> &shaders)
 	{
@@ -15,10 +37,15 @@ namespace lys
 
 		for (std::vector<ShaderData>::const_iterator i = shaders.begin(); i != shaders.end(); i++)
 		{
-			const char *ssource = i->second.data();
+			std::vector<const char *> ssources;
+			for (auto &x : i->second)
+			{
+				ssources.push_back(x.data());
+			}
+
 			GLuint shader = glCreateShader(i->first);
 
-			glShaderSource(shader, 1, &ssource, nullptr);
+			glShaderSource(shader, (GLsizei)i->second.size(), ssources.data(), nullptr);
 			glCompileShader(shader);
 
 			GLint result;

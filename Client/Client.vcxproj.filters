@@ -224,6 +224,8 @@
     <None Include="data\shaders\loadingscreen-v.glsl" />
     <None Include="data\shaders\enginescene-f.glsl" />
     <None Include="data\shaders\enginescene-v.glsl" />
+    <None Include="data\shaders\uilayer-v.glsl" />
+    <None Include="data\shaders\uilayer-f.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\images\memes.png">

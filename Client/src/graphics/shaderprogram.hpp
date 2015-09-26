@@ -3,19 +3,30 @@
 #include <string>
 #include <vector>
 #include <GL\glew.h>
+#include <map>
 
 #include "..\maths.hpp"
 
 namespace lys
 {
 
-	typedef std::pair<GLenum, std::string> ShaderData;
+	typedef std::vector<std::string> ShaderList;
+	typedef std::pair<GLenum, ShaderList> ShaderData;
+	typedef std::map<std::string, std::string> ShaderDefines;
 
 	class ShaderProgram
 	{
 	private:
 		GLuint _id;
 	public:
+		template <class ...A>
+		static ShaderList createShaderList(const A &... args)
+		{
+			return ShaderList{ args... };
+		}
+
+		static std::string &processShaderSource(std::string &source, const ShaderDefines &defines);
+
 		ShaderProgram(const std::vector<ShaderData> &shaders);
 		~ShaderProgram();
 

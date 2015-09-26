@@ -11,8 +11,8 @@ namespace lys
 	static ShaderProgram createShader()
 	{
 		std::vector<ShaderData> shaders;
-		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/loadingscreen-v.glsl")));
-		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/loadingscreen-f.glsl")));
+		shaders.push_back(ShaderData(GL_VERTEX_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/loadingscreen-v.glsl"))));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/loadingscreen-f.glsl"))));
 		return ShaderProgram(shaders);
 	}
 

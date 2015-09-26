@@ -1,5 +1,7 @@
 #pragma once
 
+#include "..\..\maths.hpp"
+
 namespace lys
 {
 
@@ -9,7 +11,7 @@ namespace lys
 	public:
 		virtual void push(T &data) = 0;
 
-		void pushArray(T *&data, const size_t &count)
+		void pushArray(T *const &data, const size_t &count)
 		{
 			for (size_t i = 0; i < count; i++)
 			{

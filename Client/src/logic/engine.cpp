@@ -30,8 +30,8 @@ namespace lys
 	{
 		_mainContext.makeCurrent();
 		std::vector<ShaderData> shaders;
-		shaders.push_back(ShaderData(GL_VERTEX_SHADER, utils::readFile("data/shaders/enginescene-v.glsl")));
-		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, utils::readFile("data/shaders/enginescene-f.glsl")));
+		shaders.push_back(ShaderData(GL_VERTEX_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/enginescene-v.glsl"))));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/enginescene-f.glsl"))));
 		return ShaderProgram(shaders);
 	}()),
 

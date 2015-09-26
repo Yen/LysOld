@@ -5,7 +5,6 @@
 namespace lys
 {
 
-	//TODO: implement UIElement
 	class UIElement
 	{
 	public:
@@ -22,9 +21,9 @@ namespace lys
 			CENTER,
 		};
 	public:
-		Metric2 size;
+		Vector2 size;
 		Alignment alignment;
-		Metric2 offset;
+		Vector2 offset;
 	};
 
 }

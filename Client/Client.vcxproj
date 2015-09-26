@@ -252,6 +252,8 @@
     <None Include="data\shaders\meshbatch.vert" />
     <None Include="data\shaders\test.frag" />
     <None Include="data\shaders\test.vert" />
+    <None Include="data\shaders\uilayer-f.glsl" />
+    <None Include="data\shaders\uilayer-v.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\images\dank.png" />
