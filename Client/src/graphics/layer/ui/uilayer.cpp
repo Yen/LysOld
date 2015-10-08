@@ -8,12 +8,9 @@ namespace lys
 	UILayer::UILayer(const GraphicsProfile &profile)
 		: _shader([&]() -> ShaderProgram
 	{
-		ShaderDefines defines;
-		defines["TEXTURE_COUNT"] = std::to_string(profile.getMaxTextureSlots());
-
 		std::vector<ShaderData> shaders;
 		shaders.push_back(ShaderData(GL_VERTEX_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/uilayer-v.glsl"))));
-		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, ShaderProgram::createShaderList(ShaderProgram::processShaderSource(utils::readFile("data/shaders/uilayer-f.glsl"), defines))));
+		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/uilayer-f.glsl"))));
 		return ShaderProgram(shaders);
 	}()),
 		_maxTextures(profile.getMaxTextureSlots())

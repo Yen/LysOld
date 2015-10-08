@@ -178,6 +178,7 @@
     <ClCompile Include="src\graphics\graphicsprofile.cpp" />
     <ClCompile Include="src\graphics\interfacebatch.cpp" />
     <ClCompile Include="src\graphics\layer\ui\uilayer.cpp" />
+    <ClCompile Include="src\graphics\pixmap.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
     <ClCompile Include="src\graphics\meshbatch.cpp" />
     <ClCompile Include="src\graphics\shaderprogram.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="src\graphics\layer\ui\uielement.hpp" />
     <ClInclude Include="src\graphics\layer\ui\uilayer.hpp" />
     <ClInclude Include="src\graphics\multisprite.hpp" />
+    <ClInclude Include="src\graphics\pixmap.hpp" />
     <ClInclude Include="src\graphics\sprite.hpp" />
     <ClInclude Include="src\graphics\meshbatch.hpp" />
     <ClInclude Include="src\graphics\shaderprogram.hpp" />
