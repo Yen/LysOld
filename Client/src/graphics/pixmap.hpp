@@ -10,24 +10,32 @@ namespace lys
 	class Pixmap
 	{
 	public:
-		enum Format : unsigned char
+		class Information
 		{
-			RGB,
-			RGBA
+		public:
+			enum Format : unsigned char
+			{
+				ALPHA,
+				RGB,
+				RGBA
+			};
+			typedef unsigned char Depth;
+		public:
+			Metric2 size;
+			Format format;
+			Depth depth;
+		public:
+			Information();
+			Information(const Metric2 &size, const Format &format, const Depth &depth);
 		};
-		typedef unsigned char Depth;
 	private:
-		Metric2 _size;
 		std::vector<unsigned char> _data;
-		Format _format;
-		Depth _depth;
+		Information _information;
 	public:
 		Pixmap(const std::string &path);
 
-		const Metric2 &getSize() const;
 		const std::vector<unsigned char> &getData() const;
-		const Format &getFormat() const;
-		const Depth &getDepth() const;
+		const Information &getInformation() const;
 	};
 
 }

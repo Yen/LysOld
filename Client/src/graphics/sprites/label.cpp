@@ -109,14 +109,14 @@ namespace lys
 			float x2 = x + g.bitmap.left;
 			float y2 = y - ((float)g.bitmap.height - (float)g.bitmap.top);
 
-			Texture *tex;
+			Texture2D *tex;
 			if (_textures.find(*i) != _textures.end())
 			{
 				tex = _textures[*i].get();
 			}
 			else
 			{
-				_textures[*i] = std::make_shared<Texture>(Metric2(g.bitmap.width, g.bitmap.height), g.bitmap.buffer, GL_ALPHA);
+				_textures[*i] = std::make_shared<Texture2D>(g.bitmap.buffer, Pixmap::Information(Metric2(g.bitmap.width, g.bitmap.height), Pixmap::Information::Format::ALPHA, 8));
 				tex = _textures[*i].get();
 			}
 

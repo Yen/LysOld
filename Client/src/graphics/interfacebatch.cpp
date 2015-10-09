@@ -169,7 +169,7 @@ namespace lys
 			float tid = -1.0f;
 			if (current->texture != nullptr)
 			{
-				const Texture **result = std::find(_textures, _textures + textureCount, current->texture);
+				const Texture2D **result = std::find(_textures, _textures + textureCount, current->texture);
 
 				if (result != _textures + textureCount)
 				{

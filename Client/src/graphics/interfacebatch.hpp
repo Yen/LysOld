@@ -62,7 +62,7 @@ namespace lys
 		GLuint _ibo;
 		std::deque<const Sprite *> _sprites;
 		SpriteVertex *_buffer;
-		const Texture *_textures[LYS_INTERFACEBATCH_MAX_TEXTURES];
+		const Texture2D *_textures[LYS_INTERFACEBATCH_MAX_TEXTURES];
 		ShaderProgram _shader;
 		Metric2 _size;
 		Vector2 _depth;

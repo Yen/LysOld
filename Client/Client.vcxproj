@@ -184,6 +184,7 @@
     <ClCompile Include="src\graphics\shaderprogram.cpp" />
     <ClCompile Include="src\graphics\sprites\label.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
+    <ClCompile Include="src\graphics\texture2d.cpp" />
     <ClCompile Include="src\graphics\typeengine.cpp" />
     <ClCompile Include="src\levels\arena.cpp" />
     <ClCompile Include="src\levels\loadingscreen.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="src\graphics\shaderprogram.hpp" />
     <ClInclude Include="src\graphics\sprites\label.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
+    <ClInclude Include="src\graphics\texture2d.hpp" />
     <ClInclude Include="src\graphics\typeengine.hpp" />
     <ClInclude Include="src\levels\arena.hpp" />
     <ClInclude Include="src\levels\loadingscreen.hpp" />

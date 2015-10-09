@@ -12,7 +12,7 @@ namespace lys
 	{
 	private:
 		InterfaceBatch _interface;
-		Texture _tex;
+		Texture2D _tex;
 		Sprite _test;
 		Label _label;
 		Metric2 _previousMouse;

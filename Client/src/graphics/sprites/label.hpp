@@ -6,7 +6,7 @@
 #include <map>
 
 #include "..\multisprite.hpp"
-#include "..\texture.hpp"
+#include "..\texture2d.hpp"
 #include "..\..\logic\engine.hpp"
 
 namespace lys
@@ -17,7 +17,7 @@ namespace lys
 	private:
 		Vector3 _position;
 		std::vector<Sprite> _characters;
-		std::map<wchar_t, std::shared_ptr<Texture>> _textures;
+		std::map<wchar_t, std::shared_ptr<Texture2D>> _textures;
 		std::string _text;
 		Vector4 _color;
 		unsigned int _height;

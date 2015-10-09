@@ -6,6 +6,13 @@
 namespace lys
 {
 
+	Pixmap::Information::Information()
+	{}
+
+	Pixmap::Information::Information(const Metric2 &size, const Format &format, const Depth &depth)
+		: size(size), format(format), depth(depth)
+	{}
+
 	Pixmap::Pixmap(const std::string &path)
 	{
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -37,18 +44,18 @@ namespace lys
 			throw std::exception(err.str().data());
 		}
 
-		_size.x = FreeImage_GetWidth(dib);
-		_size.y = FreeImage_GetHeight(dib);
-		_depth = FreeImage_GetBPP(dib);
+		_information.size.x = FreeImage_GetWidth(dib);
+		_information.size.y = FreeImage_GetHeight(dib);
+		_information.depth = FreeImage_GetBPP(dib);
 
 		auto format = FreeImage_GetColorType(dib);
 		switch (format)
 		{
 		case FIC_RGB:
-			_format = Format::RGB;
+			_information.format = Information::Format::RGB;
 			break;
 		case FIC_RGBALPHA:
-			_format = Format::RGBA;
+			_information.format = Information::Format::RGBA;
 			break;
 		default:
 			std::stringstream err;
@@ -56,7 +63,7 @@ namespace lys
 			throw std::exception(err.str().data());
 		}
 
-		int size = (_size.x * _size.y) * (_depth / 8);
+		int size = (_information.size.x * _information.size.y) * (_information.depth / 8);
 
 		_data.resize(size);
 		memcpy(_data.data(), FreeImage_GetBits(dib), size);
@@ -64,24 +71,14 @@ namespace lys
 		FreeImage_Unload(dib);
 	}
 
-	const Metric2 &Pixmap::getSize() const
-	{
-		return _size;
-	}
-
 	const std::vector<unsigned char> &Pixmap::getData() const
 	{
 		return _data;
 	}
 
-	const Pixmap::Format &Pixmap::getFormat() const
+	const Pixmap::Information &Pixmap::getInformation() const
 	{
-		return _format;
-	}
-
-	const Pixmap::Depth &Pixmap::getDepth() const
-	{
-		return _depth;
+		return _information;
 	}
 
 }
