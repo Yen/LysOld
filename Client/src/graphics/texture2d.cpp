@@ -22,7 +22,49 @@ namespace lys
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-		//Do not know if these formats need to be set to different values, was like this on documentation
+		//TODO: This fixes errors with small textures like text glyphs.
+		//This should be replaced with some maths to check if the width is divisible by a certian number
+		//and if not then this should be applied but I am not taking the time to optimise this just yet
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		writeData(data);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	Texture2D::~Texture2D()
+	{
+		glDeleteTextures(1, &_id);
+	}
+
+	void Texture2D::setData(const unsigned char *data, const Pixmap::Information &information)
+	{
+		_information = information;
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		writeData(data);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	const Pixmap::Information &Texture2D::getPixmapInformation() const
+	{
+		return _information;
+	}
+
+	void Texture2D::bind() const
+	{
+		glBindTexture(GL_TEXTURE_2D, _id);
+	}
+
+	void Texture2D::unbind()
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	void Texture2D::writeData(const unsigned char *data)
+	{
 		GLuint internalFormat;
 		GLuint format;
 
@@ -48,27 +90,7 @@ namespace lys
 			throw std::exception(err.str().data());
 		}
 
-		//Fixes errors with small textures
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
 		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, _information.size.x, _information.size.y, 0, format, GL_UNSIGNED_BYTE, data);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
-	Texture2D::~Texture2D()
-	{
-		glDeleteTextures(1, &_id);
-	}
-
-	const Pixmap::Information &Texture2D::getPixmapInformation() const
-	{
-		return _information;
-	}
-
-	void Texture2D::bind() const
-	{
-		glBindTexture(GL_TEXTURE_2D, _id);
 	}
 
 }

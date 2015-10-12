@@ -10,7 +10,11 @@ namespace lys
 {
 
 	Menu::Menu(EngineInternals &internals, const EngineLoadingArgs &args)
-		: Level(internals, args, 60), _test(Sprite(Vector3(10, 10, 0), Vector2(200, 200), Vector4(1, 1, 1, 1), &_tex)), _tex(Pixmap("data/images/spectrum.jpg")), _label(nullptr, Vector3(0, 0, 1))
+		: Level(internals, args, 60), _test(Sprite(Vector3(10, 10, 0),
+		Vector2(200, 200),
+		Vector4(1, 1, 1, 1), &_tex)),
+		_tex(Pixmap("data/images/spectrum.jpg")),
+		_label(nullptr, Vector3(0, 0, 1))
 	{
 		_label.repaint(internals);
 	}

@@ -2,7 +2,7 @@
 
 #include <GL\glew.h>
 
-#include "..\maths.hpp"
+#include "texture2d.hpp"
 
 namespace lys
 {
@@ -11,19 +11,18 @@ namespace lys
 	{
 	private:
 		GLuint _id;
-		GLuint _depth;
-		GLuint _texture;
-		Metric2 _size;
+		GLuint _depthId;
+		Texture2D _texture;
 	public:
 		FrameBuffer(const Metric2 &size);
 		~FrameBuffer();
 
-		void bind() const;
-		void bindTexture() const;
-		const Metric2 &getSize() const;
-		void setSize(const Metric2 &size);
+		const Texture2D &getTexture() const;
 
-		static void bindScreen();
+		void clear() const;
+
+		void bind() const;
+		static void unbind();
 	};
 
 }

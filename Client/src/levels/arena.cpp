@@ -8,7 +8,8 @@ namespace lys
 
 	Arena::Arena(EngineInternals &internals, const EngineLoadingArgs &args)
 		: Level(internals, args), _ui(internals.profile),
-		_test{ { Vector2(20, 20), UIElement::Alignment::TOP_LEFT, Vector2(0, 0) }, { Vector2(20, 20), UIElement::Alignment::TOP_LEFT, Vector2(40, 80) } }
+		_test{ { Vector2(20, 20), UIElement::Alignment::TOP_LEFT, Vector2(0, 0) }, { Vector2(20, 20), UIElement::Alignment::TOP_LEFT, Vector2(40, 80) } },
+		_fb(internals.window.getSize())
 	{
 		Pixmap pixmapTest("data/images/spectrum.jpg");
 		Texture2D texture2Dtest(pixmapTest);

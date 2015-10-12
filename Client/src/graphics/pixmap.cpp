@@ -13,6 +13,16 @@ namespace lys
 		: size(size), format(format), depth(depth)
 	{}
 
+	bool Pixmap::Information::operator ==(const Information &other) const
+	{
+		return((size == other.size) && (format == other.format) && (depth == other.depth));
+	}
+
+	bool Pixmap::Information::operator !=(const Information &other) const
+	{
+		return !(*this == other);
+	}
+
 	Pixmap::Pixmap(const std::string &path)
 	{
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;

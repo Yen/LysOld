@@ -27,6 +27,9 @@ namespace lys
 		public:
 			Information();
 			Information(const Metric2 &size, const Format &format, const Depth &depth);
+
+			bool operator ==(const Information &other) const;
+			bool operator !=(const Information &other) const;
 		};
 	private:
 		std::vector<unsigned char> _data;

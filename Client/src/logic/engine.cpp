@@ -26,14 +26,6 @@ namespace lys
 		_loadingContext.makeCurrent();
 		return LoadingScreen(_internals, EngineLoadingArgs{ _loadingContext });
 	}()),
-		_sceneShader([&]() -> ShaderProgram
-	{
-		_mainContext.makeCurrent();
-		std::vector<ShaderData> shaders;
-		shaders.push_back(ShaderData(GL_VERTEX_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/enginescene-v.glsl"))));
-		shaders.push_back(ShaderData(GL_FRAGMENT_SHADER, ShaderProgram::createShaderList(utils::readFile("data/shaders/enginescene-f.glsl"))));
-		return ShaderProgram(shaders);
-	}()),
 
 		_loading(false),
 		_swapInterval(0),

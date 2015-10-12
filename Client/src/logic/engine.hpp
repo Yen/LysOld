@@ -58,7 +58,6 @@ namespace lys
 		GraphicsProfile _profile;
 
 		LoadingScreen _loadingScreen;
-		ShaderProgram _sceneShader;
 
 		std::unique_ptr<Level> _level;
 
@@ -91,6 +90,8 @@ namespace lys
 				LYS_LOG_WARNING("Change level(%s) aborted, a level is already loading", typeid(T).name());
 				return;
 			}
+
+			LYS_LOG("Changing level (%s)", typeid(T).name());
 
 			glFinish();
 
