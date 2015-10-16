@@ -111,6 +111,12 @@
     <ClCompile Include="src\graphics\framebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\layer\ui\uielement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layer\ui\elements\simpleimageelement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
@@ -224,6 +230,9 @@
     <ClInclude Include="src\graphics\framebuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\layer\ui\elements\simpleimageelement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\meshbatch.vert" />
@@ -272,7 +281,7 @@
     <Font Include="data\fonts\NotoSans-Regular.ttf" />
     <Font Include="data\core\defaultfonts\NotoSans-Regular.ttf" />
     <Font Include="data\core\defaultfonts\other\NotoSansCJKsc-Regular.otf" />
-    <Font Include="data\core\defaultfonts\other\NotoSansCJKjp-Regular.otf" />
     <Font Include="data\core\defaultfonts\other\NotoSansCJKkr-Regular.otf" />
+    <Font Include="data\core\defaultfonts\other\NotoSansCJKjp-Regular.otf" />
   </ItemGroup>
 </Project>

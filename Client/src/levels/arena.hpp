@@ -1,8 +1,11 @@
 #pragma once
 
+#include <vector>
+
 #include "..\logic\level.hpp"
 #include "..\graphics\layer\ui\uilayer.hpp"
 #include "..\graphics\framebuffer.hpp"
+#include "..\graphics\layer\ui\elements\simpleimageelement.hpp"
 
 namespace lys
 {
@@ -11,7 +14,10 @@ namespace lys
 	{
 	private:
 		UILayer _ui;
-		UIElement _test[2];
+		SimpleImageElement _test1;
+		SimpleImageElement _test2;
+		SimpleImageElement _test3;
+		SimpleImageElement _test4;
 		FrameBuffer _fb;
 	public:
 		Arena(EngineInternals &internals, const EngineLoadingArgs &args);

@@ -23,7 +23,7 @@ namespace lys
 	{
 		std::stringstream ss;
 		const FPSInfo &fps = internals.counter.getFPS(args.time.current);
-		ss << u8"FPS カッパ 卡帕 카파: " << fps.fps << " (" << fps.delay << ")";
+		ss << u8"FPS 幀率 帧率: " << fps.fps << " (" << fps.delay << ")";
 		_label.setText(ss.str());
 		_label.repaint(internals);
 

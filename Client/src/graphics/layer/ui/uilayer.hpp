@@ -11,10 +11,14 @@
 namespace lys
 {
 
+#define LYS_UILAYER_RATIO_SIZE		64
+
 	class VertexData
 	{
 	public:
 		Vector3 position;
+		Vector2 uv;
+		float tid;
 	};
 
 #define LYS_UILAYER_MAX_ELEMENTS		1000
@@ -43,17 +47,21 @@ namespace lys
 		UILayerIndice;
 
 #define LYS_UILAYER_SHADER_POSITION		0
+#define LYS_UILAYER_SHADER_UV			1
+#define LYS_UILAYER_SHADER_TID			2
 
 	class UILayer : public Layer<UIElement>
 	{
 	private:
 		ShaderProgram _shader;
-		std::deque<UIElement *> _elements;
+		std::deque<const UIElement *> _elements;
 		VertexData *_buffer;
 		unsigned short _maxTextures;
+		std::vector<const Texture2D *> _textures;
 		GLuint _vao;
 		GLuint _vbo;
 		GLuint _ibo;
+		Vector2 _ratioSize;
 	public:
 		UILayer(const GraphicsProfile &profile);
 		~UILayer();
@@ -64,9 +72,10 @@ namespace lys
 
 		void resize(const Metric2 &size);
 	private:
+		void parseElement(GLsizei &batchCount, GLsizei &textureCount, const UIElement *element, const Vector2 &size, const Vector2 &topLeft);
 		void begin();
 		void end();
-		void drawCall(const GLsizei &batchCount);
+		void drawCall(const GLsizei &batchCount, const GLsizei &textureCount);
 	};
 
 }
