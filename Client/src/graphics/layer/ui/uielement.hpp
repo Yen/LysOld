@@ -26,13 +26,14 @@ namespace lys
 		Alignment alignment;
 		Vector2 offset;
 		Vector2 uvs[4];
+		const Texture2D *texture;
+		bool content;
 	public:
-		UIElement();
-		UIElement(const Vector2 &size, const Alignment &alignment, const Vector2 &offset);
+		UIElement() = default;
+		UIElement(const Vector2 &size, const Alignment &alignment, const Vector2 &offset, const Texture2D *texture, const bool &content = true);
 
-		virtual const UIElement *getChildren() const;
+		virtual const UIElement *const *getChildren() const;
 		virtual size_t getChildrenCount() const;
-		virtual const Texture2D *getTexture() const;
 	};
 
 }

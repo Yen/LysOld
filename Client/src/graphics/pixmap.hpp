@@ -15,9 +15,9 @@ namespace lys
 		public:
 			enum Format : unsigned char
 			{
-				ALPHA,
-				RGB,
-				RGBA
+				ALPHA = 0,
+				RGB = 1,
+				RGBA = 2
 			};
 			typedef unsigned char Depth;
 		public:

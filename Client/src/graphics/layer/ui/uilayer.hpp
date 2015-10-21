@@ -19,6 +19,7 @@ namespace lys
 		Vector3 position;
 		Vector2 uv;
 		float tid;
+		float tformat;
 	};
 
 #define LYS_UILAYER_MAX_ELEMENTS		1000
@@ -49,22 +50,26 @@ namespace lys
 #define LYS_UILAYER_SHADER_POSITION		0
 #define LYS_UILAYER_SHADER_UV			1
 #define LYS_UILAYER_SHADER_TID			2
+#define LYS_UILAYER_SHADER_TFORMAT		3
 
 	class UILayer : public Layer<UIElement>
 	{
 	private:
+		unsigned short _maxTextures;
 		ShaderProgram _shader;
 		std::deque<const UIElement *> _elements;
 		VertexData *_buffer;
-		unsigned short _maxTextures;
 		std::vector<const Texture2D *> _textures;
 		GLuint _vao;
 		GLuint _vbo;
 		GLuint _ibo;
 		Vector2 _ratioSize;
+		float _ratio;
 	public:
 		UILayer(const GraphicsProfile &profile);
 		~UILayer();
+
+		const float &getRatio() const;
 
 		void push(UIElement &data) override;
 

@@ -114,7 +114,13 @@
     <ClCompile Include="src\graphics\layer\ui\uielement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\layer\ui\elements\simpleimageelement.cpp">
+    <ClCompile Include="src\graphics\layer\ui\elements\uilabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layer\ui\elements\uitexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layer\ui\uielementmanaged.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -230,7 +236,13 @@
     <ClInclude Include="src\graphics\framebuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\layer\ui\elements\simpleimageelement.hpp">
+    <ClInclude Include="src\graphics\layer\ui\elements\uilabel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layer\ui\elements\uitexture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layer\ui\uielementmanaged.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

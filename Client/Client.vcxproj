@@ -177,8 +177,10 @@
     <ClCompile Include="src\graphics\graphicscontext.cpp" />
     <ClCompile Include="src\graphics\graphicsprofile.cpp" />
     <ClCompile Include="src\graphics\interfacebatch.cpp" />
-    <ClCompile Include="src\graphics\layer\ui\elements\simpleimageelement.cpp" />
+    <ClCompile Include="src\graphics\layer\ui\elements\uilabel.cpp" />
+    <ClCompile Include="src\graphics\layer\ui\elements\uitexture.cpp" />
     <ClCompile Include="src\graphics\layer\ui\uielement.cpp" />
+    <ClCompile Include="src\graphics\layer\ui\uielementmanaged.cpp" />
     <ClCompile Include="src\graphics\layer\ui\uilayer.cpp" />
     <ClCompile Include="src\graphics\pixmap.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
@@ -216,8 +218,10 @@
     <ClInclude Include="src\graphics\graphicsprofile.hpp" />
     <ClInclude Include="src\graphics\interfacebatch.hpp" />
     <ClInclude Include="src\graphics\layer\layer.hpp" />
-    <ClInclude Include="src\graphics\layer\ui\elements\simpleimageelement.hpp" />
+    <ClInclude Include="src\graphics\layer\ui\elements\uilabel.hpp" />
+    <ClInclude Include="src\graphics\layer\ui\elements\uitexture.hpp" />
     <ClInclude Include="src\graphics\layer\ui\uielement.hpp" />
+    <ClInclude Include="src\graphics\layer\ui\uielementmanaged.hpp" />
     <ClInclude Include="src\graphics\layer\ui\uilayer.hpp" />
     <ClInclude Include="src\graphics\multisprite.hpp" />
     <ClInclude Include="src\graphics\pixmap.hpp" />
