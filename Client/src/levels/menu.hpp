@@ -1,9 +1,9 @@
 #pragma once
 
 #include "..\logic\level.hpp"
-#include "..\graphics\interfacebatch.hpp"
-#include "..\graphics\sprite.hpp"
-#include "..\graphics\sprites\label.hpp"
+#include "..\graphics\layer\ui\uilayer.hpp"
+#include "..\graphics\layer\ui\elements\uilabel.hpp"
+#include "..\graphics\layer\ui\elements\uitexture.hpp"
 
 namespace lys
 {
@@ -11,10 +11,9 @@ namespace lys
 	class Menu : public Level
 	{
 	private:
-		InterfaceBatch _interface;
-		Texture2D _tex;
-		Sprite _test;
-		Label _label;
+		UILayer _ui;
+		UILabel _label;
+		UITexture _button;
 		Metric2 _previousMouse;
 	public:
 		Menu(EngineInternals &internals, const EngineLoadingArgs &args);

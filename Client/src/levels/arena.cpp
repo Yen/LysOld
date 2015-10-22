@@ -9,7 +9,8 @@ namespace lys
 {
 
 	Arena::Arena(EngineInternals &internals, const EngineLoadingArgs &args)
-		: Level(internals, args, 60), _ui(internals.profile),
+		: Level(internals, args, 60),
+		_ui(internals.profile),
 		_fb(internals.window.getSize()),
 		_test2(Vector2(20, 20), UIElement::Alignment::TOP_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
 		_test3(Vector2(20, 20), UIElement::Alignment::BOTTOM_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),

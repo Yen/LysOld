@@ -70,10 +70,15 @@ namespace lys
 		~UILayer();
 
 		const float &getRatio() const;
+		const Vector2 &getSize() const;
+
+		Vector2 mouseToView(const Metric2 &mousePosition) const;
 
 		void push(UIElement &data) override;
 
 		void flush() override;
+
+		static Vector2 calculateTopLeft(const UIElement *element, const Vector2 &size, const Vector2 &topLeft = Vector2(0, 0));
 
 		void resize(const Metric2 &size);
 	private:

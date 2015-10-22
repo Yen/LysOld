@@ -10,14 +10,11 @@ namespace lys
 {
 
 	Menu::Menu(EngineInternals &internals, const EngineLoadingArgs &args)
-		: Level(internals, args, 60), _test(Sprite(Vector3(10, 10, 0),
-		Vector2(200, 200),
-		Vector4(1, 1, 1, 1), &_tex)),
-		_tex(Pixmap("data/images/spectrum.jpg")),
-		_label(nullptr, Vector3(0, 0, 1))
-	{
-		_label.repaint(internals);
-	}
+		: Level(internals, args, 60),
+		_ui(internals.profile),
+		_label(Vector2(0, 2), UIElement::TOP_LEFT, Vector2(0, 0), internals, false),
+		_button(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(2, 2), "data/images/spectrum.jpg")
+	{}
 
 	void Menu::update(EngineInternals &internals, EngineArgs &args)
 	{
@@ -25,15 +22,16 @@ namespace lys
 		const FPSInfo &fps = internals.counter.getFPS(args.time.current);
 		ss << u8"FPS 幀率 帧率: " << fps.fps << " (" << fps.delay << ")";
 		_label.setText(ss.str());
-		_label.repaint(internals);
+		_label.repaint(internals, _ui);
 
 		if (internals.window.getButton(SDL_BUTTON_LEFT))
 		{
-			auto mousepos = internals.window.getMouse();
-			mousepos.y = internals.window.getSize().y - mousepos.y;
-			if ((mousepos.x >= _test.position.x) && (mousepos.x <= _test.position.x + _test.size.x))
+			auto mousepos = _ui.mouseToView(internals.window.getMouse());
+			auto topLeft = _ui.calculateTopLeft(&_button, _ui.getSize());
+
+			if ((mousepos.x >= topLeft.x) && (mousepos.x <= topLeft.x + _button.size.x))
 			{
-				if ((mousepos.y >= _test.position.y) && (mousepos.y <= _test.position.y + _test.size.y))
+				if ((mousepos.y >= topLeft.y) && (mousepos.y <= topLeft.y + _button.size.y))
 				{
 					internals.engine.changeLevel<Arena>();
 					return;
@@ -44,16 +42,15 @@ namespace lys
 
 	void Menu::draw(EngineInternals &internals, EngineArgs &args)
 	{
-		_interface.submit(&_test);
-		_interface.submit(&_label);
-
-		_interface.renderBatch();
+		_ui.push(_label);
+		_ui.push(_button);
+		_ui.flush();
 	}
 
 	void Menu::resize(EngineInternals &internals)
 	{
-		_interface.resize(internals.window.getSize());
-		_label.setPosition(Vector3(10, internals.window.getSize().y - (float)_label.getHeight() - 10, _label.getPosition().z));
+		_ui.resize(internals.window.getSize());
+		_label.repaint(internals, _ui);
 	}
 
 }

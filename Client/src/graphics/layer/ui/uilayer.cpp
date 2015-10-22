@@ -86,6 +86,16 @@ namespace lys
 		return _ratio;
 	}
 
+	const Vector2 &UILayer::getSize() const
+	{
+		return _ratioSize;
+	}
+
+	Vector2 UILayer::mouseToView(const Metric2 &mousePosition) const
+	{
+		return Vector2((float)mousePosition.x / _ratio, (float)mousePosition.y / _ratio);
+	}
+
 	void UILayer::push(UIElement &data)
 	{
 		_elements.push_back(&data);
@@ -96,6 +106,10 @@ namespace lys
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 		glFrontFace(GL_CCW);
+
+		glEnable(GL_BLEND);
+		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
 		GLsizei batchCount = 0;
 		GLsizei textureCount = 0;
@@ -117,7 +131,7 @@ namespace lys
 		drawCall(batchCount, textureCount);
 	}
 
-	static Vector2 calculateTopLeft(const UIElement *&element, const Vector2 &size, const Vector2 &topLeft)
+	Vector2 UILayer::calculateTopLeft(const UIElement *element, const Vector2 &size, const Vector2 &topLeft)
 	{
 		switch (element->alignment)
 		{
