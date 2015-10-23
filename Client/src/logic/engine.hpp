@@ -11,8 +11,8 @@
 #include "..\graphics\shaderprogram.hpp"
 #include "fixedtimer.hpp"
 #include "fpscounter.hpp"
-#include "..\levels\loadingscreen.hpp"
 #include "..\graphics\typeengine.hpp"
+#include "..\levels\loadingscreen.hpp"
 
 namespace lys
 {
@@ -33,6 +33,7 @@ namespace lys
 		const GraphicsProfile &profile;
 		FPSCounter &counter;
 		TypeEngine &typeEngine;
+		LoadingScreen &loadingScreen;
 	};
 
 	class EngineArgs
@@ -57,8 +58,6 @@ namespace lys
 
 		GraphicsProfile _profile;
 
-		LoadingScreen _loadingScreen;
-
 		std::unique_ptr<Level> _level;
 
 		std::atomic<bool> _loading;
@@ -71,6 +70,8 @@ namespace lys
 
 		int _swapInterval;
 		EngineInternals _internals;
+
+		LoadingScreen _loadingScreen;
 	public:
 		Engine();
 		~Engine();
@@ -111,6 +112,7 @@ namespace lys
 				try
 				{
 					_level = std::make_unique<T>(_internals, EngineLoadingArgs{ _mainContext }, args...);
+					_loadingScreen.setLoadingText();
 					_levelStart = _timer.getTimerData().current;
 					_levelUpdates = 0;
 					_levelNew = true;

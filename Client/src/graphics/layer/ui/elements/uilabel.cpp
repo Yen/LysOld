@@ -5,12 +5,13 @@
 #include <algorithm>
 
 #include "..\uilayer.hpp"
+#include "..\..\..\..\logic\engine.hpp"
 
 namespace lys
 {
 
-	UILabel::UILabel(const Vector2 &size, const Alignment &alignment, const Vector2 &offset, EngineInternals &internals, const bool &fixed, const std::string &text)
-		: UIElementManaged(size, alignment, offset, nullptr, false), _typeEngine(internals.typeEngine), _fixed(fixed), _text(text)
+	UILabel::UILabel(const Vector2 &size, const Alignment &alignment, const Vector2 &offset, TypeEngine &typeEngine, const bool &fixed, const std::string &text)
+		: UIElementManaged(size, alignment, offset, nullptr, false), _typeEngine(typeEngine), _fixed(fixed), _text(text)
 	{}
 
 	void UILabel::setText(const std::string &text)

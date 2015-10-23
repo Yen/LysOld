@@ -20,7 +20,7 @@ namespace lys
 
 		_mainContext(_window),
 		_loadingContext(_window),
-
+		_profile(),
 		_loadingScreen([&]() -> LoadingScreen
 	{
 		_loadingContext.makeCurrent();
@@ -29,7 +29,7 @@ namespace lys
 
 		_loading(false),
 		_swapInterval(0),
-		_internals{ *this, _window, _profile, _counter, _typeEngine }
+		_internals{ *this, _window, _profile, _counter, _typeEngine, _loadingScreen }
 	{
 		_timer.reset();
 
@@ -145,7 +145,7 @@ namespace lys
 
 			if (level->getUPS() != 0)
 			{
-				while ((time.current - _levelStart) * _level->getUPS() > _levelUpdates)
+				while ((time.current - _levelStart) * level->getUPS() > _levelUpdates)
 				{
 					level->update(_internals, args);
 					_levelUpdates++;

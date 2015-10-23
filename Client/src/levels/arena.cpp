@@ -15,7 +15,7 @@ namespace lys
 		_test2(Vector2(20, 20), UIElement::Alignment::TOP_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
 		_test3(Vector2(20, 20), UIElement::Alignment::BOTTOM_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
 		_test4(Vector2(20, 20), UIElement::Alignment::BOTTOM_LEFT, Vector2(5, 5), "data/images/spectrum.jpg"),
-		_label(Vector2(20, 2), UIElement::Alignment::TOP_LEFT, Vector2(0, 0), internals, false)
+		_label(Vector2(20, 2), UIElement::Alignment::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false)
 	{
 	}
 

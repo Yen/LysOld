@@ -12,9 +12,10 @@ namespace lys
 	Menu::Menu(EngineInternals &internals, const EngineLoadingArgs &args)
 		: Level(internals, args, 60),
 		_ui(internals.profile),
-		_label(Vector2(0, 2), UIElement::TOP_LEFT, Vector2(0, 0), internals, false),
+		_label(Vector2(0, 2), UIElement::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false),
 		_button(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(2, 2), "data/images/spectrum.jpg")
-	{}
+	{
+	}
 
 	void Menu::update(EngineInternals &internals, EngineArgs &args)
 	{

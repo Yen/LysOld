@@ -2,10 +2,11 @@
 
 #include "uielement.hpp"
 #include "uilayer.hpp"
-#include "..\..\..\logic\engine.hpp"
 
 namespace lys
 {
+
+	class EngineInternals;
 
 	class UIElementManaged : public UIElement
 	{

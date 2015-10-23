@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\uielementmanaged.hpp"
+#include "..\..\..\typeengine.hpp"
 
 namespace lys
 {
@@ -15,7 +16,7 @@ namespace lys
 		std::map<wchar_t, std::shared_ptr<Texture2D>> _textures;
 		bool _fixed;
 	public:
-		UILabel(const Vector2 &size, const Alignment &alignment, const Vector2 &offset, EngineInternals &internals, const bool &fixed = false, const std::string &text = std::string());
+		UILabel(const Vector2 &size, const Alignment &alignment, const Vector2 &offset, TypeEngine &typeEngine, const bool &fixed = false, const std::string &text = std::string());
 
 		void setText(const std::string &text);
 		const std::string &getText() const;
