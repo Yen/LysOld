@@ -29,6 +29,7 @@ namespace lys
 		Vector2 uvs[4];
 		const Texture2D *texture;
 		bool content;
+		Vector4 color;
 	public:
 		UIElement() = default;
 		UIElement(const Vector2 &size, const Alignment &alignment, const Vector2 &offset, const Texture2D *texture, const bool &content = true);

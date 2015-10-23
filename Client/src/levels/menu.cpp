@@ -15,6 +15,7 @@ namespace lys
 		_label(Vector2(0, 2), UIElement::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false),
 		_button(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(2, 2), "data/images/spectrum.jpg")
 	{
+		_button.color.x = 0;
 	}
 
 	void Menu::update(EngineInternals &internals, EngineArgs &args)

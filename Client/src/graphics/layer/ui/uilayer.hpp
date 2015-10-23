@@ -20,6 +20,7 @@ namespace lys
 		Vector2 uv;
 		float tid;
 		float tformat;
+		Vector4 color;
 	};
 
 #define LYS_UILAYER_MAX_ELEMENTS		1000
@@ -51,6 +52,7 @@ namespace lys
 #define LYS_UILAYER_SHADER_UV			1
 #define LYS_UILAYER_SHADER_TID			2
 #define LYS_UILAYER_SHADER_TFORMAT		3
+#define LYS_UILAYER_SHADER_COLOR		4
 
 	class UILayer : public Layer<UIElement>
 	{

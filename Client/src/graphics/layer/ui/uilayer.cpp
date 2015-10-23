@@ -40,11 +40,13 @@ namespace lys
 		glEnableVertexAttribArray(LYS_UILAYER_SHADER_UV);
 		glEnableVertexAttribArray(LYS_UILAYER_SHADER_TID);
 		glEnableVertexAttribArray(LYS_UILAYER_SHADER_TFORMAT);
+		glEnableVertexAttribArray(LYS_UILAYER_SHADER_COLOR);
 
 		glVertexAttribPointer(LYS_UILAYER_SHADER_POSITION, 3, GL_FLOAT, GL_FALSE, LYS_UILAYER_VERTEX_DATA_SIZE, (const GLvoid *)(offsetof(VertexData, position)));
 		glVertexAttribPointer(LYS_UILAYER_SHADER_UV, 2, GL_FLOAT, GL_FALSE, LYS_UILAYER_VERTEX_DATA_SIZE, (const GLvoid *)(offsetof(VertexData, uv)));
 		glVertexAttribPointer(LYS_UILAYER_SHADER_TID, 1, GL_FLOAT, GL_FALSE, LYS_UILAYER_VERTEX_DATA_SIZE, (const GLvoid *)(offsetof(VertexData, tid)));
 		glVertexAttribPointer(LYS_UILAYER_SHADER_TFORMAT, 1, GL_FLOAT, GL_FALSE, LYS_UILAYER_VERTEX_DATA_SIZE, (const GLvoid *)(offsetof(VertexData, tformat)));
+		glVertexAttribPointer(LYS_UILAYER_SHADER_COLOR, 4, GL_FLOAT, GL_FALSE, LYS_UILAYER_VERTEX_DATA_SIZE, (const GLvoid *)(offsetof(VertexData, color)));
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -182,25 +184,29 @@ namespace lys
 			}
 
 			_buffer[0].uv = element->uvs[0];
-			_buffer[0].tid = tid;
-			_buffer[0].tformat = tformat;
-
 			_buffer[1].uv = element->uvs[1];
-			_buffer[1].tid = tid;
-			_buffer[1].tformat = tformat;
-
 			_buffer[2].uv = element->uvs[2];
-			_buffer[2].tid = tid;
-			_buffer[2].tformat = tformat;
-
 			_buffer[3].uv = element->uvs[3];
-			_buffer[3].tid = tid;
-			_buffer[3].tformat = tformat;
 
 			_buffer[0].position = Vector3(localTopLeft, 0);
 			_buffer[1].position = Vector3(localTopLeft.x + element->size.x, localTopLeft.y, 0);
 			_buffer[2].position = Vector3(localTopLeft + element->size, 0);
 			_buffer[3].position = Vector3(localTopLeft.x, localTopLeft.y + element->size.y, 0);
+
+			_buffer[0].tid = tid;
+			_buffer[1].tid = tid;
+			_buffer[2].tid = tid;
+			_buffer[3].tid = tid;
+
+			_buffer[0].tformat = tformat;
+			_buffer[1].tformat = tformat;
+			_buffer[2].tformat = tformat;
+			_buffer[3].tformat = tformat;
+
+			_buffer[0].color = element->color;
+			_buffer[1].color = element->color;
+			_buffer[2].color = element->color;
+			_buffer[3].color = element->color;
 
 			_buffer += 4;
 
