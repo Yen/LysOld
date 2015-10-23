@@ -16,6 +16,13 @@ namespace lys
 		_button(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(2, 2), "data/images/spectrum.jpg")
 	{
 		_button.color.x = 0;
+
+		for (int i = 0; i < 5000; i++)
+		{
+			internals.loadingScreen.setLoadingText(std::to_string(i));
+			internals.loadingScreen.setProgress((float)i / 5000.0f);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
 	}
 
 	void Menu::update(EngineInternals &internals, EngineArgs &args)

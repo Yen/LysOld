@@ -42,6 +42,10 @@ namespace lys
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 		_loadingScreen.resize(_internals);
+
+		LYS_LOG("OpenGL Vendor: %s", _profile.getVendor().data());
+		LYS_LOG("OpenGL Renderer: %s", _profile.getRenderer().data());
+		LYS_LOG("OpenGL Version: %s", _profile.getVersion().data());
 	}
 
 	Engine::~Engine()
