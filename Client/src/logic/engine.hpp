@@ -112,7 +112,8 @@ namespace lys
 				try
 				{
 					_level = std::make_unique<T>(_internals, EngineLoadingArgs{ _mainContext }, args...);
-					_loadingScreen.setLoadingText();
+					_loadingScreen.setLoadingText(std::string());
+					_loadingScreen.setProgress(0);
 					_levelStart = _timer.getTimerData().current;
 					_levelUpdates = 0;
 					_levelNew = true;

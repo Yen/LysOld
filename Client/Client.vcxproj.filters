@@ -123,6 +123,9 @@
     <ClCompile Include="src\graphics\layer\ui\uielementmanaged.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\layer\ui\elements\uiprogressbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lys.hpp">
@@ -243,6 +246,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\layer\ui\uielementmanaged.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layer\ui\elements\uiprogressbar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

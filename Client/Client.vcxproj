@@ -178,6 +178,7 @@
     <ClCompile Include="src\graphics\graphicsprofile.cpp" />
     <ClCompile Include="src\graphics\interfacebatch.cpp" />
     <ClCompile Include="src\graphics\layer\ui\elements\uilabel.cpp" />
+    <ClCompile Include="src\graphics\layer\ui\elements\uiprogressbar.cpp" />
     <ClCompile Include="src\graphics\layer\ui\elements\uitexture.cpp" />
     <ClCompile Include="src\graphics\layer\ui\uielement.cpp" />
     <ClCompile Include="src\graphics\layer\ui\uielementmanaged.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="src\graphics\interfacebatch.hpp" />
     <ClInclude Include="src\graphics\layer\layer.hpp" />
     <ClInclude Include="src\graphics\layer\ui\elements\uilabel.hpp" />
+    <ClInclude Include="src\graphics\layer\ui\elements\uiprogressbar.hpp" />
     <ClInclude Include="src\graphics\layer\ui\elements\uitexture.hpp" />
     <ClInclude Include="src\graphics\layer\ui\uielement.hpp" />
     <ClInclude Include="src\graphics\layer\ui\uielementmanaged.hpp" />
