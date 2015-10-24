@@ -112,8 +112,8 @@ namespace lys
 		glFrontFace(GL_CCW);
 
 		glEnable(GL_BLEND);
-		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
-		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDisable(GL_ALPHA_TEST);
 
 		GLsizei batchCount = 0;
 		GLsizei textureCount = 0;
@@ -165,6 +165,9 @@ namespace lys
 			break;
 		case UIElement::CENTER:
 			return Vector2(topLeft.x + (size.x / 2) - (element->size.x / 2) + element->offset.x, topLeft.y + (size.y / 2) - (element->size.y / 2) + element->offset.y);
+			break;
+		default:
+			throw std::exception("UILayer failed to render a UIElement due to an invalid alignment");
 			break;
 		}
 	}

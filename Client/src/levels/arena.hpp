@@ -4,10 +4,10 @@
 
 #include "..\logic\level.hpp"
 #include "..\graphics\framebuffer.hpp"
+#include "..\graphics\layer\layerrenderer.hpp"
 #include "..\graphics\layer\ui\uilayer.hpp"
 #include "..\graphics\layer\ui\elements\uitexture.hpp"
 #include "..\graphics\layer\ui\elements\uilabel.hpp"
-#include "..\graphics\layer\layerrenderer.hpp"
 
 namespace lys
 {

@@ -22,6 +22,8 @@ namespace lys
 
 		const Pixmap::Information &getPixmapInformation() const;
 
+		const void generateMipmap() const;
+
 		void bind() const;
 		static void unbind();
 	private:

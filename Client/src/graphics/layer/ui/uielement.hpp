@@ -9,7 +9,6 @@ namespace lys
 	class UIElement
 	{
 	public:
-		//TODO: Implement other alignments into UILayer
 		enum Alignment : unsigned char
 		{
 			TOP_LEFT = 0,

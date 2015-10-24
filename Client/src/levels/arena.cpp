@@ -16,7 +16,8 @@ namespace lys
 		_test3(Vector2(20, 20), UIElement::BOTTOM_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
 		_test4(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(5, 5), "data/images/spectrum.jpg"),
 		_label(Vector2(0, 2), UIElement::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false),
-		_testLabel(Vector2(0, 2), UIElement::LEFT, Vector2(0, 0), internals.typeEngine, false, "It works!")
+		_testLabel(Vector2(0, 2), UIElement::LEFT, Vector2(0, 0), internals.typeEngine, false, "It works!"),
+		_renderer(internals)
 	{
 		_renderer.add(&_ui);
 	}
@@ -43,6 +44,8 @@ namespace lys
 
 	void Arena::resize(EngineInternals &internals)
 	{
+		_renderer.resize(internals.window.getSize());
+
 		_ui.resize(internals.window.getSize());
 		_label.repaint(internals, _ui);
 		_testLabel.repaint(internals, _ui);

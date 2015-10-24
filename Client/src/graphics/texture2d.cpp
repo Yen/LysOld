@@ -42,7 +42,7 @@ namespace lys
 	{
 		_information = information;
 
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, _id);
 
 		writeData(data);
 
@@ -52,6 +52,11 @@ namespace lys
 	const Pixmap::Information &Texture2D::getPixmapInformation() const
 	{
 		return _information;
+	}
+
+	const void Texture2D::generateMipmap() const
+	{
+		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
 	void Texture2D::bind() const
@@ -92,7 +97,7 @@ namespace lys
 		}
 
 		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, _information.size.x, _information.size.y, 0, format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		generateMipmap();
 	}
 
 }

@@ -13,7 +13,8 @@ namespace lys
 		: Level(internals, args, 60),
 		_ui(internals.profile),
 		_label(Vector2(0, 2), UIElement::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false),
-		_button(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(2, 2), "data/images/spectrum.jpg")
+		_button(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(2, 2), "data/images/spectrum.jpg"),
+		_renderer(internals)
 	{
 		_renderer.add(&_ui);
 
@@ -54,6 +55,8 @@ namespace lys
 
 	void Menu::resize(EngineInternals &internals)
 	{
+		_renderer.resize(internals.window.getSize());
+
 		_ui.resize(internals.window.getSize());
 		_label.repaint(internals, _ui);
 	}

@@ -17,12 +17,14 @@ namespace lys
 		FrameBuffer(const Metric2 &size);
 		~FrameBuffer();
 
-		const Texture2D &getTexture() const;
+		Texture2D &getTexture();
 
 		void clear() const;
 
 		void bind() const;
 		static void unbind();
+
+		void resize(const Metric2 &size);
 	};
 
 }
