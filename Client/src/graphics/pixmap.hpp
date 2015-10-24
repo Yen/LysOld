@@ -25,7 +25,7 @@ namespace lys
 			Format format;
 			Depth depth;
 		public:
-			Information();
+			Information() = default;
 			Information(const Metric2 &size, const Format &format, const Depth &depth);
 
 			bool operator ==(const Information &other) const;

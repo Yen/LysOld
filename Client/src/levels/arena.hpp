@@ -21,6 +21,7 @@ namespace lys
 		UITexture _test3;
 		UITexture _test4;
 		UILabel _label;
+		UILabel _testLabel;
 		FrameBuffer _fb;
 	public:
 		Arena(EngineInternals &internals, const EngineLoadingArgs &args);

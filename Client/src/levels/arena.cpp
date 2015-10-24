@@ -12,10 +12,11 @@ namespace lys
 		: Level(internals, args, 60),
 		_ui(internals.profile),
 		_fb(internals.window.getSize()),
-		_test2(Vector2(20, 20), UIElement::Alignment::TOP_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
-		_test3(Vector2(20, 20), UIElement::Alignment::BOTTOM_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
-		_test4(Vector2(20, 20), UIElement::Alignment::BOTTOM_LEFT, Vector2(5, 5), "data/images/spectrum.jpg"),
-		_label(Vector2(20, 2), UIElement::Alignment::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false)
+		_test2(Vector2(20, 20), UIElement::TOP_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
+		_test3(Vector2(20, 20), UIElement::BOTTOM_RIGHT, Vector2(5, 5), "data/images/spectrum.jpg"),
+		_test4(Vector2(20, 20), UIElement::BOTTOM_LEFT, Vector2(5, 5), "data/images/spectrum.jpg"),
+		_label(Vector2(0, 2), UIElement::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false),
+		_testLabel(Vector2(0, 2), UIElement::LEFT, Vector2(0, 0), internals.typeEngine, false, "It works!")
 	{
 		_renderer.add(&_ui);
 	}
@@ -35,6 +36,7 @@ namespace lys
 		_ui.push(_test3);
 		_ui.push(_test4);
 		_ui.push(_label);
+		_ui.push(_testLabel);
 
 		_renderer.render();
 	}
@@ -43,6 +45,7 @@ namespace lys
 	{
 		_ui.resize(internals.window.getSize());
 		_label.repaint(internals, _ui);
+		_testLabel.repaint(internals, _ui);
 	}
 
 }

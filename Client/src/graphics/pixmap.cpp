@@ -6,9 +6,6 @@
 namespace lys
 {
 
-	Pixmap::Information::Information()
-	{}
-
 	Pixmap::Information::Information(const Metric2 &size, const Format &format, const Depth &depth)
 		: size(size), format(format), depth(depth)
 	{}

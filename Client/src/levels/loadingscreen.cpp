@@ -15,9 +15,6 @@ namespace lys
 		_bar(Vector2(_ui.getSize().x, 4), UIElement::BOTTOM_LEFT, Vector2(0, 0))
 	{
 		_renderer.add(&_ui);
-
-		_label.repaint(internals, _ui);
-		_bar.repaint(internals, _ui);
 	}
 
 	void LoadingScreen::setLoadingText(const std::string &text)

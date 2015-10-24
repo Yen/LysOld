@@ -7,9 +7,6 @@ namespace lys
 		: _ups(ups)
 	{}
 
-	Level::~Level()
-	{}
-
 	const unsigned int &Level::getUPS() const
 	{
 		return _ups;

@@ -17,7 +17,7 @@ namespace lys
 		const unsigned int _ups;
 	public:
 		Level(EngineInternals &internals, const EngineLoadingArgs &args, const int &ups = LYS_LEVEL_DEFAULT_UPS);
-		virtual ~Level();
+		virtual ~Level() = default;
 
 		const unsigned int &getUPS() const;
 

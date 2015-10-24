@@ -1,5 +1,7 @@
 #include "uilayer.hpp"
 
+#include <algorithm>
+
 #include "..\..\..\utils.hpp"
 
 namespace lys
@@ -137,20 +139,32 @@ namespace lys
 	{
 		switch (element->alignment)
 		{
-		case UIElement::Alignment::TOP_LEFT:
+		case UIElement::TOP_LEFT:
 			return topLeft + element->offset;
 			break;
-		case UIElement::Alignment::TOP_RIGHT:
+		case UIElement::TOP:
+			return Vector2(topLeft.x + (size.x / 2) - (element->size.x / 2) + element->offset.x, topLeft.y + element->offset.y);
+			break;
+		case UIElement::TOP_RIGHT:
 			return Vector2(topLeft.x + size.x - element->size.x - element->offset.x, topLeft.y + element->offset.y);
 			break;
-		case UIElement::Alignment::BOTTOM_RIGHT:
+		case UIElement::RIGHT:
+			return Vector2(topLeft.x + size.x - element->size.x - element->offset.x, topLeft.y + (size.y / 2) - (element->size.y / 2) + element->offset.y);
+			break;
+		case UIElement::BOTTOM_RIGHT:
 			return Vector2(topLeft.x + size.x - element->size.x - element->offset.x, topLeft.y + size.y - element->size.y - element->offset.y);
 			break;
-		case UIElement::Alignment::BOTTOM_LEFT:
+		case UIElement::BOTTOM:
+			return Vector2(topLeft.x + (size.x / 2) - (element->size.x / 2) + element->offset.x, topLeft.y + size.y - element->size.y - element->offset.y);
+			break;
+		case UIElement::BOTTOM_LEFT:
 			return Vector2(topLeft.x + element->offset.x, topLeft.y + size.y - element->size.y - element->offset.y);
 			break;
-		default:
-			throw std::exception("UILayer failed to render a UIElement due to an invalid alignment");
+		case UIElement::LEFT:
+			return Vector2(topLeft.x + element->offset.x, topLeft.y + (size.y / 2) - (element->size.y / 2) + element->offset.y);
+			break;
+		case UIElement::CENTER:
+			return Vector2(topLeft.x + (size.x / 2) - (element->size.x / 2) + element->offset.x, topLeft.y + (size.y / 2) - (element->size.y / 2) + element->offset.y);
 			break;
 		}
 	}
@@ -160,58 +174,68 @@ namespace lys
 		Vector2 localTopLeft = calculateTopLeft(element, size, topLeft);
 
 		if (element->content)
-		{
-
-			float tid = -1.4f;
-			float tformat = 0.0f;
-			auto &tex = element->texture;
-
-			if ((batchCount >= LYS_UILAYER_MAX_ELEMENTS) || ((tex != nullptr) && (textureCount >= _maxTextures)))
+			if ((topLeft.x < _ratioSize.x) && (topLeft.x + element->size.x > 0.0f) && (topLeft.y < _ratioSize.y) && (topLeft.y + element->size.y > 0.0f))
 			{
-				end();
-				drawCall(batchCount, textureCount);
-				begin();
+#define LYS_GLSL_OFFSET 0.4f
+				float tid = -1.0f + LYS_GLSL_OFFSET;
+				float tformat = 0.0f + LYS_GLSL_OFFSET;
+				auto &tex = element->texture;
 
-				batchCount = 0;
-				textureCount = 0;
+				if ((batchCount >= LYS_UILAYER_MAX_ELEMENTS) || ((tex != nullptr) && (textureCount >= _maxTextures)))
+				{
+					end();
+					drawCall(batchCount, textureCount);
+					begin();
+
+					batchCount = 0;
+					textureCount = 0;
+				}
+
+				if (tex != nullptr)
+				{
+					tformat = ((float)tex->getPixmapInformation().format) + LYS_GLSL_OFFSET;
+
+					auto local = std::find(_textures.begin(), _textures.begin() + textureCount, tex) - _textures.begin();
+					if (local < textureCount)
+					{
+						tid = ((float)local) + LYS_GLSL_OFFSET;
+					}
+					else
+					{
+						tid = ((float)textureCount) + LYS_GLSL_OFFSET;
+						_textures[textureCount++] = tex;
+					}
+				}
+
+				_buffer[0].uv = element->uvs[0];
+				_buffer[1].uv = element->uvs[1];
+				_buffer[2].uv = element->uvs[2];
+				_buffer[3].uv = element->uvs[3];
+
+				_buffer[0].position = Vector3(localTopLeft, 0);
+				_buffer[1].position = Vector3(localTopLeft.x + element->size.x, localTopLeft.y, 0);
+				_buffer[2].position = Vector3(localTopLeft + element->size, 0);
+				_buffer[3].position = Vector3(localTopLeft.x, localTopLeft.y + element->size.y, 0);
+
+				_buffer[0].tid = tid;
+				_buffer[1].tid = tid;
+				_buffer[2].tid = tid;
+				_buffer[3].tid = tid;
+
+				_buffer[0].tformat = tformat;
+				_buffer[1].tformat = tformat;
+				_buffer[2].tformat = tformat;
+				_buffer[3].tformat = tformat;
+
+				_buffer[0].color = element->color;
+				_buffer[1].color = element->color;
+				_buffer[2].color = element->color;
+				_buffer[3].color = element->color;
+
+				_buffer += 4;
+
+				batchCount++;
 			}
-
-			if (tex != nullptr)
-			{
-				tid = ((float)textureCount) + 0.4f;
-				tformat = ((float)tex->getPixmapInformation().format) + 0.4f;
-				_textures[textureCount++] = tex;
-			}
-
-			_buffer[0].uv = element->uvs[0];
-			_buffer[1].uv = element->uvs[1];
-			_buffer[2].uv = element->uvs[2];
-			_buffer[3].uv = element->uvs[3];
-
-			_buffer[0].position = Vector3(localTopLeft, 0);
-			_buffer[1].position = Vector3(localTopLeft.x + element->size.x, localTopLeft.y, 0);
-			_buffer[2].position = Vector3(localTopLeft + element->size, 0);
-			_buffer[3].position = Vector3(localTopLeft.x, localTopLeft.y + element->size.y, 0);
-
-			_buffer[0].tid = tid;
-			_buffer[1].tid = tid;
-			_buffer[2].tid = tid;
-			_buffer[3].tid = tid;
-
-			_buffer[0].tformat = tformat;
-			_buffer[1].tformat = tformat;
-			_buffer[2].tformat = tformat;
-			_buffer[3].tformat = tformat;
-
-			_buffer[0].color = element->color;
-			_buffer[1].color = element->color;
-			_buffer[2].color = element->color;
-			_buffer[3].color = element->color;
-
-			_buffer += 4;
-
-			batchCount++;
-		}
 
 		for (size_t i = 0; i < element->getChildrenCount(); i++)
 		{
