@@ -176,6 +176,7 @@
     <ClCompile Include="src\graphics\framebuffer.cpp" />
     <ClCompile Include="src\graphics\graphicscontext.cpp" />
     <ClCompile Include="src\graphics\graphicsprofile.cpp" />
+    <ClCompile Include="src\graphics\layer\layerrenderer.cpp" />
     <ClCompile Include="src\graphics\layer\ui\elements\uilabel.cpp" />
     <ClCompile Include="src\graphics\layer\ui\elements\uiprogressbar.cpp" />
     <ClCompile Include="src\graphics\layer\ui\elements\uitexture.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="src\graphics\graphicscontext.hpp" />
     <ClInclude Include="src\graphics\graphicsprofile.hpp" />
     <ClInclude Include="src\graphics\layer\layer.hpp" />
+    <ClInclude Include="src\graphics\layer\layerrenderer.hpp" />
     <ClInclude Include="src\graphics\layer\ui\elements\uilabel.hpp" />
     <ClInclude Include="src\graphics\layer\ui\elements\uiprogressbar.hpp" />
     <ClInclude Include="src\graphics\layer\ui\elements\uitexture.hpp" />

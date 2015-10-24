@@ -5,6 +5,7 @@
 #include "..\graphics\layer\ui\uilayer.hpp"
 #include "..\graphics\layer\ui\elements\uilabel.hpp"
 #include "..\graphics\layer\ui\elements\uiprogressbar.hpp"
+#include "..\graphics\layer\layerrenderer.hpp"
 
 namespace lys
 {
@@ -13,6 +14,7 @@ namespace lys
 	{
 	private:
 		TypeEngine _typeEngine;
+		LayerRenderer _renderer;
 		UILayer _ui;
 		UILabel _label;
 		UIProgressBar _bar;

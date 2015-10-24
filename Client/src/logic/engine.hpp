@@ -105,7 +105,7 @@ namespace lys
 				_loadingThread->join();
 				_loadingThread.release();
 			}
-			_loadingThread = std::make_unique<std::thread>([&]()
+			_loadingThread = std::make_unique<std::thread>([=]()
 			{
 				_mainContext.makeCurrent();
 

@@ -3,10 +3,11 @@
 #include <vector>
 
 #include "..\logic\level.hpp"
-#include "..\graphics\layer\ui\uilayer.hpp"
 #include "..\graphics\framebuffer.hpp"
+#include "..\graphics\layer\ui\uilayer.hpp"
 #include "..\graphics\layer\ui\elements\uitexture.hpp"
 #include "..\graphics\layer\ui\elements\uilabel.hpp"
+#include "..\graphics\layer\layerrenderer.hpp"
 
 namespace lys
 {
@@ -14,6 +15,7 @@ namespace lys
 	class Arena : public Level
 	{
 	private:
+		LayerRenderer _renderer;
 		UILayer _ui;
 		UITexture _test2;
 		UITexture _test3;

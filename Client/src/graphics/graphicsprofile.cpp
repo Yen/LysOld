@@ -7,18 +7,15 @@ namespace lys
 
 	GraphicsProfile::GraphicsProfile()
 	{
-		GLint maxTextureImageUnits;
-		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureImageUnits);
-		_maxTextureSlots = maxTextureImageUnits;
-
 		_vendor = (const char *)glGetString(GL_VENDOR);
 		_renderer = (const char *)glGetString(GL_RENDERER);
 		_version = (const char *)glGetString(GL_VERSION);
-	}
 
-	const unsigned short &GraphicsProfile::getMaxTextureSlots() const
-	{
-		return _maxTextureSlots;
+		GLint buffer;
+		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &buffer);
+		_maxTextureSlots = buffer;
+		glGetIntegerv(GL_MAX_SAMPLES, &buffer);
+		_maxSamples = buffer;
 	}
 
 	const std::string &GraphicsProfile::getVendor() const
@@ -34,6 +31,16 @@ namespace lys
 	const std::string &GraphicsProfile::getVersion() const
 	{
 		return _version;
+	}
+
+	const unsigned short &GraphicsProfile::getMaxTextureSlots() const
+	{
+		return _maxTextureSlots;
+	}
+
+	const unsigned short &GraphicsProfile::getMaxSamples() const
+	{
+		return _maxSamples;
 	}
 
 }

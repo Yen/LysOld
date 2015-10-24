@@ -14,6 +14,8 @@ namespace lys
 		_label(Vector2(0, 2), UIElement::BOTTOM_LEFT, Vector2(2, 6), _typeEngine, false, "Loading"),
 		_bar(Vector2(_ui.getSize().x, 4), UIElement::BOTTOM_LEFT, Vector2(0, 0))
 	{
+		_renderer.add(&_ui);
+
 		_label.repaint(internals, _ui);
 		_bar.repaint(internals, _ui);
 	}
@@ -57,7 +59,8 @@ namespace lys
 	{
 		_ui.push(_label);
 		_ui.push(_bar);
-		_ui.flush();
+
+		_renderer.render();
 	}
 
 	void LoadingScreen::resize(EngineInternals &internals)

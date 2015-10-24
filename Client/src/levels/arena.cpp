@@ -17,6 +17,7 @@ namespace lys
 		_test4(Vector2(20, 20), UIElement::Alignment::BOTTOM_LEFT, Vector2(5, 5), "data/images/spectrum.jpg"),
 		_label(Vector2(20, 2), UIElement::Alignment::TOP_LEFT, Vector2(0, 0), internals.typeEngine, false)
 	{
+		_renderer.add(&_ui);
 	}
 
 	void Arena::update(EngineInternals &internals, EngineArgs &args)
@@ -34,7 +35,8 @@ namespace lys
 		_ui.push(_test3);
 		_ui.push(_test4);
 		_ui.push(_label);
-		_ui.flush();
+
+		_renderer.render();
 	}
 
 	void Arena::resize(EngineInternals &internals)
