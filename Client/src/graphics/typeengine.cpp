@@ -119,10 +119,12 @@ namespace lys
 
 		using namespace boost::filesystem;
 
-		for (directory_iterator i(path("data/core/defaultfonts/other")); i != directory_iterator(); i++)
-		{
-			_defaultFaces.push_back(std::make_unique<Face>(*this, i->path().string()));
-		}
+		auto fontPath = path("data/core/defaultfonts/other");
+		if (exists(fontPath))
+			for (directory_iterator i(fontPath); i != directory_iterator(); i++)
+			{
+				_defaultFaces.push_back(std::make_unique<Face>(*this, i->path().string()));
+			}
 
 		std::fill(_defaultCache.begin(), _defaultCache.end(), std::pair<Face *, unsigned int>(nullptr, 0));
 	}
